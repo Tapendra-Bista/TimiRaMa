@@ -1,0 +1,81 @@
+class ProfileModelConstants {
+  static const Map<String, List<String>> categorizedUserInterests = {
+    "Friendship": [
+      "Chatting",
+      "Making New Friends",
+      "Study Buddy",
+      "Movie Nights",
+      "Coffee Hangouts",
+      "Group Activities",
+      "Picnic Partner",
+      "Book Club",
+      "Board Games",
+      "Volunteering",
+    ],
+    "Love & Romance": [
+      "Romantic Dates",
+      "Candlelight Dinners",
+      "Sweet Surprises",
+      "Slow Dancing",
+      "Love Letters",
+      "Long Walks",
+      "Holding Hands",
+      "Poetry",
+      "Surprise Gifts",
+      "Stargazing",
+    ],
+    "Sports & Outdoors": [
+      "Football",
+      "Yoga",
+      "Hiking",
+      "Running",
+      "Cycling",
+      "Swimming",
+      "Trekking",
+      "Skating",
+      "Rock Climbing",
+      "Nature Walks",
+    ],
+    "Food & Restaurants": [
+      "Foodie",
+      "Street Food",
+      "Fine Dining",
+      "Coffee Lover",
+      "Baking",
+      "Home Cooking",
+      "Vegan Cuisine",
+      "Dessert Lover",
+      "Cooking Together",
+      "Restaurant Hopper",
+    ],
+    "Adventure & Travel": [
+      "Backpacking",
+      "Road Trips",
+      "Solo Travel",
+      "Camping",
+      "City Breaks",
+      "Jungle Safari",
+      "Scuba Diving",
+      "Mountain Biking",
+      "Cultural Tours",
+      "Beach Holidays",
+    ],
+    "Passion": [
+      "Music",
+      "Creativity",
+      "Fitness",
+      "Travel",
+      "Fashion",
+      "Photography",
+      "Reading",
+      "Writing",
+      "Technology",
+      "Dance",
+    ],
+  };
+
+  static List<String> get passion => categorizedUserInterests["Passion"]!;
+
+  static List<String> get allInterests =>
+      categorizedUserInterests.values.expand((list) => list).toList();
+}

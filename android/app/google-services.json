@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "163966635802",
+    "firebase_url": "https://timirama-3c220-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "timirama-3c220",
+    "storage_bucket": "timirama-3c220.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163966635802:android:553405385db61a4841a6a3",
+        "android_client_info": {
+          "package_name": "com.example.timirama"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "163966635802-hf6ca71cnunatqimsjdridr8iqppirup.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.timirama",
+            "certificate_hash": "6e998ca7fff3a7077d2447849c590fda6f344008"
+          }
+        },
+        {
+          "client_id": "163966635802-ucb9glemrqkegs0a58pg95e9uqg6n3o8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ5k9fTL-geumpUYvyYb26g3Cb5e9mpwA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "163966635802-ucb9glemrqkegs0a58pg95e9uqg6n3o8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "163966635802-39u8lsof1aphq89kd528e00h36st6m3o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.timirama"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
