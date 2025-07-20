@@ -9,14 +9,17 @@ import 'package:line_icons/line_icons.dart';
 import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:timirama/common/constant/constant_strings.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
+import 'package:timirama/common/widgets/snackbar_message.dart';
+import 'package:timirama/features/chat/screen/chat_screen.dart';
 import 'package:timirama/features/home/bloc/home_bloc.dart';
 import 'package:timirama/features/home/bloc/home_state.dart';
+import 'package:timirama/features/match/bloc/match_bloc.dart';
 import 'package:timirama/features/match/widget/card_screen_widget.dart';
 import 'package:timirama/features/match_preferences/bloc/match_preferences_bloc.dart';
 import 'package:timirama/features/profile/model/profile_model.dart';
 import 'package:timirama/routes/app_routes.dart';
 
-import '../bloc/match_filter.dart';
+import '../model/match_filter.dart';
 
 class CardScreen extends StatefulWidget {
   const CardScreen({super.key});
@@ -47,6 +50,7 @@ class _CardScreenState extends State<CardScreen> {
           selector: (state) => state,
           builder: (context, state) {
             final matchUsers = getFilterData(userData, state);
+
             if (matchUsers.isEmpty && isFilterActive(state)) {
               return SliverToBoxAdapter(
                 child: Padding(
@@ -61,201 +65,206 @@ class _CardScreenState extends State<CardScreen> {
               );
             }
 
-            return PlatformScaffold(
-              appBar: PlatformAppBar(
-                material: (context, platform) {
-                  return MaterialAppBarData(centerTitle: true);
-                },
-                trailingActions: [
-                  PlatformIconButton(
-                    onPressed: () => Get.toNamed(AppRoutes.matchPreferences),
-                    icon: Icon(Icons.tune_outlined, size: 35.r),
-                  ),
-                ],
-                title: Image.asset(
-                  AppStrings.logoImage,
-                  width: 200.w,
-                ),
-                leading: PlatformIconButton(
-                  onPressed: () => Get.toNamed(AppRoutes.profile),
-                  icon: Icon(LineIcons.user, size: 35.r),
-                ),
-              ),
-              body: SafeArea(
-                child: matchUsers.length >= 2
-                    ? Stack(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                child: CardSwiper(
-                                  threshold: 100,
-                                  onSwipe:
-                                      (previousIndex, currentIndex, direction) {
-                                    if (direction ==
-                                        CardSwiperDirection.right) {
-                                      confettiController.play();
-                                      controller.swipe(
-                                        CardSwiperDirection.right,
-                                      );
-                                    }
-
-                                    if (direction == CardSwiperDirection.left) {
-                                      controller.swipe(
-                                        CardSwiperDirection.left,
-                                      );
-                                    }
-                                    return true;
-                                  },
-                                  allowedSwipeDirection:
-                                      AllowedSwipeDirection.only(
-                                    left: true,
-                                    right: true,
-                                    up: false,
-                                    down: false,
-                                  ),
-                                  maxAngle: 60,
-                                  isDisabled: false,
-                                  controller: controller,
-                                  duration: Duration(milliseconds: 500),
-                                  numberOfCardsDisplayed: 1,
-                                  padding: EdgeInsets.only(
-                                    left: 5.w,
-                                    right: 5.w,
-                                    top: 10.h,
-                                    bottom: 33.h,
-                                  ),
-                                  cardBuilder: (
-                                    context,
-                                    index,
-                                    horizontalThresholdPercentage,
-                                    verticalThresholdPercentage,
-                                  ) {
-                                    final item = matchUsers[index];
-                                    return Container(
-                                      width: double.maxFinite,
-                                      decoration: BoxDecoration(
-                                        color: AppColors.floralWhite,
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.circular(
-                                          12.r,
-                                        ),
-                                        border: Border(
-                                          left: BorderSide(
-                                            color: AppColors.grey,
-                                            width: 1.w,
-                                          ),
-                                          right: BorderSide(
-                                            color: AppColors.grey,
-                                            width: 1.w,
-                                          ),
-                                          bottom: BorderSide(
-                                            color: AppColors.grey,
-                                            width: 1.w,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Align(
-                                        alignment:
-                                            AlignmentDirectional.topCenter,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          spacing: 10.h,
-                                          children: [
-                                            ImageAndStatus(user: item!),
-                                            UserDetails(user: item),
-                                            ListOfButtons(
-                                              user: item,
-                                              controller: controller,
-                                            ),
-                                            SizedBox(height: 5.h),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  cardsCount: matchUsers.length,
-                                ),
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SizedBox(
-                                    height: 50,
-                                    width: 50,
-                                    child: FloatingActionButton.small(
-                                      heroTag: "hero1",
-                                      shape: CircleBorder(),
-                                      backgroundColor: AppColors.red,
-                                      onPressed: () => controller.swipe(
-                                        CardSwiperDirection.left,
-                                      ),
-                                      child: Icon(
-                                        Icons.close_outlined,
-                                        color: AppColors.floralWhite,
-                                      ),
+            return BlocListener<MatchBloc, MatchState>(
+              listener: (context, state) {
+                state.maybeWhen(
+                  success: (
+                    bool isMutualMatch,
+                    String matchedUserId,
+                    String matchedUserName,
+                    String matchedUserImage,
+                  ) {
+                    if (isMutualMatch) {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text("It's a Match!"),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              spacing: 15.h,
+                              children: [
+                                Center(
+                                    child: Text(
+                                  "You can now send a message. Say hi?",
+                                  style: theme.bodySmall,
+                                )),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    TextButton(
+                                      child: Text("Cancel"),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
                                     ),
-                                  ),
-                                  SizedBox(width: 30.w),
-                                  SizedBox(
-                                    height: 50,
-                                    width: 50,
-                                    child: FloatingActionButton.small(
-                                      heroTag: "hero2",
-                                      backgroundColor: AppColors.green,
-                                      shape: CircleBorder(),
+                                    ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              WidgetStatePropertyAll(
+                                                  AppColors.primaryColor)),
+                                      child: Text(
+                                        "Send 'Hi'",
+                                        style: theme.bodyMedium!
+                                            .copyWith(color: AppColors.white),
+                                      ),
                                       onPressed: () {
-                                        confettiController.play();
-                                        // Play confetti
-                                        controller
-                                            .swipe(CardSwiperDirection.right);
+                                        // Close the dialog
+                                        Navigator.of(context).pop();
+
+                                        // Navigate to ChatScreen
+                                        Get.to(() => ChatScreen(
+                                              preMessage: "Hi 👋",
+                                              imgURL:
+                                                  matchedUserImage, // get from user model
+                                              receiverId: matchedUserId,
+                                              receiverName: matchedUserName,
+                                            ));
                                       },
-                                      child: Icon(
-                                        Icons.check_outlined,
-                                        color: AppColors.floralWhite,
-                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 40.h),
-                            ],
-                          ),
-                          // Confetti effect
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: ConfettiWidget(
-                              confettiController: confettiController,
-                              blastDirectionality:
-                                  BlastDirectionality.explosive,
-                              shouldLoop: false,
-                              maxBlastForce: 10,
-                              minBlastForce: 5,
-                              numberOfParticles: 20,
-                              gravity: 0.3,
-                              colors: [
-                                AppColors.black,
-                                AppColors.green,
-                                AppColors.green,
-                                AppColors.blue,
-                                AppColors.yellow,
-                                AppColors.primaryColor,
-                                AppColors.red,
+                                  ],
+                                )
                               ],
                             ),
+                          );
+                        },
+                      );
+                    }
+                  },
+                  failure: (error) {
+                    snackBarMessage(
+                        context, 'Swipe failed: $error', Theme.of(context));
+                  },
+                  orElse: () {},
+                );
+              },
+              child: PlatformScaffold(
+                appBar: PlatformAppBar(
+                  material: (context, platform) {
+                    return MaterialAppBarData(centerTitle: true);
+                  },
+                  trailingActions: [
+                    PlatformIconButton(
+                      onPressed: () => Get.toNamed(AppRoutes.matchPreferences),
+                      icon: Icon(Icons.tune_outlined, size: 35.r),
+                    ),
+                  ],
+                  title: Image.asset(AppStrings.logoImage, width: 200.w),
+                  leading: PlatformIconButton(
+                    onPressed: () => Get.toNamed(AppRoutes.profile),
+                    icon: Icon(LineIcons.user, size: 35.r),
+                  ),
+                ),
+                body: SafeArea(
+                  child: matchUsers.length >= 2
+                      ? Column(
+                          children: [
+                            Flexible(
+                              child: CardSwiper(
+                                controller: controller,
+                                threshold: 100,
+                                onSwipe:
+                                    (previousIndex, currentIndex, direction) {
+                                  if (direction == CardSwiperDirection.right) {
+                                    final swipedUserId =
+                                        matchUsers[previousIndex]!.id;
+                                    context.read<MatchBloc>().add(
+                                          HandleRightSwipe(
+                                            matchedUserId: swipedUserId,
+                                            swipedUserId: swipedUserId,
+                                            matchedUserName:
+                                                matchUsers[previousIndex]!
+                                                    .pseudo,
+                                            matchedUserImage:
+                                                matchUsers[previousIndex]!
+                                                    .imgURL,
+                                          ),
+                                        );
+                                  }
+
+                                  return true;
+                                },
+                                allowedSwipeDirection:
+                                    AllowedSwipeDirection.only(
+                                  left: true,
+                                  right: true,
+                                  up: false,
+                                  down: false,
+                                ),
+                                maxAngle: 60,
+                                isDisabled: false,
+                                duration: Duration(milliseconds: 500),
+                                numberOfCardsDisplayed: 1,
+                                padding: EdgeInsets.only(
+                                  left: 5.w,
+                                  right: 5.w,
+                                  top: 10.h,
+                                  bottom: 33.h,
+                                ),
+                                cardBuilder: (context, index, _, __) {
+                                  final item = matchUsers[index];
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: AppColors.floralWhite,
+                                      borderRadius: BorderRadius.circular(12.r),
+                                      border: Border.all(
+                                          color: AppColors.grey, width: 1.w),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ImageAndStatus(user: item!),
+                                        UserDetails(user: item),
+                                        ListOfButtons(
+                                          user: item,
+                                          controller: controller,
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                                cardsCount: matchUsers.length,
+                              ),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                FloatingActionButton.small(
+                                  heroTag: "leftBtn",
+                                  backgroundColor: AppColors.red,
+                                  shape: CircleBorder(),
+                                  onPressed: () {
+                                    controller.swipe(CardSwiperDirection.left);
+                                  },
+                                  child: Icon(Icons.close,
+                                      color: AppColors.floralWhite),
+                                ),
+                                SizedBox(width: 30.w),
+                                FloatingActionButton.small(
+                                  heroTag: "rightBtn",
+                                  backgroundColor: AppColors.green,
+                                  shape: CircleBorder(),
+                                  onPressed: () => controller
+                                      .swipe(CardSwiperDirection.right),
+                                  child: Icon(Icons.check,
+                                      color: AppColors.floralWhite),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 40.h),
+                          ],
+                        )
+                      : Center(
+                          child: Text(
+                            EnumLocale.atLeastTwoUsers.name.tr,
+                            style: theme.bodySmall,
                           ),
-                        ],
-                      )
-                    : Center(
-                        child: Text(
-                          EnumLocale.atLeastTwoUsers.name.tr,
-                          style: theme.bodySmall,
                         ),
-                      ),
+                ),
               ),
             );
           },

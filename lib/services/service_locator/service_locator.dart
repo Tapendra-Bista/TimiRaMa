@@ -24,6 +24,8 @@ import 'package:timirama/features/like/bloc/like_bloc.dart';
 import 'package:timirama/features/like/repository/like_repository.dart';
 import 'package:timirama/features/login/bloc/login_bloc.dart';
 import 'package:timirama/features/login/repository/login_repository.dart';
+import 'package:timirama/features/match/bloc/match_bloc.dart';
+import 'package:timirama/features/match/repository/match_repository.dart';
 import 'package:timirama/features/match_preferences/bloc/match_preferences_bloc.dart';
 import 'package:timirama/features/messages_requests/bloc/request_receiver_bloc.dart';
 import 'package:timirama/features/messages_requests/bloc/request_sender_bloc.dart';
@@ -78,6 +80,9 @@ void setupLocator() {
   getIt.registerLazySingleton<EditProfileRepository>(
     () => EditProfileRepository(),
   );
+  getIt.registerLazySingleton<MatchRepository>(
+    () => MatchRepository(),
+  );
   //---------------------Bloc-------------------------------------------------
   getIt.registerLazySingleton<SignupBloc>(
     () => SignupBloc(signupRepository: getIt<SignupRepository>()),
@@ -130,7 +135,8 @@ void setupLocator() {
 
   getIt.registerLazySingleton<WellcomeBloc>(() => WellcomeBloc());
   getIt.registerLazySingleton<PreferencesBloc>(() => PreferencesBloc());
-    getIt.registerLazySingleton<MatchPreferencesBloc>(() => MatchPreferencesBloc());
+  getIt.registerLazySingleton<MatchPreferencesBloc>(
+      () => MatchPreferencesBloc());
   getIt.registerLazySingleton<AddBloc>(
     () => AddBloc(repository: getIt<AddRepository>()),
   );
@@ -152,4 +158,6 @@ void setupLocator() {
   );
 
   getIt.registerLazySingleton<SettingBloc>(() => SettingBloc());
+  getIt.registerLazySingleton<MatchBloc>(
+      () => MatchBloc(matchRepository: getIt<MatchRepository>()));
 }

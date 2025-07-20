@@ -25,11 +25,14 @@ class ChatScreen extends StatefulWidget {
   final String receiverId;
   final String receiverName;
   final String imgURL;
+  final String? preMessage;
+
   const ChatScreen({
     Key? key,
     required this.receiverId,
     required this.receiverName,
     required this.imgURL,
+    this.preMessage,
   }) : super(key: key);
 
   @override
@@ -52,6 +55,16 @@ class _ChatScreenState extends State<ChatScreen> {
     context.read<ChatBloc>().add(InitializeChatEvent(widget.receiverId));
     context.read<StatusBloc>().add(GetStatus(uid: widget.receiverId));
 
+    if (widget.preMessage != null && widget.preMessage!.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.read<ChatBloc>().add(
+              SendMessage(
+                content: widget.preMessage!,
+                receiverId: widget.receiverId,
+              ),
+            );
+      });
+    }
     messageController.addListener(_onTextChanged);
     _scrollController.addListener(_onScroll);
   }
@@ -94,8 +107,8 @@ class _ChatScreenState extends State<ChatScreen> {
     final text = messageController.text.trim();
     if (text.isNotEmpty) {
       context.read<ChatBloc>().add(
-        SendMessage(content: text, receiverId: widget.receiverId),
-      );
+            SendMessage(content: text, receiverId: widget.receiverId),
+          );
       messageController.clear();
     }
   }
@@ -145,8 +158,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    final isValideUrl =
-        widget.imgURL.isNotEmpty &&
+    final isValideUrl = widget.imgURL.isNotEmpty &&
         Uri.tryParse(widget.imgURL)!.hasAbsolutePath == true;
     return Scaffold(
       appBar: PreferredSize(
@@ -160,7 +172,7 @@ class _ChatScreenState extends State<ChatScreen> {
           if (state.status == ChatStatus.error) {
             print("Error in Chat Screen : ${state.error}");
             return Center(
-              child: Text( state.error!),
+              child: Text(state.error!),
             );
           }
 
@@ -173,8 +185,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   itemCount: state.messages.length,
                   itemBuilder: (context, index) {
                     final message = state.messages[index];
-                    final isMe =
-                        message.senderId ==
+                    final isMe = message.senderId ==
                         FirebaseAuth.instance.currentUser?.uid;
                     return MessageBubble(message: message, isMe: isMe);
                   },
@@ -205,7 +216,9 @@ class _ChatScreenState extends State<ChatScreen> {
                               )
                             : Flexible(
                                 child: TextField(
-                                  style: Theme.of(context).textTheme.bodySmall!
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
                                       .copyWith(color: AppColors.black),
                                   // Fills available vertical space
                                   maxLines:
@@ -284,10 +297,10 @@ class _ChatScreenState extends State<ChatScreen> {
                             messageController.text += emoji.emoji;
                             messageController.selection =
                                 TextSelection.fromPosition(
-                                  TextPosition(
-                                    offset: messageController.text.length,
-                                  ),
-                                );
+                              TextPosition(
+                                offset: messageController.text.length,
+                              ),
+                            );
                             setState(
                               () => _isComposing =
                                   messageController.text.isNotEmpty,

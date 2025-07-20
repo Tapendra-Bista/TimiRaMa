@@ -7,7 +7,6 @@ import 'package:timirama/features/chat/screen/chat_screen.dart';
 import 'package:timirama/features/messages_requests/bloc/request_sender_bloc.dart';
 import 'package:timirama/features/messages_requests/model/request_model.dart';
 import 'package:timirama/features/profile/bloc/profile_bloc.dart';
-
 import 'package:timirama/features/profile/model/profile_model.dart';
 import 'package:timirama/services/service_locator/service_locator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,11 +30,11 @@ class _StartChatState extends State<StartChat> {
   void initState() {
     if (FirebaseAuth.instance.currentUser != null) {
       context.read<RequestSenderBloc>().add(
-        CheckingUserAvailableEvent(
-          senderId: FirebaseAuth.instance.currentUser!.uid,
-          receiverId: widget.profileModel.id,
-        ),
-      );
+            CheckingUserAvailableEvent(
+              senderId: FirebaseAuth.instance.currentUser!.uid,
+              receiverId: widget.profileModel.id,
+            ),
+          );
     }
     super.initState();
   }
@@ -83,15 +82,16 @@ class _StartChatState extends State<StartChat> {
                       onConfirmBtnTap: () {
                         print("message requests send !");
                         context.read<RequestSenderBloc>().add(
-                          RequestSenderSend(
-                            senderId: FirebaseAuth.instance.currentUser!.uid,
-                            senderName: currentUserData.pseudo,
-                            senderProfile: currentUserData.imgURL,
-                            receiverId: widget.profileModel.id,
-                            receiverName: widget.profileModel.pseudo,
-                            receiverProfile: widget.profileModel.imgURL,
-                          ),
-                        );
+                              RequestSenderSend(
+                                senderId:
+                                    FirebaseAuth.instance.currentUser!.uid,
+                                senderName: currentUserData.pseudo,
+                                senderProfile: currentUserData.imgURL,
+                                receiverId: widget.profileModel.id,
+                                receiverName: widget.profileModel.pseudo,
+                                receiverProfile: widget.profileModel.imgURL,
+                              ),
+                            );
                         Get.back();
                       },
                     );
@@ -136,11 +136,10 @@ class _StartChatState extends State<StartChat> {
           ),
           PlatformText(
             EnumLocale.message.name.tr,
-            style:
-                theme // context is still fine for Theme.of
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.black),
+            style: theme // context is still fine for Theme.of
+                .textTheme
+                .bodySmall!
+                .copyWith(color: AppColors.black),
           ),
         ],
       ),

@@ -29,7 +29,7 @@ class FetchedScreen extends StatelessWidget {
               onPressed: () => Get.back(),
               icon: Icon(HugeIcons.strokeRoundedMultiplicationSign),
             ),
-            title: Text(EnumLocale.block.name.tr, style: theme.bodyMedium),
+            title: Text(EnumLocale.blocked.name.tr, style: theme.bodyMedium),
           ),
           body: CustomScrollView(
             slivers: [

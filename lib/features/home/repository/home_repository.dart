@@ -4,6 +4,7 @@ import 'package:timirama/features/profile/model/profile_model.dart';
 import 'package:timirama/services/base_repository.dart';
 import 'dart:math';
 
+
 class HomeRepository extends BaseRepository {
   HomeRepository({FirebaseFirestore? firestore}) {
     this.firestore = firestore ?? FirebaseFirestore.instance;
@@ -27,8 +28,13 @@ class HomeRepository extends BaseRepository {
   }
 
   // Helper: Build vector for interest matching
-  List<double> buildInterestVector(List<String> userInterests, List<String> allInterests) {
-    return allInterests.map((interest) => userInterests.contains(interest) ? 1.0 : 0.0).toList();
+  List<double> buildInterestVector(
+    List<String> userInterests,
+    List<String> allInterests,
+  ) {
+    return allInterests
+        .map((interest) => userInterests.contains(interest) ? 1.0 : 0.0)
+        .toList();
   }
 
   // Helper: Compute cosine similarity between two vectors
@@ -44,11 +50,16 @@ class HomeRepository extends BaseRepository {
   }
 
   // Scoring users based on compatibility with currentUser's interests
-  Future<List<ScoredProfileModel>> fetchUsersWithCompatibility(ProfileModel currentUser) async {
+  Future<List<ScoredProfileModel>> fetchUsersWithCompatibility(
+    ProfileModel currentUser,
+  ) async {
     final allUsers = await fetchAllExceptCurrentUser();
     final allInterests = ProfileModelConstants.allInterests.toSet().toList();
 
-    final currentVector = buildInterestVector(currentUser.interests, allInterests);
+    final currentVector = buildInterestVector(
+      currentUser.interests,
+      allInterests,
+    );
 
     final scoredUsers = allUsers.map((user) {
       final userVector = buildInterestVector(user.interests, allInterests);
@@ -66,8 +77,5 @@ class ScoredProfileModel {
   final ProfileModel profile;
   final double score; // similarity score between 0.0 and 1.0
 
-  ScoredProfileModel({
-    required this.profile,
-    required this.score,
-  });
+  ScoredProfileModel({required this.profile, required this.score});
 }

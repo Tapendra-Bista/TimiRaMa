@@ -380,4 +380,5 @@ EnumLocale.beachHolidays.name: "Beach Holidays",
   EnumLocale.uploaded.name: "Uploaded...",
   EnumLocale.posting.name: "Posting...",
   EnumLocale.posted.name: "Posted...",
+    EnumLocale.matchedMessages.name: "It's a Match! Starting chat...",
 };

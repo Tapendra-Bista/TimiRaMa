@@ -2,6 +2,7 @@ import 'package:timirama/features/chat/model/chat_message.dart';
 import 'package:timirama/features/chat/model/chat_room_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
 enum ChatStatus { initial, loading, loaded, error }
 
 class ChatState {

@@ -19,6 +19,7 @@ import 'package:timirama/features/home/bloc/home_bloc.dart';
 import 'package:timirama/features/like/bloc/like_bloc.dart';
 import 'package:timirama/features/login/bloc/login_bloc.dart';
 import 'package:timirama/features/login/screen/login_screen.dart';
+import 'package:timirama/features/match/bloc/match_bloc.dart';
 import 'package:timirama/features/match_preferences/bloc/match_preferences_bloc.dart';
 import 'package:timirama/features/messages_requests/bloc/request_receiver_bloc.dart';
 import 'package:timirama/features/messages_requests/bloc/request_sender_bloc.dart';
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<EditProfileBloc>.value(value: getIt<EditProfileBloc>()),
         BlocProvider<SettingBloc>.value(value: getIt<SettingBloc>()),
+           BlocProvider<MatchBloc>.value(value: getIt<MatchBloc>()),
       ],
       child: ScreenUtilInit(
         designSize: Size(375, 812), // iPhone X base
