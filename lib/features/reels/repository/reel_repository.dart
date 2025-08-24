@@ -7,7 +7,7 @@ class ReelRepository extends BaseRepository {
   ReelRepository({FirebaseFirestore? firestore}) {
     this.firestore = firestore ?? FirebaseFirestore.instance;
   }
-  //---------get/fetch reels--------------
+  //get/fetch reels
   Future<List<ReelModel>> getReels() async {
     try {
       final QuerySnapshot reels = await firestore.collection('reels').get();
@@ -22,7 +22,7 @@ class ReelRepository extends BaseRepository {
     }
   }
 
-  //------------- set comment------------
+  //- set comment
   Future<void> setComment(CommentModel commentModel) async {
     await firestore.collection('reels').doc(currentUserId).update({
       'comment': FieldValue.arrayUnion([commentModel]),

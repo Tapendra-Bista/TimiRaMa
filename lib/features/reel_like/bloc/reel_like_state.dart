@@ -3,7 +3,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:timirama/features/reel_like/model/reel_like_model.dart';
 
-//-----------------------------reelLike State-----------------------------
+//reelLike State
 class ReelLikeState extends Equatable {
   final ReelLikeModel reelLikeUserList;
   const ReelLikeState({required this.reelLikeUserList});

@@ -1,4 +1,4 @@
-//----------------PlatformAppBar Title-----------------------
+//-PlatformAppBar Title
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class FavoritesListTile extends StatelessWidget {
   }
 }
 
-//-------------------Archive user-----------------------
+//-Archive user
 class ArchiveListTile extends StatelessWidget {
   const ArchiveListTile({super.key});
 
@@ -54,7 +54,7 @@ class ArchiveListTile extends StatelessWidget {
   }
 }
 
-//-------------------Blocked user-----------------------
+//-Blocked user
 class BlockedListTile extends StatelessWidget {
   const BlockedListTile({super.key});
 
@@ -74,7 +74,7 @@ class BlockedListTile extends StatelessWidget {
   }
 }
 
-//-----------App Bar--------------------------
+//App Bar
 class SettingPlatformAppBar extends StatelessWidget {
   const SettingPlatformAppBar({super.key});
 
@@ -91,7 +91,7 @@ class SettingPlatformAppBar extends StatelessWidget {
   }
 }
 
-//----------------Title Text------------------------
+//-Title Text
 class SettingTitle extends StatelessWidget {
   const SettingTitle({super.key});
 
@@ -106,7 +106,7 @@ class SettingTitle extends StatelessWidget {
   }
 }
 
-//-----------------Change Language--------------------
+//Change Language
 class LanguageListTile extends StatefulWidget {
   LanguageListTile({super.key});
 
@@ -155,7 +155,7 @@ class _LanguageListTileState extends State<LanguageListTile> {
   }
 }
 
-//-------------------Help center-----------------------
+//-Help center
 class HelpListTile extends StatelessWidget {
   const HelpListTile({super.key});
 
@@ -175,7 +175,7 @@ class HelpListTile extends StatelessWidget {
   }
 }
 
-//------------------Privacy Settings------------------------------
+//Privacy Settings
 class PrivacyListTile extends StatelessWidget {
   const PrivacyListTile({super.key});
 
@@ -195,7 +195,7 @@ class PrivacyListTile extends StatelessWidget {
   }
 }
 
-//----------------------Notification ----------------------------
+//-Notification -
 class NotificationListTile extends StatelessWidget {
   const NotificationListTile({super.key});
 
@@ -215,7 +215,7 @@ class NotificationListTile extends StatelessWidget {
   }
 }
 
-//---------------------Logout-------------------------
+//Logout-
 class LogoutListTile extends StatelessWidget {
   const LogoutListTile({super.key});
 

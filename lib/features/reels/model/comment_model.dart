@@ -5,7 +5,7 @@ import 'package:timirama/common/utils/timestamp_converter.dart';
 part 'comment_model.freezed.dart';
 part 'comment_model.g.dart';
 
-//---------------Comment Model---------------------
+//Comment Model
 @freezed
 abstract class CommentModel with _$CommentModel {
   const factory CommentModel({

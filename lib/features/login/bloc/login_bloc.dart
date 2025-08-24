@@ -17,9 +17,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginModel _loginModel = LoginModel(email: '', password: '');
 
   LoginBloc({required LoginRepository loginrepository})
-    : _loginRepository = loginrepository,
-      super(LoginInitial()) {
-    //---------------------password visibility-----------------------------
+      : _loginRepository = loginrepository,
+        super(LoginInitial()) {
+    //password visibility
     on<LoginPasswordVisibility>((
       LoginPasswordVisibility event,
       Emitter<LoginState> emit,
@@ -27,16 +27,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       _isPasswordHidden = !_isPasswordHidden;
       emit(state.copyWith(isLoginPasswordVisible: _isPasswordHidden));
     });
-    //------------------------track user input for email--------------------------
+    //track user input for email
     on<LoginEmailChanged>((event, emit) {
       _loginModel = _loginModel.copyWith(email: event.email);
     });
-    //------------------------track user input for password--------------------------
+    //track user input for password
     on<LoginPasswordChanged>((event, emit) {
       _loginModel = _loginModel.copyWith(password: event.password);
     });
 
-    //------------------------User pressed LoginButton--------------------------
+    //User pressed LoginButton
     on<LoginSubmit>((event, emit) async {
       print("User Location ${event.country} and ${event.city}");
       emit(LoginLoading.fromState(state));
@@ -56,7 +56,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(LoginError.fromState(state, error: _loginRepository.error!.tr));
       }
     });
-    // -------------------google signing--------------------------------------
+    // -google signing-
     on<GoogleSignInButtonClicked>((event, emit) async {
       emit(LoginLoading.fromState(state));
 

@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timirama/common/widgets/steps.dart';
 import 'package:timirama/features/create_profile/widget/create_profile_widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class PassionScreen extends StatelessWidget {
   const PassionScreen({super.key});
@@ -20,23 +20,23 @@ class PassionScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 10.h,
               children: [
-                //---------------Stepper to show in which step they are in profile creation------------------------
+                //Stepper to show in which step they are in profile creation
                 CustomSteps(currentStep: 5),
-                //------------main text---------------------
+                //main text
                 const InterestTitle(),
 
-                //---------------------Food text----------------------------
+                //Food text-
                 const FoodText(),
-                //---------------- Food inchoice--------------------------
+                //- Food inchoice
                 const FoodInchoice(),
-                //---------------------Adventure text----------------------------
+                //Adventure text-
                 const AdventureText(),
-                //---------------- Adventure inchoice--------------------------
+                //- Adventure inchoice
                 const AdventureInchoice(),
-                //-------------------------- passion title -----------------------
+                // passion title 
                 const PassionTitle(),
 
-                //--------------------Passion choice------------------------
+                //Passion choice
                 const PassionChoice(),
                 SizedBox(height: 15.h),
                 PassionNextButton(),

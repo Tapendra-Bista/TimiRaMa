@@ -7,7 +7,7 @@ sealed class LikeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-//-----------------------------like Event-----------------------------
+//like Event
 final class LikeUserAdded extends LikeEvent {
   final String likeId;
   LikeUserAdded({required this.likeId});

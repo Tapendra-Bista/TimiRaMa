@@ -15,7 +15,7 @@ class ChatRepository extends BaseRepository {
     return _chatRooms.doc(chatRoomId).collection("messages");
   }
 
-  //------- voice save in Cloudinary----------
+  //- voice save in Cloudinary-
   Future<String> voiceMessage({required String voiceMessageUrl}) async {
     try {
       final CloudinaryPublic cloudinary = CloudinaryPublic(
@@ -38,7 +38,7 @@ class ChatRepository extends BaseRepository {
       rethrow;
     }
   }
-  //----------- delete message--------------
+  // delete message
 
   Future<void> deleteMessageByContentAndTimestamp({
     required String chatRoomId,
@@ -59,7 +59,7 @@ class ChatRepository extends BaseRepository {
     batch.commit();
   }
 
-  //------------------ delete ChatRoom--------------
+  // delete ChatRoom
   Future<void> deleteChatRoom(String currentUserId, String otherUserId) async {
     try {
       final users = [currentUserId, otherUserId]..sort();
@@ -180,7 +180,7 @@ class ChatRepository extends BaseRepository {
     await batch.commit();
   }
 
-  //a--> b      // -----------get mesages-----------
+  //a> b      // get mesages
   Stream<List<ChatMessage>> getMessages(
     String chatRoomId, {
     DocumentSnapshot? lastDocument,
@@ -199,7 +199,7 @@ class ChatRepository extends BaseRepository {
         );
   }
 
-  //-------------get more Messages--------------------
+  //-get more Messages
   Future<List<ChatMessage>> getMoreMessages(
     String chatRoomId, {
     required DocumentSnapshot lastDocument,
@@ -213,7 +213,7 @@ class ChatRepository extends BaseRepository {
     return snapshot.docs.map((doc) => ChatMessage.fromFirestore(doc)).toList();
   }
 
-  //----------------getChats Rooms------------------
+  //-getChats Rooms
   Stream<List<ChatRoomModel>> getChatRooms(String userId) {
     return _chatRooms
         .where("participants", arrayContains: userId)
@@ -226,7 +226,7 @@ class ChatRepository extends BaseRepository {
         );
   }
 
-  //-------------------- no. of unread Count or messages-------------------------
+  // no. of unread Count or messages-
   Stream<int> getUnreadCount(String chatRoomId, String userId) {
     return getChatRoomMessages(chatRoomId)
         .where("receiverId", isEqualTo: userId)
@@ -235,7 +235,7 @@ class ChatRepository extends BaseRepository {
         .map((snapshot) => snapshot.docs.length);
   }
 
-  //-----------Mark as read ------------------------
+  //Mark as read
   Future<void> markMessagesAsRead(String chatRoomId, String userId) async {
     try {
       final batch = firestore.batch();
@@ -261,7 +261,7 @@ class ChatRepository extends BaseRepository {
     } catch (e) {}
   }
 
-  // ---------------Update Typing Status-------------------------------------
+  // Update Typing Status
   Future<void> updateTypingStatus(
     String chatRoomId,
     String userId,
@@ -282,7 +282,7 @@ class ChatRepository extends BaseRepository {
     }
   }
 
-  //--------Get typing Status -----------------------------
+  //Get typing Status 
   Stream<Map<String, dynamic>> getTypingStatus(String chatRoomId) {
     return _chatRooms.doc(chatRoomId).snapshots().map((snapshot) {
       if (!snapshot.exists) {

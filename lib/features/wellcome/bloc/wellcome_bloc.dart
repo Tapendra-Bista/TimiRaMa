@@ -6,11 +6,11 @@ part 'wellcome_bloc.g.dart';
 part 'wellcome_event.dart';
 part 'wellcome_state.dart';
 
-//-----------------------------Bloc for wellcome page-----------------------------------
+//Bloc for wellcome page-
 class WellcomeBloc extends HydratedBloc<WellcomeEvent, WellcomeState> {
   WellcomeBloc() : super(WellcomeState()) {
     on<ChangeLanguage>((event, emit) {
-     emit(state.copyWith(languageCode: event.languageCode));
+      emit(state.copyWith(languageCode: event.languageCode));
     });
   }
 
@@ -34,5 +34,3 @@ class WellcomeBloc extends HydratedBloc<WellcomeEvent, WellcomeState> {
     }
   }
 }
-
-

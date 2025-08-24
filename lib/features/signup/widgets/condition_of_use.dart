@@ -5,7 +5,7 @@ import 'package:get/get_utils/src/extensions/export.dart';
 import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 
-//--------------------------condition to use app----------------------------
+//condition to use app-
 class ConditionOfUse extends StatelessWidget {
   const ConditionOfUse({super.key});
   @override

@@ -8,7 +8,7 @@ import 'package:timirama/features/reels/widget/top_action_widgets.dart';
 
 class ReelsScreen extends StatelessWidget {
   const ReelsScreen({super.key});
-  //-------------------Reels Screen------------------------
+  // Reels Screen
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,13 +21,13 @@ class ReelsScreen extends StatelessWidget {
               ReelError() => const ErrorInReel(),
               ReelEmpty() => const NoReelAvailable(),
               _ => const Stack(
-                children: [
-                  //-----------Reel View-------------------
-                  const ReelsView(),
-                  //----------------Top Action----------
-                  const TopActionWdgets(),
-                ],
-              ),
+                  children: [
+                    // Reel View 
+                    const ReelsView(),
+                    // Top Action-
+                    const TopActionWdgets(),
+                  ],
+                ),
             };
           },
         ),

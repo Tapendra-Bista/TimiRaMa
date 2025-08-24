@@ -43,15 +43,13 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   Key _bottomNavKey = UniqueKey();
-
-  final List<Widget> _widgets = [
+  final List<Widget> _pages = [
     const HomeScreen(),
     const MatchScreen(),
     const SizedBox.shrink(),
-    ChatRoomsScreen(),
+const    ChatRoomsScreen(),
     const ReelsScreen(),
   ];
-
   @override
   void initState() {
     super.initState();
@@ -68,8 +66,8 @@ class _MainScreenState extends State<MainScreen> {
       context.read<ArchiveBloc>().add(ArchiveUsersFetched());
       context.read<HomeBloc>().add(HomeUsersFetched());
       context.read<ChatBloc>().add(
-        ChatRoomsLists(id: FirebaseAuth.instance.currentUser!.uid),
-      );
+            ChatRoomsLists(id: FirebaseAuth.instance.currentUser!.uid),
+          );
       context.read<HomeBloc>().add(HomeUsersProfileList());
       context.read<ReelBloc>().add(ReelLoaded());
       context.read<ReelLikeBloc>().add(ReelLikeUsersFetched());
@@ -80,7 +78,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
     return Scaffold(
-      body: _widgets[_selectedIndex],
+      body: _pages[_selectedIndex],
       bottomNavigationBar: Container(
         height: 60.h,
         decoration: BoxDecoration(

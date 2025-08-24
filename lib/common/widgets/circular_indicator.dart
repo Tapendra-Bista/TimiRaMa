@@ -1,8 +1,8 @@
-import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:timirama/common/constant/constant_colors.dart';
 
-//--------------circular indicator for app------------------------------------------
+//circular indicator for app
 class CustomCircularIndicator extends StatelessWidget {
   const CustomCircularIndicator({super.key});
 

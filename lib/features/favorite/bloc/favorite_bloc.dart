@@ -12,15 +12,15 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   final FavoriteRepository _favouriteRepository;
   final HomeRepository _homeRepository = HomeRepository();
   FavoriteBloc({required FavoriteRepository repository})
-    : _favouriteRepository = repository,
-      super(FavoriteInitial()) {
+      : _favouriteRepository = repository,
+        super(FavoriteInitial()) {
     on<FavoriteUserAdded>(_onFavoriteUserAdded);
 
     on<FavoriteUserRemoved>(_onFavoriteUserRemoved);
 
     on<FavoriteUsersFetched>(_onFavoriteUsersFetched);
   }
-  //-------------------------Fetching data----------------------------
+  //-Fetching data-
   FutureOr<void> _onFavoriteUsersFetched(
     FavoriteUsersFetched event,
     Emitter<FavoriteState> emit,
@@ -28,8 +28,8 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     emit(FavoriteUsersLoading());
     try {
       final FavoriteModel? data = await _favouriteRepository.fetchFavorites();
-      final List<ProfileModel> homeModelData = await _homeRepository
-          .fetchAllExceptCurrentUser();
+      final List<ProfileModel> homeModelData =
+          await _homeRepository.fetchAllExceptCurrentUser();
 
       if (data != null) {
         final List<ProfileModel> favUserData = homeModelData
@@ -44,7 +44,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     }
   }
 
-  //-----------------------------Removing user from fav list-------------------------------------------
+  //Removing user from fav list
   FutureOr<void> _onFavoriteUserRemoved(
     FavoriteUserRemoved event,
     Emitter<FavoriteState> emit,
@@ -54,7 +54,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     add(FavoriteUsersFetched());
   }
 
-  //-------------------------------------Adding to fav list----------------------------------
+  //Adding to fav list
   FutureOr<void> _onFavoriteUserAdded(
     FavoriteUserAdded event,
     Emitter<FavoriteState> emit,

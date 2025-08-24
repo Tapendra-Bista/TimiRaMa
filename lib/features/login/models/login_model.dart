@@ -10,4 +10,4 @@ abstract class LoginModel with _$LoginModel {
   }) = _LoginModel;
 }
 
-// ------------------------model for login--------------------------------
+// model for login-

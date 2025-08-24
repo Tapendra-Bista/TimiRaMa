@@ -34,15 +34,15 @@ class _WellcomeScreenState extends State<WellcomeScreen> {
                   spacing: 5.h,
                   children: [
                     SizedBox(height: 20.h),
-                    //-----------------Wellcome Text    and  langugage selector drop down-----------------------------
+                    //Wellcome Text    and  langugage selector drop down
                     const WellcomeTextAndDropDown(),
-                    //-------------------center image logo----------------------------
+                    //-center image logo-
                     const CenterImage(),
-                    //--------------------Welcome page description----------------------------
+                    //Welcome page description-
                     const WelcomeDescription(),
 
                     SizedBox(height: 35.h),
-                    //------------------------Next Button ----------------------------------
+                    //Next Button
                     NextButton(),
                   ],
                 ),

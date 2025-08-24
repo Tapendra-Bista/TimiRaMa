@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:timirama/features/follow/model/follow_model.dart';
 
-//-----------------------------Follow State-----------------------------
+//Follow State
 class FollowState extends Equatable {
   final FollowModel followUserList;
 
@@ -24,7 +24,7 @@ final class FollowUsersError extends FollowState {
   final String errorMessage;
 
   FollowUsersError.fromState(FollowState state, {required this.errorMessage})
-    : super(followUserList: state.followUserList);
+      : super(followUserList: state.followUserList);
 
   @override
   List<Object> get props => [errorMessage];

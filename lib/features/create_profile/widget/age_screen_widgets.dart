@@ -1,3 +1,10 @@
+import 'package:bottom_picker/bottom_picker.dart';
+import 'package:bottom_picker/resources/arrays.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/common/widgets/common_button.dart';
@@ -7,17 +14,10 @@ import 'package:timirama/features/create_profile/bloc/create_profile_event.dart'
 import 'package:timirama/features/create_profile/bloc/create_profile_state.dart';
 import 'package:timirama/routes/app_routes.dart';
 import 'package:timirama/services/storage/get_storage.dart';
-import 'package:bottom_picker/bottom_picker.dart';
-import 'package:bottom_picker/resources/arrays.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
-//----------------------- Age screen------------------------
+// Age screen
 
-//----------------Text Regarding age description--------------------------
+//-Text Regarding age description
 class AgeDescription extends StatelessWidget {
   const AgeDescription({super.key});
 
@@ -28,7 +28,7 @@ class AgeDescription extends StatelessWidget {
   }
 }
 
-//----------------Text Regarding age Title--------------------------
+//-Text Regarding age Title
 class AgeTitle extends StatelessWidget {
   const AgeTitle({super.key});
 
@@ -39,7 +39,7 @@ class AgeTitle extends StatelessWidget {
   }
 }
 
-//------------------------Next Button ----------------------------------
+//Next Button
 class AgeNextButton extends StatelessWidget {
   AgeNextButton({super.key});
 
@@ -69,7 +69,7 @@ class AgeNextButton extends StatelessWidget {
   }
 }
 
-//--------------- Dob picker-------------------------------
+// Dob picker
 class SelectDob extends StatelessWidget {
   const SelectDob({super.key});
 

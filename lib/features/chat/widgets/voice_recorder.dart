@@ -6,7 +6,7 @@ import 'package:timirama/features/chat/bloc/chat_bloc.dart';
 import 'package:timirama/features/chat/bloc/chat_event.dart';
 import 'package:waveform_recorder/waveform_recorder.dart';
 
-//-------------Voice Record------------------
+//-Voice Record
 class VoiceRecord extends StatefulWidget {
   const VoiceRecord({
     super.key,
@@ -26,8 +26,8 @@ class _VoiceRecordState extends State<VoiceRecord> {
     final file = widget.waveformRecorderController.file;
     if (file == null) return;
     context.read<ChatBloc>().add(
-      SendVoiceMessage(rawUrl: file.path, receiverId: widget.receiverId),
-    );
+          SendVoiceMessage(rawUrl: file.path, receiverId: widget.receiverId),
+        );
     debugPrint('XFile properties:');
     debugPrint('  path: ${file.path}');
 

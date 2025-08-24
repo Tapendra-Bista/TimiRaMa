@@ -7,7 +7,7 @@ import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/features/login/models/login_model.dart';
 import 'package:timirama/services/base_repository.dart';
 
-// -------------------------Login logic-----------------------------
+// -Login logic
 class LoginRepository extends BaseRepository {
   String? error;
 
@@ -15,7 +15,7 @@ class LoginRepository extends BaseRepository {
     auth = firebaseauth ?? FirebaseAuth.instance;
   }
 
-  //-----------------Email Links (PasswordLess Auth)----------------
+  //Email Links (PasswordLess Auth)-
   Future<void> sendSignInLink(String email) async {
     try {
       final ActionCodeSettings acs = ActionCodeSettings(
@@ -37,7 +37,7 @@ class LoginRepository extends BaseRepository {
     }
   }
 
-  //------------------------------login with Email ------------------------------------------
+  //login with Email
   Future<UserCredential?> loginWithEmail(LoginModel loginModel) async {
     try {
       final UserCredential credential = await auth.signInWithEmailAndPassword(
@@ -62,7 +62,7 @@ class LoginRepository extends BaseRepository {
     return null;
   }
 
-  //----------------------login with google----------------------------
+  //-login with google-
   Future<String?> loginWithGoogle() async {
     try {
       // Step 1: Initialize the singleton once
@@ -97,7 +97,7 @@ class LoginRepository extends BaseRepository {
     return null;
   }
 
-  //-------------------- checking if user available or not---------------------
+  // checking if user available or not
   Future<bool> isUserAvailable(String uid) async {
     try {
       final snapshot =

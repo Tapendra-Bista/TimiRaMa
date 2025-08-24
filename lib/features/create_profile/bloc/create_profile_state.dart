@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-//----------------Create Profile State----------------------
+//-Create Profile State-
 class CreateProfileState extends Equatable {
   final String gender;
   final DateTime dob;

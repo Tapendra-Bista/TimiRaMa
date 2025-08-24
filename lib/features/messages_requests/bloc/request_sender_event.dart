@@ -1,6 +1,6 @@
 part of 'request_sender_bloc.dart';
 
-//------------------ Event ------------------
+// Event
 @freezed
 abstract class RequestSenderEvent with _$RequestSenderEvent {
   const factory RequestSenderEvent.messagesRequestsSend({
@@ -17,7 +17,6 @@ abstract class RequestSenderEvent with _$RequestSenderEvent {
   const factory RequestSenderEvent.messagesRequestsDelete(
       {required String senderId,
       required String receiverId}) = RequestSenderDelete;
-
 
   const factory RequestSenderEvent.checkingUserAvailableEvent(
       {required String senderId,

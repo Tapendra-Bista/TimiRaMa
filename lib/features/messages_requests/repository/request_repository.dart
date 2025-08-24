@@ -6,7 +6,7 @@ class RequestRepository extends BaseRepository {
   RequestRepository({FirebaseFirestore? firestore}) {
     this.firestore = firestore ?? FirebaseFirestore.instance;
   }
-  //-------------------------- send Requests --------------------------
+  // send Requests
   Future<void> sendRequests(Requestmodel obj) async {
     try {
       // Prevent creating a chat room with yourself
@@ -26,7 +26,7 @@ class RequestRepository extends BaseRepository {
     }
   }
 
-  //---------CheckWhether user available or not----------
+  //CheckWhether user available or not-
   Future<Requestmodel?> isUserAvailable({
     required String senderId,
     required String receiverId,
@@ -45,7 +45,7 @@ class RequestRepository extends BaseRepository {
     }
   }
 
-  //----------accept request--------------
+  //-accept request
   Future<void> acceptRequest({
     required String senderId,
     required String receiverId,
@@ -59,7 +59,7 @@ class RequestRepository extends BaseRepository {
     requestsDocRef.update({'responseStatus': ResponseStatus.Accepted.name});
   }
 
-  //-------------------------- delete Requests --------------------------
+  // delete Requests
   Future<void> deleteRequests({
     required String senderId,
     required String receiverId,
@@ -77,7 +77,7 @@ class RequestRepository extends BaseRepository {
     print("Requests deleted ");
   }
 
-  //-------------------------- Fetch Requestss --------------------------
+  // Fetch Requestss
   Future<List<Requestmodel>> fetchRequests() async {
     try {
       final requestsCollRef = firestore.collection('requests');
@@ -96,7 +96,7 @@ class RequestRepository extends BaseRepository {
     }
   }
 
-  //  //-------------------------- sends Requests List --------------------------
+  //  // sends Requests List
   Future<List<Requestmodel>> sendRequestsList() async {
     try {
       final requestsCollRef = firestore.collection('requests');
@@ -115,7 +115,7 @@ class RequestRepository extends BaseRepository {
     }
   }
 
-  //---------------Count total request---------------
+  //Count total request
   Future<int> unReadRequests() async {
     try {
       final requestsCollRef = firestore.collection('requests');
@@ -132,7 +132,7 @@ class RequestRepository extends BaseRepository {
     }
   }
 
-  //--------------make as read------------------
+  //make as read
   Future<void> markAsRead() async {
     final batch = firestore.batch();
     try {

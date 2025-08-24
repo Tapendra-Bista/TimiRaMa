@@ -3,7 +3,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timirama/features/forgot_password/widgets/forgot_password_widgets.dart';
 
-//------------------------------------Email sent ---------------------------------------
+//Email sent 
 class EmailSentScreen extends StatelessWidget {
   const EmailSentScreen({super.key});
 
@@ -20,20 +20,20 @@ class EmailSentScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 20.h),
-                //-------------Email sent  text----------------------
+                //-Email sent  text-
                 HeadingInSuccessedPage(),
                 SizedBox(height: 5.h),
-                //-------------Instruction text----------------------
+                //-Instruction text-
                 BodyWidgetInSuccessedPage(),
-                //------------Center image after email send----------------------
+                //Center image after email send-
                 CenterImageInSuccessedPage(),
 
                 SizedBox(height: 100.h),
 
-                // ---------------Login page Button--------------------------------------------
+                // Login page Button-
                 SendButtonInSuccessedPage(),
                 SizedBox(height: 10.h),
-                //-------------Resend link ----------------------
+                //-Resend link -
                 DidnotRecieveTheLink(),
               ],
             ),

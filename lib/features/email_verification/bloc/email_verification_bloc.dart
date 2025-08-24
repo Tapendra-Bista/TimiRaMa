@@ -7,9 +7,9 @@ class EmailVerificationBloc
     extends Bloc<EmailVerificationEvent, EmailVerificationState> {
   final EmailVerificationRepository _repository;
   EmailVerificationBloc({required EmailVerificationRepository repository})
-    : _repository = repository,
-      super(EmailVerificationInitial()) {
-    //------------when user clicked send link button for verification----------------------------------
+      : _repository = repository,
+        super(EmailVerificationInitial()) {
+    //when user clicked send link button for verification
 
     on<OnButtonClicked>((event, emit) async {
       try {
@@ -19,7 +19,7 @@ class EmailVerificationBloc
         emit(EmailVerifiedError.fromState(state, error: e.toString()));
       }
     });
-    //---------------------Delete Account--------------------------------
+    //Delete Account-
     on<OnClickedDeleteButton>((event, emit) async {
       try {
         await _repository.deleteAccount();

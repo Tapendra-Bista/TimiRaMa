@@ -1,33 +1,33 @@
-import 'package:timirama/features/create_profile/bloc/create_profile_event.dart';
-import 'package:timirama/features/create_profile/bloc/create_profile_state.dart';
-import 'package:timirama/features/create_profile/repository/create_profile_repository.dart';
-import 'package:timirama/features/profile/model/profile_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:timirama/features/create_profile/bloc/create_profile_event.dart';
+import 'package:timirama/features/create_profile/bloc/create_profile_state.dart';
+import 'package:timirama/features/create_profile/repository/create_profile_repository.dart';
+import 'package:timirama/features/profile/model/profile_model.dart';
 
-//------------------ Create Profile Bloc-------------------------------------
+// Create Profile Bloc
 class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
   final CreateProfileRepository _profileRepository;
   final _box = GetStorage();
   Set<String> _interests = {};
 
   CreateProfileBloc({required CreateProfileRepository repository})
-    : _profileRepository = repository,
-      super(CreateProfileInitial()) {
-    //-------------For Pseudo-----------------------
+      : _profileRepository = repository,
+        super(CreateProfileInitial()) {
+    //-For Pseudo
     on<PseudoChanged>((PseudoChanged event, Emitter<CreateProfileState> emit) {
       _box.write('pseudo', event.pseudo);
     });
-    //-------------------------- For Gender-----------------------------
+    // For Gender
     on<GenderChanged>((GenderChanged event, Emitter<CreateProfileState> emit) {
       emit(state.copyWith(gender: event.gender));
 
       _box.write('sex', event.gender);
     });
 
-    //-------------------------- For Age-----------------------------
+    // For Age
     on<DobChanged>((DobChanged event, Emitter<CreateProfileState> emit) {
       //debugPrint("${DateTime.now().year - value.year}");
       emit(state.copyWith(dob: event.dob));
@@ -35,7 +35,7 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
       _box.write('age', DateTime.now().year - event.dob.year);
     });
 
-    //-------------For Address-----------------------
+    //-For Address
     on<AddressChanged>((
       AddressChanged event,
       Emitter<CreateProfileState> emit,
@@ -45,7 +45,7 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
       _box.write('city', event.city);
     });
 
-    //-----------User Friendship-----------------------
+    //User Friendship
     on<FriendsShipChanged>((
       FriendsShipChanged event,
       Emitter<CreateProfileState> emit,
@@ -54,7 +54,7 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
       _box.write('friendship', event.friendship);
     });
 
-    //-----------User Passion-----------------------
+    //User Passion
     on<PassionChanged>((
       PassionChanged event,
       Emitter<CreateProfileState> emit,
@@ -62,23 +62,23 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
       emit(state.copyWith(passion: event.passion));
       _box.write('passion', event.passion);
     });
-    //-----------User Love-----------------------
+    //User Love
     on<LoveChanged>((LoveChanged event, Emitter<CreateProfileState> emit) {
       emit(state.copyWith(love: event.love));
       _box.write('love', event.love);
     });
-    //-----------User Sports-----------------------
+    //User Sports
     on<SportChanged>((SportChanged event, Emitter<CreateProfileState> emit) {
       emit(state.copyWith(sports: event.sports));
       _box.write('sports', event.sports);
     });
-    //-----------User Food-----------------------
+    //User Food
     on<FoodChanged>((FoodChanged event, Emitter<CreateProfileState> emit) {
       emit(state.copyWith(food: event.food));
       _box.write('food', event.food);
     });
 
-    //-----------User Adventure-----------------------
+    //User Adventure
     on<AdventureChanged>((
       AdventureChanged event,
       Emitter<CreateProfileState> emit,
@@ -86,14 +86,14 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
       emit(state.copyWith(adventure: event.adventure));
       _box.write('adventure', event.adventure);
     });
-    // ---------------For user Image----------------------
+    // For user Image-
     on<PickImg>((PickImg event, Emitter<CreateProfileState> emit) async {
       final path = await _profileRepository.imagePicker();
-      // ------------------user picked image path-------------------
+      // user picked image path-
       if (path != null) return emit(state.copyWith(imgURL: path));
     });
 
-    //-----------User Description-----------------------
+    //User Description
     on<DescriptionChanged>((
       DescriptionChanged event,
       Emitter<CreateProfileState> emit,
@@ -101,7 +101,7 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
       emit(state.copyWith(description: event.description));
       _box.write('description', event.description);
     });
-    //------------------------user submit data -------------------------------------
+    //user submit data
     on<SubmitButtonClicked>((
       SubmitButtonClicked event,
       Emitter<CreateProfileState> emit,
@@ -140,7 +140,7 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
       }
     });
 
-    //----------------Reset state-------------------
+    //-Reset state-
     on<ResetCreateProfileEvent>((
       ResetCreateProfileEvent event,
       Emitter<CreateProfileState> emit,

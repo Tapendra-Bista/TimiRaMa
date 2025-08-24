@@ -12,7 +12,7 @@ import 'package:timirama/features/create_profile/bloc/create_profile_state.dart'
 import 'package:timirama/features/create_profile/widget/upload_image_screen_widgets.dart';
 import 'package:timirama/routes/app_routes.dart';
 
-//------------------------------------Upload Image for screen sent ---------------------------------------
+//Upload Image for screen sent 
 class UploadImageScreen extends StatefulWidget {
   UploadImageScreen({super.key});
 
@@ -38,21 +38,21 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 10.h,
                 children: [
-                  //---------------Stepper to show in which step they are in profile creation------------------------
+                  //Stepper to show in which step they are in profile creation
                   const CustomSteps(currentStep: 7),
 
-                  //-------------Title  text----------------------
+                  //-Title  text-
                   const UploadImageTitle(),
 
-                  //-------------Description text----------------------
+                  //-Description text-
                   const UploadImageDescription(),
-                  //------------Center image logo---------------------
+                  //Center image logo
                   SizedBox(height: 10.h),
                   const UploadImageCenterLogo(),
 
                   SizedBox(height: 50.h),
 
-                  // ---------------Submit Button--------------------------------------------
+                  // Submit Button-
                   SubmitButton(),
                   SizedBox(height: 10.h),
                 ],

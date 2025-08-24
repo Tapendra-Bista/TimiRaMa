@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:timirama/features/profile/model/profile_model.dart';
 
-//-----------------------------Fav State-----------------------------
+//Fav State
 class FavoriteState extends Equatable {
   final List<ProfileModel> favUserList;
   const FavoriteState({required this.favUserList});

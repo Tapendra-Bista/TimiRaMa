@@ -5,7 +5,7 @@ import 'package:timirama/common/utils/timestamp_converter.dart';
 part 'request_model.freezed.dart';
 part 'request_model.g.dart';
 
-//------------ model-------------------
+// model-
 
 @freezed
 abstract class Requestmodel with _$Requestmodel {

@@ -1,10 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'follow_model.freezed.dart';
 part 'follow_model.g.dart';
 
-//---------------------Follow model-----------------------
+//Follow model
 @freezed
 abstract class FollowModel with _$FollowModel {
   const factory FollowModel({

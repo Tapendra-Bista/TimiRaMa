@@ -1,8 +1,3 @@
-import 'package:timirama/common/constant/constant_colors.dart';
-import 'package:timirama/common/localization/enums/enums.dart';
-import 'package:timirama/common/widgets/circular_indicator.dart';
-import 'package:timirama/features/add/bloc/add_bloc.dart';
-import 'package:timirama/features/add/screen/trim_video_screen.dart';
 import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:camerawesome/pigeon.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +6,13 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:timirama/common/constant/constant_colors.dart';
+import 'package:timirama/common/localization/enums/enums.dart';
+import 'package:timirama/common/widgets/circular_indicator.dart';
+import 'package:timirama/features/add/bloc/add_bloc.dart';
+import 'package:timirama/features/add/screen/trim_video_screen.dart';
 
-//--------------Add  Screen---------------
+//Add  Screen
 class AddScreen extends StatelessWidget {
   const AddScreen({super.key});
 
@@ -45,9 +45,9 @@ class AddScreen extends StatelessWidget {
                   Text(
                     EnumLocale.newReel.name.tr,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontSize: 20.sp,
-                      color: AppColors.floralWhite,
-                    ),
+                          fontSize: 20.sp,
+                          color: AppColors.floralWhite,
+                        ),
                     overflow: TextOverflow.ellipsis,
                   ),
                   PlatformIconButton(
@@ -93,8 +93,8 @@ class AddScreen extends StatelessWidget {
                           single.file!.path.isNotEmpty) {
                         final url = single.file!.path;
                         context.read<AddBloc>().add(
-                          RecordVideo(videoPath: url),
-                        );
+                              RecordVideo(videoPath: url),
+                            );
                       }
                     },
                   );

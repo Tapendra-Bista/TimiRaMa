@@ -7,7 +7,7 @@ sealed class ArchiveEvent extends Equatable {
   List<Object> get props => [];
 }
 
-//-----------------------------archive Event-----------------------------
+//archive Event
 final class ArchiveUserAdded extends ArchiveEvent {
   final String archiveId;
   ArchiveUserAdded({required this.archiveId});

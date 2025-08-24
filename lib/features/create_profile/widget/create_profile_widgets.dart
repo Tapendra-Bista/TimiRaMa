@@ -1,3 +1,10 @@
+import 'package:choice/choice.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:timirama/common/constant/constant_strings.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
@@ -8,16 +15,9 @@ import 'package:timirama/features/create_profile/bloc/create_profile_event.dart'
 import 'package:timirama/features/create_profile/bloc/create_profile_state.dart';
 import 'package:timirama/routes/app_routes.dart';
 import 'package:timirama/services/storage/get_storage.dart';
-import 'package:choice/choice.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
-//----------------------------Interest screen components------------------
+//-Interest screen components
 
-//-------------------Frienship inlineChoice---------------------------
+//-Frienship inlineChoice
 class FriendshipInchoice extends StatelessWidget {
   const FriendshipInchoice({super.key});
 
@@ -40,8 +40,8 @@ class FriendshipInchoice extends StatelessWidget {
                   onChanged: (value) {
                     if (value.length <= 2) {
                       context.read<CreateProfileBloc>().add(
-                        FriendsShipChanged(friendship: value),
-                      );
+                            FriendsShipChanged(friendship: value),
+                          );
                     } else {
                       // Show warning when limit is exceeded
                       snackBarMessage(
@@ -117,10 +117,8 @@ class FriendshipInchoice extends StatelessWidget {
                           child: Center(
                             child: Text(
                               (state.value.isEmpty)
-                                  ? EnumLocale
-                                        .chooseOption
-                                        .name
-                                        .tr // empty text = no placeholder
+                                  ? EnumLocale.chooseOption.name
+                                      .tr // empty text = no placeholder
                                   : state.value.join(
                                       ', ',
                                     ), // or use .label if single select
@@ -141,7 +139,7 @@ class FriendshipInchoice extends StatelessWidget {
   }
 }
 
-//----------------Friendship text-----------------------
+//-Friendship text
 class FriendshipText extends StatelessWidget {
   const FriendshipText({super.key});
 
@@ -155,7 +153,7 @@ class FriendshipText extends StatelessWidget {
   }
 }
 
-//-------------------------Title text----------------------------------
+//-Title text
 class InterestTitle extends StatelessWidget {
   const InterestTitle({super.key});
 
@@ -169,7 +167,7 @@ class InterestTitle extends StatelessWidget {
   }
 }
 
-//-------------------Love inlineChoice---------------------------
+//-Love inlineChoice
 class LoveInchoice extends StatelessWidget {
   const LoveInchoice({super.key});
 
@@ -192,8 +190,8 @@ class LoveInchoice extends StatelessWidget {
                   onChanged: (value) {
                     if (value.length <= 2) {
                       context.read<CreateProfileBloc>().add(
-                        LoveChanged(love: value),
-                      );
+                            LoveChanged(love: value),
+                          );
                     } else {
                       // Show warning when limit is exceeded
                       snackBarMessage(
@@ -204,8 +202,7 @@ class LoveInchoice extends StatelessWidget {
                     }
                   },
                   itemCount: AppStrings
-                      .categorizedUserInterests["Love & Romance"]!
-                      .length,
+                      .categorizedUserInterests["Love & Romance"]!.length,
                   itemBuilder: (state, i) {
                     final item = AppStrings
                         .categorizedUserInterests["Love & Romance"]![i];
@@ -270,10 +267,8 @@ class LoveInchoice extends StatelessWidget {
                           child: Center(
                             child: Text(
                               (state.value.isEmpty)
-                                  ? EnumLocale
-                                        .chooseOption
-                                        .name
-                                        .tr // empty text = no placeholder
+                                  ? EnumLocale.chooseOption.name
+                                      .tr // empty text = no placeholder
                                   : state.value.join(
                                       ', ',
                                     ), // or use .label if single select
@@ -294,7 +289,7 @@ class LoveInchoice extends StatelessWidget {
   }
 }
 
-//----------------Love text-----------------------
+//-Love text
 class LoveText extends StatelessWidget {
   const LoveText({super.key});
 
@@ -308,7 +303,7 @@ class LoveText extends StatelessWidget {
   }
 }
 
-//-------------------Sports inlineChoice---------------------------
+//-Sports inlineChoice
 class SportsInchoice extends StatelessWidget {
   const SportsInchoice({super.key});
 
@@ -331,8 +326,8 @@ class SportsInchoice extends StatelessWidget {
                   onChanged: (value) {
                     if (value.length <= 2) {
                       context.read<CreateProfileBloc>().add(
-                        SportChanged(sports: value),
-                      );
+                            SportChanged(sports: value),
+                          );
                     } else {
                       // Show warning when limit is exceeded
                       snackBarMessage(
@@ -343,8 +338,7 @@ class SportsInchoice extends StatelessWidget {
                     }
                   },
                   itemCount: AppStrings
-                      .categorizedUserInterests["Sports & Outdoors"]!
-                      .length,
+                      .categorizedUserInterests["Sports & Outdoors"]!.length,
                   itemBuilder: (state, i) {
                     final item = AppStrings
                         .categorizedUserInterests["Sports & Outdoors"]![i];
@@ -409,10 +403,8 @@ class SportsInchoice extends StatelessWidget {
                           child: Center(
                             child: Text(
                               (state.value.isEmpty)
-                                  ? EnumLocale
-                                        .chooseOption
-                                        .name
-                                        .tr // empty text = no placeholder
+                                  ? EnumLocale.chooseOption.name
+                                      .tr // empty text = no placeholder
                                   : state.value.join(
                                       ', ',
                                     ), // or use .label if single select
@@ -433,7 +425,7 @@ class SportsInchoice extends StatelessWidget {
   }
 }
 
-//----------------Sports text-----------------------
+//-Sports text
 class SportsText extends StatelessWidget {
   const SportsText({super.key});
 
@@ -447,7 +439,7 @@ class SportsText extends StatelessWidget {
   }
 }
 
-//-------------------Food inlineChoice---------------------------
+//-Food inlineChoice
 class FoodInchoice extends StatelessWidget {
   const FoodInchoice({super.key});
 
@@ -470,8 +462,8 @@ class FoodInchoice extends StatelessWidget {
                   onChanged: (value) {
                     if (value.length <= 2) {
                       context.read<CreateProfileBloc>().add(
-                        FoodChanged(food: value),
-                      );
+                            FoodChanged(food: value),
+                          );
                     } else {
                       // Show warning when limit is exceeded
                       snackBarMessage(
@@ -482,8 +474,7 @@ class FoodInchoice extends StatelessWidget {
                     }
                   },
                   itemCount: AppStrings
-                      .categorizedUserInterests["Food & Restaurants"]!
-                      .length,
+                      .categorizedUserInterests["Food & Restaurants"]!.length,
                   itemBuilder: (state, i) {
                     final item = AppStrings
                         .categorizedUserInterests["Food & Restaurants"]![i];
@@ -548,10 +539,8 @@ class FoodInchoice extends StatelessWidget {
                           child: Center(
                             child: Text(
                               (state.value.isEmpty)
-                                  ? EnumLocale
-                                        .chooseOption
-                                        .name
-                                        .tr // empty text = no placeholder
+                                  ? EnumLocale.chooseOption.name
+                                      .tr // empty text = no placeholder
                                   : state.value.join(
                                       ', ',
                                     ), // or use .label if single select
@@ -572,7 +561,7 @@ class FoodInchoice extends StatelessWidget {
   }
 }
 
-//----------------Food text-----------------------
+//-Food text
 class FoodText extends StatelessWidget {
   const FoodText({super.key});
 
@@ -586,7 +575,7 @@ class FoodText extends StatelessWidget {
   }
 }
 
-//-------------------Adventure inlineChoice---------------------------
+//-Adventure inlineChoice
 class AdventureInchoice extends StatelessWidget {
   const AdventureInchoice({super.key});
 
@@ -609,8 +598,8 @@ class AdventureInchoice extends StatelessWidget {
                   onChanged: (value) {
                     if (value.length <= 2) {
                       context.read<CreateProfileBloc>().add(
-                        AdventureChanged(adventure: value),
-                      );
+                            AdventureChanged(adventure: value),
+                          );
                     } else {
                       // Show warning when limit is exceeded
                       snackBarMessage(
@@ -621,8 +610,7 @@ class AdventureInchoice extends StatelessWidget {
                     }
                   },
                   itemCount: AppStrings
-                      .categorizedUserInterests["Adventure & Travel"]!
-                      .length,
+                      .categorizedUserInterests["Adventure & Travel"]!.length,
                   itemBuilder: (state, i) {
                     final item = AppStrings
                         .categorizedUserInterests["Adventure & Travel"]![i];
@@ -687,10 +675,8 @@ class AdventureInchoice extends StatelessWidget {
                           child: Center(
                             child: Text(
                               (state.value.isEmpty)
-                                  ? EnumLocale
-                                        .chooseOption
-                                        .name
-                                        .tr // empty text = no placeholder
+                                  ? EnumLocale.chooseOption.name
+                                      .tr // empty text = no placeholder
                                   : state.value.join(
                                       ', ',
                                     ), // or use .label if single select
@@ -711,7 +697,7 @@ class AdventureInchoice extends StatelessWidget {
   }
 }
 
-//----------------Adventure text-----------------------
+//-Adventure text
 class AdventureText extends StatelessWidget {
   const AdventureText({super.key});
 
@@ -725,7 +711,7 @@ class AdventureText extends StatelessWidget {
   }
 }
 
-//-----------------Next Button---------------
+//Next Button
 class InterestsNextButton extends StatelessWidget {
   InterestsNextButton({super.key});
   final AppGetStorage app = AppGetStorage();
@@ -755,7 +741,7 @@ class InterestsNextButton extends StatelessWidget {
   }
 }
 
-//-------------------------PassionTitle text----------------------------------
+//-PassionTitle text
 class PassionTitle extends StatelessWidget {
   const PassionTitle({super.key});
 
@@ -766,7 +752,7 @@ class PassionTitle extends StatelessWidget {
   }
 }
 
-//------------------ Passion choice-------------------
+// Passion choice-
 class PassionChoice extends StatelessWidget {
   const PassionChoice({super.key});
 
@@ -787,8 +773,8 @@ class PassionChoice extends StatelessWidget {
               onChanged: (value) {
                 if (value.length <= 2) {
                   context.read<CreateProfileBloc>().add(
-                    PassionChanged(passion: value),
-                  );
+                        PassionChanged(passion: value),
+                      );
                 } else {
                   // Show warning when limit is exceeded
                   snackBarMessage(
@@ -862,10 +848,8 @@ class PassionChoice extends StatelessWidget {
                       child: Center(
                         child: Text(
                           (state.value.isEmpty)
-                              ? EnumLocale
-                                    .chooseOption
-                                    .name
-                                    .tr // empty text = no placeholder
+                              ? EnumLocale.chooseOption.name
+                                  .tr // empty text = no placeholder
                               : state.value.join(
                                   ', ',
                                 ), // or use .label if single select
@@ -884,7 +868,7 @@ class PassionChoice extends StatelessWidget {
   }
 }
 
-//-----------------Next Button---------------
+//Next Button
 class PassionNextButton extends StatelessWidget {
   PassionNextButton({super.key});
   final AppGetStorage app = AppGetStorage();

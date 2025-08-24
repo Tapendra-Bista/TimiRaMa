@@ -6,7 +6,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/features/home/widget/home_widgets.dart';
 import 'package:timirama/routes/app_routes.dart';
-//------------------Empty Data widget---------------------
+//Empty Data widget
 
 class NoData extends StatelessWidget {
   const NoData({super.key});

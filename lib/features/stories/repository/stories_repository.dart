@@ -9,7 +9,7 @@ class StoriesRepository extends BaseRepository {
   final ImagePicker _imagePicker = ImagePicker();
   StoriesRepository({FirebaseFirestore? fire});
 
-  //--------------------------------Image adding to cloudinary-----------------------------
+  //-Image adding to cloudinary
   Future<String?> imagePickerForStories(ImageSource source) async {
     try {
       final image = await _imagePicker.pickImage(source: source);
@@ -36,7 +36,7 @@ class StoriesRepository extends BaseRepository {
     return response.secureUrl;
   }
 
-  //-------------------------- Upload or update user story in Firestore --------------------------
+  // Upload or update user story in Firestore
   Future<void> uploadStoriesToFirebase(StoriesModel model) async {
     final docRef = firestore.collection('stories').doc(model.uid);
     final docSnapshot = await docRef.get();
@@ -59,7 +59,7 @@ class StoriesRepository extends BaseRepository {
     }
   }
 
-  //-------------------------- Fetch all stories --------------------------
+  // Fetch all stories
   Future<List<StoriesFetchModel>> fetchAllStoriesData() async {
     try {
       final snapshot = await firestore.collection('stories').get();

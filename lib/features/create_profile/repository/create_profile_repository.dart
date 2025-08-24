@@ -1,12 +1,12 @@
-import 'package:timirama/common/constant/constant_strings.dart';
-import 'package:timirama/features/profile/model/profile_model.dart';
-import 'package:timirama/services/base_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:timirama/common/constant/constant_strings.dart';
+import 'package:timirama/features/profile/model/profile_model.dart';
+import 'package:timirama/services/base_repository.dart';
 
-//--------------------Profile repository ---------------------------------------------
+//Profile repository 
 class CreateProfileRepository extends BaseRepository {
   final imgPicker = ImagePicker();
   CreateProfileRepository({FirebaseFirestore? firestore}) {

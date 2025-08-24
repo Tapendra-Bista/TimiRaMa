@@ -6,7 +6,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/features/favorite/bloc/favorite_bloc.dart';
 import 'package:timirama/features/favorite/bloc/favorite_state.dart';
-//------------------Error widget---------------------
+//Error widget
 
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({super.key});

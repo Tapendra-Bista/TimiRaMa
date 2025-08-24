@@ -1,12 +1,12 @@
-import 'package:timirama/services/status/model/status_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:timirama/services/status/model/status_model.dart';
 
 class StatusRepository {
   final FirebaseAuth firebaseAuth;
   StatusRepository({FirebaseAuth? auth})
-    : firebaseAuth = auth ?? FirebaseAuth.instance;
-  //-------------User Presence-------------------------
+      : firebaseAuth = auth ?? FirebaseAuth.instance;
+  //-User Presence-
   void setupUserPresence() {
     final user = firebaseAuth.currentUser;
     if (user == null) return;

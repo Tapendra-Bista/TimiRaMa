@@ -18,7 +18,7 @@ import 'package:timirama/routes/app_routes.dart';
 import 'package:timirama/services/service_locator/service_locator.dart';
 import 'package:timirama/services/storage/get_storage.dart';
 
-// --------------Email verification button----------------------------------
+// Email verification button
 class EmailVerificationButton extends StatelessWidget {
   EmailVerificationButton({super.key});
 
@@ -61,9 +61,9 @@ class EmailVerificationButton extends StatelessWidget {
   }
 }
 
-//----------------Next Button------------------------
+//-Next Button
 
-//---------------Image of  email at center-------------------------------
+//Image of  email at center
 class EmailVerificationImage extends StatelessWidget {
   const EmailVerificationImage({super.key});
 
@@ -75,7 +75,7 @@ class EmailVerificationImage extends StatelessWidget {
   }
 }
 
-//---------------email verification body text-------------------------------
+//email verification body text
 class EmailVerificationBody extends StatelessWidget {
   const EmailVerificationBody({super.key});
 
@@ -86,7 +86,7 @@ class EmailVerificationBody extends StatelessWidget {
   }
 }
 
-//---------------email verification title text-------------------------------
+//email verification title text
 class EmailVerificationTitle extends StatelessWidget {
   const EmailVerificationTitle({super.key});
 
@@ -97,7 +97,7 @@ class EmailVerificationTitle extends StatelessWidget {
   }
 }
 
-//--------------- delete account  text-------------------------------
+// delete account  text
 class EmailVerificationDeleteAccount extends StatelessWidget {
   const EmailVerificationDeleteAccount({super.key});
 
@@ -119,8 +119,8 @@ class EmailVerificationDeleteAccount extends StatelessWidget {
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   context.read<EmailVerificationBloc>().add(
-                    OnClickedDeleteButton(),
-                  );
+                        OnClickedDeleteButton(),
+                      );
                   GetStorage().remove('pageNumber');
                   getIt.resetLazySingleton<EmailVerificationBloc>();
                 },

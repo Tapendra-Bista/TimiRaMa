@@ -6,13 +6,13 @@ import 'package:timirama/features/follow/bloc/follow_state.dart';
 import 'package:timirama/features/follow/model/follow_model.dart';
 import 'package:timirama/features/follow/repository/follow_repository.dart';
 
-//------------------------Follow Bloc--------------------------
+//Follow Bloc
 class FollowBloc extends Bloc<FollowEvent, FollowState> {
   final FollowRepository _followRepository;
 
   FollowBloc({required FollowRepository repository})
-    : _followRepository = repository,
-      super(FollowInitial()) {
+      : _followRepository = repository,
+        super(FollowInitial()) {
     on<FollowUserAdded>(_onfollowUserAdded);
 
     on<FollowUserRemoved>(_onfollowUserRemoved);
@@ -20,7 +20,7 @@ class FollowBloc extends Bloc<FollowEvent, FollowState> {
     on<FollowUsersFetched>(_onfollowUsersFetched);
   }
 
-  //-------------------------Fetching data----------------------------
+  //-Fetching data-
   FutureOr<void> _onfollowUsersFetched(
     FollowUsersFetched event,
     Emitter<FollowState> emit,
@@ -39,7 +39,7 @@ class FollowBloc extends Bloc<FollowEvent, FollowState> {
     }
   }
 
-  //-----------------------------Removing user from fav list-------------------------------------------
+  //Removing user from fav list
   FutureOr<void> _onfollowUserRemoved(
     FollowUserRemoved event,
     Emitter<FollowState> emit,
@@ -49,7 +49,7 @@ class FollowBloc extends Bloc<FollowEvent, FollowState> {
     add(FollowUsersFetched());
   }
 
-  //-------------------------------------Adding to fav list----------------------------------
+  //Adding to fav list
   FutureOr<void> _onfollowUserAdded(
     FollowUserAdded event,
     Emitter<FollowState> emit,

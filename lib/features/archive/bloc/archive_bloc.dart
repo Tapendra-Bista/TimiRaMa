@@ -8,20 +8,20 @@ import 'package:timirama/features/archive/repository/archive_repository.dart';
 import 'package:timirama/features/home/repository/home_repository.dart';
 import 'package:timirama/features/profile/model/profile_model.dart';
 
-//-----------------------Archive Bloc----------------------------
+//Archive Bloc-
 class ArchiveBloc extends Bloc<ArchiveEvent, ArchiveState> {
   final ArchiveRepository _archiveRepository;
   final HomeRepository _homeRepository = HomeRepository();
   ArchiveBloc({required ArchiveRepository repository})
-    : _archiveRepository = repository,
-      super(ArchiveInitial()) {
+      : _archiveRepository = repository,
+        super(ArchiveInitial()) {
     on<ArchiveUserAdded>(_onArchiveUserAdded);
 
     on<ArchiveUserRemoved>(_onArchiveUserRemoved);
 
     on<ArchiveUsersFetched>(_onArchiveUsersFetched);
   }
-  //-------------------------Fetching data----------------------------
+  //-Fetching data-
   FutureOr<void> _onArchiveUsersFetched(
     ArchiveUsersFetched event,
     Emitter<ArchiveState> emit,
@@ -29,8 +29,8 @@ class ArchiveBloc extends Bloc<ArchiveEvent, ArchiveState> {
     emit(ArchiveUsersLoading());
     try {
       final ArchiveModel? data = await _archiveRepository.fetchArchives();
-      final List<ProfileModel> homeModelData = await _homeRepository
-          .fetchAllExceptCurrentUser();
+      final List<ProfileModel> homeModelData =
+          await _homeRepository.fetchAllExceptCurrentUser();
 
       if (data != null) {
         final List<ProfileModel> favUserData = homeModelData
@@ -45,7 +45,7 @@ class ArchiveBloc extends Bloc<ArchiveEvent, ArchiveState> {
     }
   }
 
-  //-----------------------------Removing user from archive list-------------------------------------------
+  //Removing user from archive list
   FutureOr<void> _onArchiveUserRemoved(
     ArchiveUserRemoved event,
     Emitter<ArchiveState> emit,
@@ -55,7 +55,7 @@ class ArchiveBloc extends Bloc<ArchiveEvent, ArchiveState> {
     add(ArchiveUsersFetched());
   }
 
-  //-------------------------------------Adding to archive list----------------------------------
+  //Adding to archive list
   FutureOr<void> _onArchiveUserAdded(
     ArchiveUserAdded event,
     Emitter<ArchiveState> emit,

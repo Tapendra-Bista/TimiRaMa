@@ -33,19 +33,19 @@ class EmailVerificationScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   spacing: 5.h,
                   children: [
-                    //--------------- Title part----------------------
+                    // Title part-
                     const EmailVerificationTitle(),
-                    //-------------------Body text part------------------------
+                    //-Body text part
                     const EmailVerificationBody(),
-                    //-----------------------Logo part---------------------------------------
+                    //Logo part
                     const EmailVerificationImage(),
                     SizedBox(height: 50.h),
-                    //-----------------------Email verification Button--------------------------------
+                    //Email verification Button-
                     EmailVerificationButton(),
 
-                    //----------------------------- To  navigate to another page-------------------
+                    // To  navigate to another page-
                     SizedBox(height: 10.h),
-                    //------------------------------- Delete Text ---------------------------------------
+                    // Delete Text 
                     const EmailVerificationDeleteAccount(),
                   ],
                 ),

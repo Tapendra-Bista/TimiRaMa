@@ -11,17 +11,17 @@ part 'reel_bloc.g.dart';
 part 'reel_event.dart';
 part 'reel_state.dart';
 
-//-------- Bloc ---------
+// Bloc
 class ReelBloc extends HydratedBloc<ReelEvent, ReelState> {
   final ReelRepository _reelRepository;
   final BlockRepository _blockRepository = BlockRepository();
   ReelBloc({required ReelRepository repository})
-    : _reelRepository = repository,
-      super(ReelState.initial()) {
+      : _reelRepository = repository,
+        super(ReelState.initial()) {
     on<ReelLoaded>(_onReelLoaded);
   }
 
-  ///------ fetch data -----------
+  /// fetch data
   Future<void> _onReelLoaded(ReelLoaded event, Emitter<ReelState> emit) async {
     try {
       // 1. Get all reels
@@ -50,7 +50,7 @@ class ReelBloc extends HydratedBloc<ReelEvent, ReelState> {
         final iBlocked = blockData?.blockId.contains(createdBy) ?? false;
         final theyBlockedMe =
             blockedMap[createdBy]?.contains(_blockRepository.currentUserId) ??
-            false;
+                false;
         return !iBlocked && !theyBlockedMe;
       }).toList();
 

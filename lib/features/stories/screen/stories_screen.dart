@@ -10,51 +10,7 @@ import 'package:timirama/features/stories/screen/view_stories.dart';
 import 'package:timirama/features/stories/widgets/stories_widgets.dart';
 import 'package:timirama/services/service_locator/service_locator.dart';
 
-// class StoriesScreen extends StatelessWidget {
-//   const StoriesScreen({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocListener<StoriesBloc, StoriesState>(
-//         listener: _onListener,
-//         child: SliverToBoxAdapter(
-//             child: BlocSelector<StoriesBloc, StoriesState,
-//                 List<StoriesFetchModel>>(
-//           selector: (state) => state.storiesData,
-//           builder: (context, storiesData) {
-//             print(" stories value : ${storiesData.length}");
-//             return SizedBox(
-//               height: 90.h,
-//               child: GridView.builder(
-//                 padding: EdgeInsets.zero,
-//                 scrollDirection: Axis.horizontal,
-//                 itemCount: 1 + storiesData.length,
-//                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//                     crossAxisCount: 1,
-//                     mainAxisSpacing: 0,
-//                     childAspectRatio: 1.25,
-//                     crossAxisSpacing: 0),
-//                 itemBuilder: (context, index) {
-//                   if (index == 0) {
-//                     // ----------------- "Add Story" Avatar -------------------
-//                     return OwnStories();
-//                   }
-
-//                   //---------------------Other user Stories--------------------------------
-//                   return GestureDetector(
-//                     onTap: () =>
-//                         Get.to(() => ViewStories(data: storiesData[index - 1])),
-//                     child: OtherUserStories(
-//                       data: storiesData[index - 1],
-//                     ),
-//                   );
-//                 },
-//               ),
-//             );
-//           },
-//         )));
-//   }
-// }
 
 class StoriesScreen extends StatelessWidget {
   const StoriesScreen({super.key});

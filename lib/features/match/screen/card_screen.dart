@@ -1,4 +1,3 @@
-import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
@@ -30,14 +29,8 @@ class CardScreen extends StatefulWidget {
 
 class _CardScreenState extends State<CardScreen> {
   final CardSwiperController controller = CardSwiperController();
-  final confettiController = ConfettiController(duration: Duration(seconds: 1));
 
-  @override
-  void dispose() {
-    controller.dispose();
-    confettiController.dispose(); // dispose confetti controller
-    super.dispose();
-  }
+  int _currentIndex = 0; // Track current index manually
 
   @override
   Widget build(BuildContext context) {
@@ -160,103 +153,59 @@ class _CardScreenState extends State<CardScreen> {
                 ),
                 body: SafeArea(
                   child: matchUsers.length >= 2
-                      ? Column(
-                          children: [
-                            Flexible(
-                              child: CardSwiper(
-                                controller: controller,
-                                threshold: 100,
-                                onSwipe:
-                                    (previousIndex, currentIndex, direction) {
-                                  if (direction == CardSwiperDirection.right) {
-                                    final swipedUserId =
-                                        matchUsers[previousIndex]!.id;
-                                    context.read<MatchBloc>().add(
-                                          HandleRightSwipe(
-                                            matchedUserId: swipedUserId,
-                                            swipedUserId: swipedUserId,
-                                            matchedUserName:
-                                                matchUsers[previousIndex]!
-                                                    .pseudo,
-                                            matchedUserImage:
-                                                matchUsers[previousIndex]!
-                                                    .imgURL,
-                                          ),
-                                        );
-                                  }
-
-                                  return true;
-                                },
-                                allowedSwipeDirection:
-                                    AllowedSwipeDirection.only(
-                                  left: true,
-                                  right: true,
-                                  up: false,
-                                  down: false,
-                                ),
-                                maxAngle: 60,
-                                isDisabled: false,
-                                duration: Duration(milliseconds: 500),
-                                numberOfCardsDisplayed: 1,
-                                padding: EdgeInsets.only(
-                                  left: 5.w,
-                                  right: 5.w,
-                                  top: 10.h,
-                                  bottom: 33.h,
-                                ),
-                                cardBuilder: (context, index, _, __) {
-                                  final item = matchUsers[index];
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      color: AppColors.floralWhite,
-                                      borderRadius: BorderRadius.circular(12.r),
-                                      border: Border.all(
-                                          color: AppColors.grey, width: 1.w),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        ImageAndStatus(user: item!),
-                                        UserDetails(user: item),
-                                        ListOfButtons(
-                                          user: item,
-                                          controller: controller,
-                                        ),
-                                      ],
+                      ? CardSwiper(
+                          padding: EdgeInsetsGeometry.symmetric(
+                              horizontal: 8.w, vertical: 30.h),
+                          controller: controller,
+                          threshold: 100,
+                          onSwipe: (previousIndex, currentIndex, direction) {
+                            _currentIndex =
+                                currentIndex!; // Update current index here
+                            if (direction == CardSwiperDirection.right) {
+                              final swipedUserId =
+                                  matchUsers[previousIndex]!.id;
+                              context.read<MatchBloc>().add(
+                                    HandleRightSwipe(
+                                      matchedUserId: swipedUserId,
+                                      swipedUserId: swipedUserId,
+                                      matchedUserName:
+                                          matchUsers[previousIndex]!.pseudo,
+                                      matchedUserImage:
+                                          matchUsers[previousIndex]!.imgURL,
                                     ),
                                   );
-                                },
-                                cardsCount: matchUsers.length,
+                            }
+
+                            return true;
+                          },
+                          allowedSwipeDirection: AllowedSwipeDirection.only(
+                            left: true,
+                            right: true,
+                            up: false,
+                            down: false,
+                          ),
+                          maxAngle: 60,
+                          isDisabled: false,
+                          duration: Duration(milliseconds: 500),
+                          numberOfCardsDisplayed: 1,
+                          cardBuilder: (context, index, _, __) {
+                            final item = matchUsers[index];
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: AppColors.floralWhite,
+                                borderRadius: BorderRadius.circular(12.r),
+                                border: Border.all(
+                                    color: AppColors.grey, width: 1.w),
                               ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                FloatingActionButton.small(
-                                  heroTag: "leftBtn",
-                                  backgroundColor: AppColors.red,
-                                  shape: CircleBorder(),
-                                  onPressed: () {
-                                    controller.swipe(CardSwiperDirection.left);
-                                  },
-                                  child: Icon(Icons.close,
-                                      color: AppColors.floralWhite),
-                                ),
-                                SizedBox(width: 30.w),
-                                FloatingActionButton.small(
-                                  heroTag: "rightBtn",
-                                  backgroundColor: AppColors.green,
-                                  shape: CircleBorder(),
-                                  onPressed: () => controller
-                                      .swipe(CardSwiperDirection.right),
-                                  child: Icon(Icons.check,
-                                      color: AppColors.floralWhite),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 40.h),
-                          ],
+                              child: ImageAndStatus(
+                                user: item!,
+                                controller: controller,
+                                currentIndex: _currentIndex,
+                                matchUsers: matchUsers,
+                              ),
+                            );
+                          },
+                          cardsCount: matchUsers.length,
                         )
                       : Center(
                           child: Text(

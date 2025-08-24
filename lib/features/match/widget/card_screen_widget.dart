@@ -1,4 +1,4 @@
-//-------------------Image and status------------------------------
+//-Image and status
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +16,6 @@ import 'package:timirama/common/widgets/compability_score.dart';
 import 'package:timirama/common/widgets/loading.dart';
 import 'package:timirama/common/widgets/seniority.dart';
 import 'package:timirama/common/widgets/snackbar_message.dart';
-import 'package:timirama/common/widgets/user_status.dart';
 import 'package:timirama/features/archive/bloc/archive_bloc.dart';
 import 'package:timirama/features/archive/bloc/archive_event.dart';
 import 'package:timirama/features/chat/screen/chat_screen.dart';
@@ -29,6 +28,7 @@ import 'package:timirama/features/like/bloc/like_bloc.dart';
 import 'package:timirama/features/like/bloc/like_event.dart';
 import 'package:timirama/features/like/bloc/like_state.dart';
 import 'package:timirama/features/like/model/like_model.dart';
+import 'package:timirama/features/match/bloc/match_bloc.dart';
 import 'package:timirama/features/messages_requests/bloc/request_sender_bloc.dart';
 import 'package:timirama/features/messages_requests/model/request_model.dart';
 import 'package:timirama/features/profile/bloc/profile_bloc.dart';
@@ -36,11 +36,18 @@ import 'package:timirama/features/profile/model/profile_model.dart';
 import 'package:timirama/features/user_details/screen/user_details_screen.dart';
 import 'package:timirama/services/service_locator/service_locator.dart';
 
-//-----------Image and Status---------------------------
+//Image and Status
 class ImageAndStatus extends StatelessWidget {
-  const ImageAndStatus({super.key, required this.user});
+  const ImageAndStatus(
+      {super.key,
+      required this.user,
+      required this.controller,
+      required this.matchUsers,
+      required this.currentIndex});
   final ProfileModel user;
-
+  final List<ProfileModel?> matchUsers;
+  final CardSwiperController controller;
+  final int currentIndex;
   @override
   Widget build(BuildContext context) {
     final validUrl = user.imgURL.isNotEmpty &&
@@ -51,41 +58,67 @@ class ImageAndStatus extends StatelessWidget {
         children: [
           Container(
             width: double.maxFinite,
-            height: 380.h,
+            height: 618.h,
             decoration: validUrl
                 ? BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12.r),
-                      topRight: Radius.circular(12.r),
-                    ),
+                    borderRadius: BorderRadius.circular(12.r),
                     image: DecorationImage(
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fitHeight,
                       image: CachedNetworkImageProvider(user.imgURL),
                     ),
                   )
                 : null,
           ),
+          Positioned(left: 40.w, bottom: 150.h, child: UserDetails(user: user)),
           Positioned(
-            top: 8.r,
-            right: 8.r,
-            child: UserStatus(id: user.id),
+            left: 40.w,
+            bottom: 50.h,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 18.w,
+              children: [
+                FloatingActionButton(
+                  heroTag: "leftBtn",
+                  backgroundColor: AppColors.red,
+                  shape: CircleBorder(),
+                  onPressed: () {
+                    controller.swipe(CardSwiperDirection.left);
+                  },
+                  child: Icon(Icons.close, color: AppColors.floralWhite),
+                ),
+                SizedBox(width: 30.w),
+                StartChatFromMatch(
+                  profileModel: user,
+                ),
+                SizedBox(width: 30.w),
+                FloatingActionButton(
+                  heroTag: "rightBtn",
+                  backgroundColor: AppColors.green,
+                  shape: CircleBorder(),
+                  onPressed: () {
+                    final swipedUser = matchUsers[currentIndex];
+                    context.read<MatchBloc>().add(
+                          HandleRightSwipe(
+                            matchedUserId: swipedUser!.id,
+                            swipedUserId: swipedUser.id,
+                            matchedUserName: swipedUser.pseudo,
+                            matchedUserImage: swipedUser.imgURL,
+                          ),
+                        );
+                    controller.swipe(CardSwiperDirection.right);
+                  },
+                  child: Icon(Icons.check, color: AppColors.floralWhite),
+                ),
+              ],
+            ),
           ),
-          Positioned(bottom: 1, child: CreatedDate(user: user)),
-          Positioned(
-              right: 8,
-              bottom: 8,
-              child: CompabilityScore(
-                id: user.id,
-                iconSize: 25,
-                fontSize: 18,
-              ))
         ],
       ),
     );
   }
 }
 
-//-----------Seniority------------------------------
+//Seniority
 class CreatedDate extends StatelessWidget {
   const CreatedDate({super.key, required this.user});
   final ProfileModel user;
@@ -107,7 +140,7 @@ class CreatedDate extends StatelessWidget {
   }
 }
 
-//----------------fav , following, archive----------------
+//-fav , following, archive-
 class ListOfButtons extends StatelessWidget {
   const ListOfButtons({
     super.key,
@@ -128,10 +161,9 @@ class ListOfButtons extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            //-----------like----------------
+            //like
             LikeButtonForMatch(id: user.id),
-            //-------- chat-------
-            StartChatFromMatch(profileModel: user),
+
             PlatformIconButton(
               onPressed: () async {
                 context.read<FavoriteBloc>().add(
@@ -151,12 +183,13 @@ class ListOfButtons extends StatelessWidget {
                 color: AppColors.black,
               ),
             ),
-            // ------------------following-----------------
+            // following
+
             FollowButton(
               id: user.id,
               color: AppColors.black.withValues(alpha: 0.9),
             ),
-            //----------Archive--------------------------
+            // Archive
             PlatformIconButton(
               onPressed: () async {
                 context.read<ArchiveBloc>().add(
@@ -183,7 +216,7 @@ class ListOfButtons extends StatelessWidget {
   }
 }
 
-//------------------ only for match page-------------------------
+// only for match page-
 class LikeButtonForMatch extends StatelessWidget {
   final String id;
   const LikeButtonForMatch({super.key, required this.id});
@@ -217,7 +250,7 @@ class LikeButtonForMatch extends StatelessWidget {
   }
 }
 
-//-----------------Starting chat from match from here-----------------------
+//Starting chat from match from here
 
 class StartChatFromMatch extends StatefulWidget {
   const StartChatFromMatch({super.key, required this.profileModel});
@@ -251,79 +284,91 @@ class _StartChatFromMatchState extends State<StartChatFromMatch> {
           return null;
         },
         builder: (context, data) {
-          return PlatformIconButton(
-            onPressed: () {
-              if (data == null) {
-                final state = getIt<ProfileBloc>().state as ProfileLoaded;
-                final currentUserData = state.data;
-                print("current user name ${currentUserData.pseudo}");
-                QuickAlert.show(
-                  textAlignment: TextAlign.left,
-                  widget: SizedBox.shrink(),
-                  text:
-                      "${EnumLocale.messageRequestsText1.name.tr} ${widget.profileModel.pseudo} ${EnumLocale.messageRequestsText2.name.tr} ",
-                  headerBackgroundColor: AppColors.yellow,
-                  backgroundColor: AppColors.floralWhite,
-                  context: context,
-                  confirmBtnText: EnumLocale.sendButtonText.name.tr,
-                  cancelBtnText: EnumLocale.cancel.name.tr,
-                  confirmBtnColor: AppColors.primaryColor,
-                  showCancelBtn: true,
-                  title: EnumLocale.sendRequest.name.tr,
-                  type: QuickAlertType.info,
-                  onCancelBtnTap: () {
-                    print("message requests cancel !");
-                    Get.back();
-                  },
-                  onConfirmBtnTap: () {
-                    print("message requests send !");
-                    context.read<RequestSenderBloc>().add(
-                          RequestSenderSend(
-                            senderId: FirebaseAuth.instance.currentUser!.uid,
-                            senderName: currentUserData.pseudo,
-                            senderProfile: currentUserData.imgURL,
-                            receiverId: widget.profileModel.id,
-                            receiverName: widget.profileModel.pseudo,
-                            receiverProfile: widget.profileModel.imgURL,
-                          ),
-                        );
-                    Get.back();
-                  },
-                );
-              } else {
-                print("User Avaible !");
-                print(data.responseStatus.toString());
-                if (data.responseStatus.name == ResponseStatus.Initial.name) {
-                  QuickAlert.show(
-                    textAlignment: TextAlign.left,
-                    widget: SizedBox.shrink(),
-                    text:
-                        "${widget.profileModel.pseudo} ${EnumLocale.requestInitialMessage.name.tr} ",
-                    headerBackgroundColor: AppColors.yellow,
-                    backgroundColor: AppColors.floralWhite,
-                    context: context,
-                    title: EnumLocale.requestInitial.name.tr,
-                    type: QuickAlertType.info,
-                    onConfirmBtnTap: () {
-                      Get.back();
-                    },
-                  );
-                } else if (data.responseStatus.name ==
-                    ResponseStatus.Accepted.name) {
-                  Get.to(
-                    () => ChatScreen(
-                      imgURL: widget.profileModel.imgURL,
-                      receiverId: widget.profileModel.id,
-                      receiverName: widget.profileModel.pseudo,
-                    ),
-                  );
-                }
-              }
-            },
-            icon: Icon(
-              CupertinoIcons.chat_bubble,
-              color: AppColors.black,
-              size: 30,
+          return Container(
+            decoration: BoxDecoration(
+              color: AppColors.blue,
+              shape: BoxShape.circle,
+            ),
+            child: SizedBox(
+              height: 56,
+              width: 56,
+              child: PlatformIconButton(
+                onPressed: () {
+                  if (data == null) {
+                    final state = getIt<ProfileBloc>().state as ProfileLoaded;
+                    final currentUserData = state.data;
+                    print("current user name ${currentUserData.pseudo}");
+                    QuickAlert.show(
+                      textAlignment: TextAlign.left,
+                      widget: SizedBox.shrink(),
+                      text:
+                          "${EnumLocale.messageRequestsText1.name.tr} ${widget.profileModel.pseudo} ${EnumLocale.messageRequestsText2.name.tr} ",
+                      headerBackgroundColor: AppColors.yellow,
+                      backgroundColor: AppColors.floralWhite,
+                      context: context,
+                      confirmBtnText: EnumLocale.sendButtonText.name.tr,
+                      cancelBtnText: EnumLocale.cancel.name.tr,
+                      confirmBtnColor: AppColors.primaryColor,
+                      showCancelBtn: true,
+                      title: EnumLocale.sendRequest.name.tr,
+                      type: QuickAlertType.info,
+                      onCancelBtnTap: () {
+                        print("message requests cancel !");
+                        Get.back();
+                      },
+                      onConfirmBtnTap: () {
+                        print("message requests send !");
+                        context.read<RequestSenderBloc>().add(
+                              RequestSenderSend(
+                                senderId:
+                                    FirebaseAuth.instance.currentUser!.uid,
+                                senderName: currentUserData.pseudo,
+                                senderProfile: currentUserData.imgURL,
+                                receiverId: widget.profileModel.id,
+                                receiverName: widget.profileModel.pseudo,
+                                receiverProfile: widget.profileModel.imgURL,
+                              ),
+                            );
+                        Get.back();
+                      },
+                    );
+                  } else {
+                    print("User Avaible !");
+                    print(data.responseStatus.toString());
+                    if (data.responseStatus.name ==
+                        ResponseStatus.Initial.name) {
+                      QuickAlert.show(
+                        textAlignment: TextAlign.left,
+                        widget: SizedBox.shrink(),
+                        text:
+                            "${widget.profileModel.pseudo} ${EnumLocale.requestInitialMessage.name.tr} ",
+                        headerBackgroundColor: AppColors.yellow,
+                        backgroundColor: AppColors.floralWhite,
+                        context: context,
+                        title: EnumLocale.requestInitial.name.tr,
+                        type: QuickAlertType.info,
+                        onConfirmBtnTap: () {
+                          Get.back();
+                        },
+                      );
+                    } else if (data.responseStatus.name ==
+                        ResponseStatus.Accepted.name) {
+                      Get.to(
+                        () => ChatScreen(
+                          imgURL: widget.profileModel.imgURL,
+                          receiverId: widget.profileModel.id,
+                          receiverName: widget.profileModel.pseudo,
+                        ),
+                      );
+                    }
+                  }
+                },
+                icon: Icon(
+                  CupertinoIcons.chat_bubble,
+                  color: AppColors.floralWhite,
+                  size: 30,
+                ),
+              ),
             ),
           );
         },
@@ -350,7 +395,7 @@ class _StartChatFromMatchState extends State<StartChatFromMatch> {
   }
 }
 
-// ---------pesudo, age and City--------------------------
+// pesudo, age and City
 class UserDetails extends StatelessWidget {
   const UserDetails({super.key, required this.user});
 
@@ -359,37 +404,40 @@ class UserDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 2.w),
-      child: Container(
-        padding: EdgeInsets.all(8.r),
-        decoration: BoxDecoration(
-          color: AppColors.greyContainerColor,
-          borderRadius: BorderRadius.circular(2.r),
+    return Column(
+      spacing: 5.h,
+      children: [
+        Text(
+          "${user.pseudo}, ${user.age}",
+          style: Theme.of(
+            context,
+          )
+              .textTheme
+              .bodyLarge!
+              .copyWith(color: AppColors.white, fontWeight: FontWeight.bold),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Row(
+          spacing: 8.w,
           children: [
-            Text(
-              user.pseudo,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge!.copyWith(color: AppColors.primaryColor),
+            CompabilityScore(
+              id: user.id,
+              iconSize: 25,
+              fontSize: 18,
             ),
-            Text("${user.age}", style: theme.bodyMedium),
             Text(
-              user.city,
-              style: theme.bodyMedium,
+              "(${user.city})",
+              style: theme.bodyMedium!.copyWith(
+                  color: AppColors.white, fontWeight: FontWeight.bold),
               overflow: TextOverflow.ellipsis,
             ),
           ],
         ),
-      ),
+      ],
     );
   }
 }
 
-//-----------------------Interest grid------------------------
+//Interest grid
 class Interests extends StatelessWidget {
   const Interests({super.key, required this.user});
   final ProfileModel user;
@@ -441,7 +489,7 @@ class Interests extends StatelessWidget {
   }
 }
 
-//---------------User description-------------------------
+//User description-
 class Description extends StatelessWidget {
   const Description({super.key, required this.user});
 

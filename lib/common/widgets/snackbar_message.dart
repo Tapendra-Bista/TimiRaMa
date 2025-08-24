@@ -1,8 +1,8 @@
-import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:timirama/common/constant/constant_colors.dart';
 
-//---------------------SnackBar to show message------------------------------------
+//SnackBar to show message
 void snackBarMessage(BuildContext context, String text, ThemeData appTheme) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(

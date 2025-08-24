@@ -1,5 +1,11 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:lottie/lottie.dart';
 import 'package:timirama/common/constant/constant_strings.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/common/widgets/common_button.dart';
@@ -8,16 +14,10 @@ import 'package:timirama/features/create_profile/bloc/create_profile_bloc.dart';
 import 'package:timirama/features/create_profile/bloc/create_profile_event.dart';
 import 'package:timirama/features/create_profile/bloc/create_profile_state.dart';
 import 'package:timirama/services/permissions/permission_handler.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:lottie/lottie.dart';
 
-//------------------------------------Upload Image for screen sent ---------------------------------------
+//Upload Image for screen sent 
 
-// ---------------Submit Button--------------------------------------------
+// Submit Button-
 class SubmitButton extends StatelessWidget {
   SubmitButton({super.key});
   final box = GetStorage();
@@ -44,7 +44,7 @@ class SubmitButton extends StatelessWidget {
   }
 }
 
-//------------Center image logo---------------------
+//Center image logo
 class UploadImageCenterLogo extends StatelessWidget {
   const UploadImageCenterLogo({super.key});
 
@@ -101,7 +101,7 @@ class UploadImageCenterLogo extends StatelessWidget {
   }
 }
 
-//-------------Description text----------------------
+//-Description text-
 class UploadImageDescription extends StatelessWidget {
   const UploadImageDescription({super.key});
 
@@ -115,7 +115,7 @@ class UploadImageDescription extends StatelessWidget {
   }
 }
 
-//-------------Title  text----------------------
+//-Title  text-
 class UploadImageTitle extends StatelessWidget {
   const UploadImageTitle({super.key});
 

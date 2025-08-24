@@ -7,7 +7,7 @@ class FollowRepository extends BaseRepository {
   FollowRepository({FirebaseFirestore? firestore}) {
     this.firestore = firestore ?? FirebaseFirestore.instance;
   }
-  //-------------------------- Add Follow --------------------------
+  // Add Follow
   Future<void> addFollow(String followId) async {
     final followDocRef = firestore
         .collection('users')
@@ -29,7 +29,7 @@ class FollowRepository extends BaseRepository {
     }
   }
 
-  //-------------------------- Remove Follow --------------------------
+  // Remove Follow
   Future<void> removeFollow(String followId) async {
     final followDocRef = firestore
         .collection('users')
@@ -55,7 +55,7 @@ class FollowRepository extends BaseRepository {
     }
   }
 
-  //-------------------------- Fetch Follows --------------------------
+  // Fetch Follows
   Future<FollowModel?> fetchFollows() async {
     debugPrint("currentUserId : $currentUserId");
 

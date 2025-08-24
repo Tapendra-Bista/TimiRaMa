@@ -5,13 +5,12 @@ import 'package:timirama/services/storage/get_storage.dart';
 
 class EmailVerificationRepository extends BaseRepository {
   final AppGetStorage appGetStorage = AppGetStorage();
-  //------------------To control delete , emailverification----------------------------
+  //To control delete , emailverification-
   EmailVerificationRepository({FirebaseAuth? auth}) {
     this.auth = auth ?? FirebaseAuth.instance;
   }
-  //----------------------Sending link for email verification--------------------------
+  //-Sending link for email verification
   Future<void> sendEmailVerificationLink() async {
-
     final currentUser = auth.currentUser;
     try {
       if (!currentUser!.emailVerified) {
@@ -24,7 +23,7 @@ class EmailVerificationRepository extends BaseRepository {
     }
   }
 
-  //--------------checking whether user verified or not email-----------------------
+  //checking whether user verified or not email
   Future<bool> isEmailVerified() async {
     await auth.currentUser!.reload();
     return auth.currentUser!.emailVerified;

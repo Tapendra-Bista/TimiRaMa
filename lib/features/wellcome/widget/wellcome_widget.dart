@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,13 +8,13 @@ import 'package:timirama/common/constant/constant_strings.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/routes/app_routes.dart';
 import 'package:timirama/services/storage/get_storage.dart';
-import 'package:flutter/foundation.dart';
 
-//------------------------Next Button ----------------------------------
+//Next Button
 // pure isolate-safe function
 Future<void> simpleDelay(_) async {
   await Future.delayed(Duration(milliseconds: 1500));
 }
+
 class NextButton extends StatefulWidget {
   NextButton({super.key});
 
@@ -25,8 +26,6 @@ class _NextButtonState extends State<NextButton> {
   final AppGetStorage _appGetStorage = AppGetStorage();
   bool isClicked = false;
 
-
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -35,17 +34,17 @@ class _NextButtonState extends State<NextButton> {
         width: 200.w,
         child: ElevatedButton(
           onPressed: () async {
-           setState(() {
-      isClicked = true;
-    });
+            setState(() {
+              isClicked = true;
+            });
 
-    await compute(simpleDelay, null); // isolate-safe
+            await compute(simpleDelay, null); // isolate-safe
 
-    // This runs on the main isolate (safe)
-    _appGetStorage.setHasOpenedApp();
-    if (context.mounted) {
-      Get.offAllNamed(AppRoutes.login);
-    }
+            // This runs on the main isolate (safe)
+            _appGetStorage.setHasOpenedApp();
+            if (context.mounted) {
+              Get.offAllNamed(AppRoutes.login);
+            }
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.transparent,
@@ -79,7 +78,7 @@ class _NextButtonState extends State<NextButton> {
   }
 }
 
-//--------------------Welcome page description----------------------------
+//Welcome page description-
 class WelcomeDescription extends StatelessWidget {
   const WelcomeDescription({super.key});
 
@@ -93,7 +92,7 @@ class WelcomeDescription extends StatelessWidget {
   }
 }
 
-//-----------------Wellcome Text      and  langugage selector drop down-----------------------------
+//Wellcome Text      and  langugage selector drop down
 class WellcomeTextAndDropDown extends StatelessWidget {
   const WellcomeTextAndDropDown({super.key});
 
@@ -109,7 +108,7 @@ class WellcomeTextAndDropDown extends StatelessWidget {
   }
 }
 
-//-------------------center image logo----------------------------
+//-center image logo-
 
 class CenterImage extends StatefulWidget {
   const CenterImage({super.key});

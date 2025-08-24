@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        //---------------------Bloc  Provider ----------------------------
+        //Bloc  Provider -
         BlocProvider<WellcomeBloc>.value(value: getIt<WellcomeBloc>()),
         BlocProvider<SignupBloc>.value(value: getIt<SignupBloc>()),
 
@@ -72,7 +72,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<HomeBloc>.value(value: getIt<HomeBloc>()),
         BlocProvider<ReportBloc>.value(value: getIt<ReportBloc>()),
         BlocProvider<PreferencesBloc>.value(value: getIt<PreferencesBloc>()),
-        BlocProvider<MatchPreferencesBloc>.value(value: getIt<MatchPreferencesBloc>()),
+        BlocProvider<MatchPreferencesBloc>.value(
+            value: getIt<MatchPreferencesBloc>()),
         BlocProvider<ReelLikeBloc>.value(value: getIt<ReelLikeBloc>()),
         BlocProvider<ReelBloc>.value(value: getIt<ReelBloc>()),
         BlocProvider<AddBloc>.value(value: getIt<AddBloc>()),
@@ -85,7 +86,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<EditProfileBloc>.value(value: getIt<EditProfileBloc>()),
         BlocProvider<SettingBloc>.value(value: getIt<SettingBloc>()),
-           BlocProvider<MatchBloc>.value(value: getIt<MatchBloc>()),
+        BlocProvider<MatchBloc>.value(value: getIt<MatchBloc>()),
       ],
       child: ScreenUtilInit(
         designSize: Size(375, 812), // iPhone X base

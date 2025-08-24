@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'reel_model.freezed.dart';
 part 'reel_model.g.dart';
 
-//------------Reel Model-------------------
+//Reel Model-
 @freezed
 abstract class ReelModel with _$ReelModel {
   const factory ReelModel({

@@ -18,13 +18,13 @@ class HomeScreen extends StatelessWidget {
           previous.runtimeType != current.runtimeType,
       builder: (context, state) {
         return switch (state) {
-          //----------Loading--------------------
+          //-Loading
           Loading() => const CustomCircularIndicator(),
-          //----------------- Get Error--------------------
+          // Get Error
           Error() => const HomeErrorContent(),
-          //---------------Empty Data--------------------------
+          //Empty Data
           HomeDataIsEmpty() => NoData(),
-          //---------------After Data Fetched--------------------
+          //After Data Fetched
           _ => const HomeDataContent(),
         };
       },

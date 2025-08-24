@@ -10,13 +10,13 @@ part 'request_sender_bloc.freezed.dart';
 part 'request_sender_event.dart';
 part 'request_sender_state.dart';
 
-//---------------------- Bloc  -------------------------
+//- Bloc  -
 class RequestSenderBloc extends Bloc<RequestSenderEvent, RequestSenderState> {
   final RequestRepository _requestsRepository;
 
   RequestSenderBloc({required RequestRepository repository})
-    : _requestsRepository = repository,
-      super(RequestSenderState.initial()) {
+      : _requestsRepository = repository,
+        super(RequestSenderState.initial()) {
     on<RequestSenderSend>(_onRequestSenderSend);
 
     on<RequestSenderDelete>(_onRequestSenderDelete);
@@ -25,7 +25,7 @@ class RequestSenderBloc extends Bloc<RequestSenderEvent, RequestSenderState> {
     on<TotalRequestSenderSend>(_onTotalRequestSenderSend);
   }
 
-  //---------------------- requests  send --------------
+  //- requests  send 
   Future<void> _onRequestSenderSend(
     RequestSenderSend event,
     Emitter<RequestSenderState> emit,
@@ -58,7 +58,7 @@ class RequestSenderBloc extends Bloc<RequestSenderEvent, RequestSenderState> {
     }
   }
 
-  //------------------ Delete request -------------------
+  // Delete request -
   Future<void> _onRequestSenderDelete(
     RequestSenderDelete event,
     Emitter<RequestSenderState> emit,
@@ -71,7 +71,7 @@ class RequestSenderBloc extends Bloc<RequestSenderEvent, RequestSenderState> {
     add(TotalRequestSenderSend());
   }
 
-  //------------ check whether available or not---------------------
+  // check whether available or not
   Future<void> _onCheckingUserAvailableEvent(
     CheckingUserAvailableEvent event,
     Emitter<RequestSenderState> emit,
@@ -94,8 +94,8 @@ class RequestSenderBloc extends Bloc<RequestSenderEvent, RequestSenderState> {
     Emitter<RequestSenderState> emit,
   ) async {
     try {
-      final List<Requestmodel> getSendRequests = await _requestsRepository
-          .sendRequestsList();
+      final List<Requestmodel> getSendRequests =
+          await _requestsRepository.sendRequestsList();
       if (getSendRequests.isEmpty) {
         emit(RequestSenderState.noRequestsYet());
       } else {

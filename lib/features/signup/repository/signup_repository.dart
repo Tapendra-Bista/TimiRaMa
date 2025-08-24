@@ -6,7 +6,7 @@ import 'package:timirama/features/signup/models/signup_model.dart';
 import 'package:timirama/services/base_repository.dart';
 import 'package:timirama/services/storage/get_storage.dart';
 
-///------------------ Repository for handling sign-up logic------------------
+/// Repository for handling sign-up logic
 class SignupRepository extends BaseRepository {
   final AppGetStorage appGetStorage = AppGetStorage();
 
@@ -16,7 +16,7 @@ class SignupRepository extends BaseRepository {
     auth = firebaseAuth ?? FirebaseAuth.instance;
   }
 
-  ///-------------------- Sign up a user with email and password----------------------------
+  /// Sign up a user with email and password-
   Future<UserCredential?> signupWithEmail(SignUpModel signupModel) async {
     try {
       final UserCredential credential =

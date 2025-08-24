@@ -10,7 +10,7 @@ import 'package:timirama/common/widgets/common_textfield.dart';
 import 'package:timirama/features/report/bloc/report_bloc.dart';
 import 'package:timirama/services/service_locator/service_locator.dart';
 
-//-----------Confirm information--------------------
+//Confirm information
 class ConfirmInformation extends StatelessWidget {
   const ConfirmInformation({super.key});
 
@@ -34,9 +34,9 @@ class ConfirmInformation extends StatelessWidget {
               TextSpan(
                 text: '* ',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: AppColors.red,
-                  fontSize: 14.sp,
-                ),
+                      color: AppColors.red,
+                      fontSize: 14.sp,
+                    ),
                 children: [
                   TextSpan(
                     text: EnumLocale.sendReportTitle.name.tr,
@@ -59,7 +59,7 @@ class ConfirmInformation extends StatelessWidget {
             builder: (context, agree) {
               return Switch(
                 activeTrackColor: AppColors.primaryColor,
-                activeColor: AppColors.white,
+                activeThumbColor: AppColors.white,
                 value: agree,
                 onChanged: (value) =>
                     getIt<ReportBloc>().add(AgreeCondition(agree: value)),
@@ -72,7 +72,7 @@ class ConfirmInformation extends StatelessWidget {
   }
 }
 
-//---------------- Send Button-----------
+//- Send Button
 class SendReportButton extends StatelessWidget {
   const SendReportButton({super.key});
 
@@ -111,7 +111,7 @@ class SendReportButton extends StatelessWidget {
   }
 }
 
-//-----------Contant---------------
+//Contant
 class BottomSheetContant extends StatelessWidget {
   const BottomSheetContant({super.key});
 
@@ -186,7 +186,7 @@ class BottomSheetContant extends StatelessWidget {
   }
 }
 
-//----------Title text-----------
+//-Title text
 class SendReportTitle extends StatelessWidget {
   const SendReportTitle({super.key});
 
@@ -195,14 +195,14 @@ class SendReportTitle extends StatelessWidget {
     return Text(
       EnumLocale.sendReportTitle.name.tr,
       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-        fontSize: 20.sp,
-        fontWeight: FontWeight.bold,
-      ),
+            fontSize: 20.sp,
+            fontWeight: FontWeight.bold,
+          ),
     );
   }
 }
 
-//------------Reporter Name---------------
+//Reporter Name
 class ReporterName extends StatefulWidget {
   const ReporterName({super.key});
 
@@ -231,7 +231,7 @@ class _ReporterNameState extends State<ReporterName> {
   }
 }
 
-//---------------Reporter Email--------------------
+//Reporter Email
 class ReporterEmail extends StatefulWidget {
   const ReporterEmail({super.key});
 

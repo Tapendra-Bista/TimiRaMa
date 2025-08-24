@@ -1,4 +1,4 @@
-// ---------------  All The NAME   Constant   String -----------
+//   All The NAME   Constant   String
 
 enum EnumLocale {
   appName,
@@ -192,7 +192,7 @@ enum EnumLocale {
   violationOfGuidenlines,
   unLawfulContent,
 
-  //---guideline violation------------
+  //guideline violation
   violationOfGuidenlinesTitle,
   underAge,
   depictionOfViolation,
@@ -204,7 +204,7 @@ enum EnumLocale {
   drugs,
   someoneIsInDanger,
 
-  //--------illegel content---------------
+  //illegel content
   illegalContentTitle,
   invasionOfPrivacy,
   attemptedFraud,
@@ -215,7 +215,7 @@ enum EnumLocale {
   racismOrTerrorism,
   blackmail,
   deprivationOfLiberty,
-  //------send report ----------
+  //send report -
   sendReportTitle,
   emailConfirmation,
   sendReport,

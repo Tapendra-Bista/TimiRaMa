@@ -1,3 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/common/utils/validators.dart';
@@ -6,12 +12,6 @@ import 'package:timirama/common/widgets/loading.dart';
 import 'package:timirama/common/widgets/snackbar_message.dart';
 import 'package:timirama/features/add/bloc/add_bloc.dart';
 import 'package:timirama/routes/app_routes.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:video_trimmer/video_trimmer.dart';
 
 class ReelDetailsCreate extends StatefulWidget {
@@ -27,7 +27,7 @@ class ReelDetailsCreate extends StatefulWidget {
   State<ReelDetailsCreate> createState() => _ReelDetailsCreateState();
 }
 
-//-------------------Reel post screen-------------------------
+//-Reel post screen-
 class _ReelDetailsCreateState extends State<ReelDetailsCreate> {
   final reelsDescriptionController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

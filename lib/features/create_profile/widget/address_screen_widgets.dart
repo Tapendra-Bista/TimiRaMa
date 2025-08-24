@@ -16,9 +16,9 @@ import 'package:timirama/services/location/location.dart';
 import 'package:timirama/services/permissions/permission_handler.dart';
 import 'package:timirama/services/storage/get_storage.dart';
 
-//--------------- Address page components------------------------------
+// Address page components
 
-//--------------------Next Button------------------------
+//Next Button
 class AddressNextButton extends StatelessWidget {
   AddressNextButton({super.key});
 
@@ -55,7 +55,7 @@ class AddressNextButton extends StatelessWidget {
   }
 }
 
-//----------------Text Regarding Address description--------------------------
+//-Text Regarding Address description
 class AddressDescription extends StatelessWidget {
   const AddressDescription({super.key});
 
@@ -66,7 +66,7 @@ class AddressDescription extends StatelessWidget {
   }
 }
 
-//----------------Text Regarding Address Title--------------------------
+//-Text Regarding Address Title
 class AddressTitle extends StatelessWidget {
   const AddressTitle({super.key});
 
@@ -77,7 +77,7 @@ class AddressTitle extends StatelessWidget {
   }
 }
 
-//-------------------User Location----------------------------
+//-User Location-
 class Location extends StatelessWidget {
   const Location({super.key});
 
@@ -109,7 +109,7 @@ class Location extends StatelessWidget {
   }
 }
 
-//------------------City name----------------------
+//City name-
 class City extends StatelessWidget {
   const City({super.key, required Future<List<Placemark>?>? locationFuture})
       : _locationFuture = locationFuture;
@@ -153,7 +153,7 @@ class City extends StatelessWidget {
   }
 }
 
-//------------Country Name-----------------
+//Country Name
 class Country extends StatelessWidget {
   const Country({super.key, required Future<List<Placemark>?>? locationFuture})
       : _locationFuture = locationFuture;
@@ -204,7 +204,7 @@ class Country extends StatelessWidget {
   }
 }
 
-//--------------City  Text-----------------
+//City  Text
 class CityText extends StatelessWidget {
   const CityText({super.key});
 
@@ -218,7 +218,7 @@ class CityText extends StatelessWidget {
   }
 }
 
-//-------------------Country     Text----------------------
+//-Country     Text-
 class CountryText extends StatelessWidget {
   const CountryText({super.key});
 

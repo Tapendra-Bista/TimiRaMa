@@ -8,7 +8,7 @@ import 'package:timirama/features/profile/bloc/profile_bloc.dart';
 import 'package:timirama/features/profile/widget/profile_widget.dart';
 import 'package:timirama/routes/app_routes.dart';
 
-//---------Widget to show for error state--------------------------
+//Widget to show for error state
 class ProfileErrorContent extends StatelessWidget {
   const ProfileErrorContent({super.key});
 

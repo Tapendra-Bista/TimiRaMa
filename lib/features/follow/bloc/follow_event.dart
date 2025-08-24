@@ -7,7 +7,7 @@ sealed class FollowEvent extends Equatable {
   List<Object> get props => [];
 }
 
-//-----------------------------Fav Event-----------------------------
+//Fav Event
 final class FollowUserAdded extends FollowEvent {
   final String followId;
   FollowUserAdded({required this.followId});

@@ -9,7 +9,7 @@ import 'package:timirama/features/archive/screen/error_screen.dart';
 
 class ArchiveScreen extends StatelessWidget {
   const ArchiveScreen({super.key});
-  //-----------------------------archive Screeen----------------------------------------
+  //archive Screeen
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ArchiveBloc, ArchiveState>(
@@ -17,13 +17,13 @@ class ArchiveScreen extends StatelessWidget {
           previous.runtimeType != current.runtimeType,
       builder: (context, state) {
         return switch (state) {
-          //-----------initial loading---------------------------
+          //initial loading
           ArchiveUsersLoading() => const CustomCircularIndicator(),
-          //------------------Error Screening -----------------------------
+          //Error Screening 
           ArchiveUsersError() => const ErrorScreen(),
-          //------------empty---------------
+          //empty
           ArchiveDataEmpty() => const NoData(),
-          //-------------Data Fetch screen -------------------
+          //-Data Fetch screen -
           _ => const FetchedScreen(),
         };
       },

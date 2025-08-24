@@ -7,7 +7,7 @@ class FavoriteRepository extends BaseRepository {
   FavoriteRepository({FirebaseFirestore? firestore}) {
     this.firestore = firestore ?? FirebaseFirestore.instance;
   }
-  //-------------------------- Add Favorite --------------------------
+  // Add Favorite
   Future<void> addFavorite(String favId) async {
     final favouriteDocRef = firestore
         .collection('users')
@@ -29,7 +29,7 @@ class FavoriteRepository extends BaseRepository {
     }
   }
 
-  //-------------------------- Remove Favorite --------------------------
+  // Remove Favorite
   Future<void> removeFavorite(String favId) async {
     final favouriteDocRef = firestore
         .collection('users')
@@ -56,7 +56,7 @@ class FavoriteRepository extends BaseRepository {
     }
   }
 
-  //-------------------------- Fetch Favorites --------------------------
+  // Fetch Favorites
   Future<FavoriteModel?> fetchFavorites() async {
     debugPrint("currentUserId : $currentUserId");
 

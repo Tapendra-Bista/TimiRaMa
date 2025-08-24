@@ -8,7 +8,7 @@ import 'package:timirama/services/status/bloc/status_bloc.dart';
 import 'package:timirama/services/status/bloc/status_state.dart';
 import 'package:timirama/services/status/model/status_model.dart';
 
-//----------- User state online or offline----------------
+// User state online or offline-
 class UserState extends StatelessWidget {
   const UserState({super.key});
 

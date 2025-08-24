@@ -1,4 +1,4 @@
-//------------ main part of data fetched state-----------------
+// main part of data fetched state
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,9 +24,9 @@ class HomeDataContent extends StatelessWidget {
         },
         child: CustomScrollView(
           slivers: [
-            //-------------------app bar-------------------
+            //-app bar-
             const HomePlatformAppBar(),
-            //-------------------Stories-------------------
+            //-Stories-
             const StoriesScreen(),
             const UserImageGrid(),
           ],

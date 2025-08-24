@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 
-//------------------Empty Data widget---------------------
+//Empty Data widget
 
 class NoData extends StatelessWidget {
   const NoData({super.key});

@@ -8,7 +8,7 @@ abstract class PreferencesEvent with _$PreferencesEvent {
     @Default('') String women,
     @Default(false) bool isWomenClicked,
   }) = GenderPreferencesRequested;
-//---------------Event---------------------
+//Event
   const factory PreferencesEvent.agePreferencesRequested(
       double start, double end) = AgePreferencesRequested;
   const factory PreferencesEvent.locationPreferencesRequested({

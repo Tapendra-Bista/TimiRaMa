@@ -8,7 +8,7 @@ abstract class MatchPreferencesEvent with _$MatchPreferencesEvent {
     @Default('') String women,
     @Default(false) bool isWomenClicked,
   }) = GenderMatchPreferencesRequested;
-  //---------------Event---------------------
+  //Event
   const factory MatchPreferencesEvent.ageMatchPreferencesRequested(
     double start,
     double end,

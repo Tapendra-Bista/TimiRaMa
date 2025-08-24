@@ -7,7 +7,7 @@ part 'forgot_password_bloc.freezed.dart';
 part 'forgot_password_event.dart';
 part 'forgot_password_state.dart';
 
-//----------------------Bloc for forgot password screen-----------------------------------
+//-Bloc for forgot password screen-
 class ForgotPasswordBloc
     extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {
   // Make repository private
@@ -15,13 +15,13 @@ class ForgotPasswordBloc
   // Make model private
   ForgotPasswordModel _model = ForgotPasswordModel(email: "");
   ForgotPasswordBloc({required ForgotPasswordRepository repo})
-    : _repository = repo,
-      super(ForgotPasswordInitial()) {
-    //-------------------------User email ------------------------
+      : _repository = repo,
+        super(ForgotPasswordInitial()) {
+    //-User email
     on<UserEmail>((event, emit) {
       _model = _model.copyWith(email: event.userEmail);
     });
-    // --------------------------Button clicked than this run----------------------------
+    // Button clicked than this run-
     on<SendButtonClicked>((event, emit) async {
       try {
         await _repository.sendEmailToRestPassword(_model);

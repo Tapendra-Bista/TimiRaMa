@@ -7,7 +7,7 @@ sealed class ReelLikeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-//-----------------------------reelLike Event-----------------------------
+//reelLike Event
 final class ReelLikeUserAdded extends ReelLikeEvent {
   final String reelLikeId;
   ReelLikeUserAdded({required this.reelLikeId});

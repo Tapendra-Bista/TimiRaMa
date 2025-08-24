@@ -13,7 +13,7 @@ import 'package:timirama/features/edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:timirama/features/profile/bloc/profile_bloc.dart';
 import 'package:timirama/services/service_locator/service_locator.dart';
 
-//---------------To change profile picture
+//To change profile picture
 class ReplacePP extends StatelessWidget {
   const ReplacePP({super.key});
 
@@ -46,8 +46,8 @@ class ReplacePP extends StatelessWidget {
                         print("Camera is Selected");
 
                         context.read<EditProfileBloc>().add(
-                          ReplaceImage(imageSource: ImageSource.camera),
-                        );
+                              ReplaceImage(imageSource: ImageSource.camera),
+                            );
                         Get.back();
                       },
                       leading: Icon(
@@ -64,8 +64,8 @@ class ReplacePP extends StatelessWidget {
                       onTap: () {
                         print("Gallery  is Selected");
                         context.read<EditProfileBloc>().add(
-                          ReplaceImage(imageSource: ImageSource.gallery),
-                        );
+                              ReplaceImage(imageSource: ImageSource.gallery),
+                            );
                         Get.back();
                       },
                       leading: Icon(

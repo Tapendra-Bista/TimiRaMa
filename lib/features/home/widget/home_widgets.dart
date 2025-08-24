@@ -1,4 +1,4 @@
-//----------------PlatformAppBar -----------------------
+//-PlatformAppBar 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -8,7 +8,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:timirama/features/profile/bloc/profile_bloc.dart';
 import 'package:timirama/routes/app_routes.dart';
 
-//-------------------App Bar-------------------------------
+//-App Bar
 class HomePlatformAppBar extends StatelessWidget {
   const HomePlatformAppBar({super.key});
 

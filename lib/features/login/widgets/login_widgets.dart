@@ -16,7 +16,7 @@ import 'package:timirama/features/login/bloc/login_state.dart';
 import 'package:timirama/routes/app_routes.dart';
 import 'package:timirama/services/storage/get_storage.dart';
 
-/// ---------------- Signup text ----------------
+/// - Signup text -
 class LoginText extends StatelessWidget {
   const LoginText({super.key});
 
@@ -27,7 +27,7 @@ class LoginText extends StatelessWidget {
   }
 }
 
-/// ------------------ TextField for email -------------------
+///  TextField for email -
 class LoginEmailInput extends StatefulWidget {
   const LoginEmailInput({super.key});
 
@@ -58,7 +58,7 @@ class _LoginEmailInputState extends State<LoginEmailInput> {
   }
 }
 
-/// ------------------ TextField for password -------------------
+///  TextField for password -
 class LoginPasswordInput extends StatefulWidget {
   const LoginPasswordInput({super.key});
 
@@ -85,8 +85,8 @@ class _LoginPasswordInputState extends State<LoginPasswordInput> {
           validator: AppValidator.validateLoginPassword,
           obscureText: state.isLoginPasswordVisible,
           onChanged: (value) => context.read<LoginBloc>().add(
-            LoginPasswordChanged(password: value.trim()),
-          ),
+                LoginPasswordChanged(password: value.trim()),
+              ),
           suffixIcon: PlatformIconButton(
             onPressed: () =>
                 context.read<LoginBloc>().add(LoginPasswordVisibility()),
@@ -103,7 +103,7 @@ class _LoginPasswordInputState extends State<LoginPasswordInput> {
   }
 }
 
-/// ----------------------- Login button ----------------------
+///  Login button -
 class LoginButton extends StatelessWidget {
   LoginButton({super.key, required this.formKey});
   final GlobalKey<FormState> formKey;
@@ -119,11 +119,11 @@ class LoginButton extends StatelessWidget {
           onPressed: () {
             if (formKey.currentState!.validate()) {
               context.read<LoginBloc>().add(
-                LoginSubmit(
-                  city: _appGetStorage.getCity(),
-                  country: _appGetStorage.getCountry(),
-                ),
-              );
+                    LoginSubmit(
+                      city: _appGetStorage.getCity(),
+                      country: _appGetStorage.getCountry(),
+                    ),
+                  );
             }
           },
           style: ElevatedButton.styleFrom(
@@ -157,7 +157,7 @@ class LoginButton extends StatelessWidget {
   }
 }
 
-//------------------if user doesnot have account------------------
+//if user doesnot have account
 
 class DonotHaveAccount extends StatelessWidget {
   const DonotHaveAccount({super.key});
@@ -187,7 +187,7 @@ class DonotHaveAccount extends StatelessWidget {
   }
 }
 
-//----------------------------Button for google login-----------------------------
+//-Button for google login
 
 class GoogleSignInButton extends StatelessWidget {
   GoogleSignInButton({super.key});
@@ -201,11 +201,11 @@ class GoogleSignInButton extends StatelessWidget {
         child: ElevatedButton(
           // Using ElevatedButton for better default styling
           onPressed: () => context.read<LoginBloc>().add(
-            GoogleSignInButtonClicked(
-              city: _appGetStorage.getCity(),
-              country: _appGetStorage.getCountry(),
-            ),
-          ),
+                GoogleSignInButtonClicked(
+                  city: _appGetStorage.getCity(),
+                  country: _appGetStorage.getCountry(),
+                ),
+              ),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.transparent,
             padding: EdgeInsets.zero,
@@ -232,7 +232,7 @@ class GoogleSignInButton extends StatelessWidget {
   }
 }
 
-//-------------------Login Button and Google Signin Button-----------------------------
+//-Login Button and Google Signin Button
 class LoginAndGoogleSigninButton extends StatelessWidget {
   const LoginAndGoogleSigninButton({super.key, required this.formKey});
   final GlobalKey<FormState> formKey;
@@ -249,7 +249,7 @@ class LoginAndGoogleSigninButton extends StatelessWidget {
   }
 }
 
-//------------------Forgot password-----------------------
+//Forgot password
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({super.key});
 

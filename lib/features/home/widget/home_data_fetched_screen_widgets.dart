@@ -1,4 +1,4 @@
-//------------ main part of data fetched state-----------------
+// main part of data fetched state
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +15,7 @@ import 'package:timirama/features/preferences/bloc/preferences_bloc.dart';
 import 'package:timirama/features/profile/model/profile_model.dart';
 import 'package:timirama/features/user_details/screen/user_details_screen.dart';
 
-//-----------------------Prifle picture grid----------------------------
+//Prifle picture grid-
 class UserImageGrid extends StatelessWidget {
   const UserImageGrid({super.key});
 

@@ -8,7 +8,7 @@ class LikeRepository extends BaseRepository {
     this.firestore = firestore ?? FirebaseFirestore.instance;
   }
 
-  //--------------------------adding like--------------------------
+  //adding like
   Future<void> addLike(String likeId) async {
     final userDocId = currentUserId;
 
@@ -32,7 +32,7 @@ class LikeRepository extends BaseRepository {
     }
   }
 
-  //-----------------removing like--------------------------
+  //removing like
   Future<void> removeLike(String likeId) async {
     final userDocId = currentUserId;
 
@@ -61,7 +61,7 @@ class LikeRepository extends BaseRepository {
     }
   }
 
-  //-----------------fetching likes--------------------------
+  //fetching likes
   Future<LikeModel?> fetchLikes() async {
     debugPrint("currentUserId : $currentUserId");
 

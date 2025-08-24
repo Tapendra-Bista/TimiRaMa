@@ -4,7 +4,7 @@ import 'package:timirama/common/localization/enums/enums.dart';
 
 class NoReelAvailable extends StatelessWidget {
   const NoReelAvailable({super.key});
-  //--------- no reel available------------
+  // no reel available
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;

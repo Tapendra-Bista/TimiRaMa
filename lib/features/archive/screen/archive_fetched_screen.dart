@@ -13,7 +13,7 @@ import 'package:timirama/features/profile/model/profile_model.dart';
 
 class FetchedScreen extends StatelessWidget {
   const FetchedScreen({super.key});
-  //------------------------Fetch Screen---------------------------
+  //Fetch Screen
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;

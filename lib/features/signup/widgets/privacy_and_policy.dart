@@ -5,7 +5,7 @@ import 'package:get/get_utils/src/extensions/export.dart';
 import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 
-//---------------------------privacy and policy regarding app--------------------------------------------
+//privacy and policy regarding app-
 class PrivacyAndPolicy extends StatelessWidget {
   const PrivacyAndPolicy({super.key});
   @override

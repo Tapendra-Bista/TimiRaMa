@@ -1,9 +1,6 @@
 part of 'match_preferences_bloc.dart';
 
-//-------------------State---------------
-
-
-
+//-State
 
 @freezed
 abstract class MatchPreferencesState with _$MatchPreferencesState {

@@ -15,7 +15,7 @@ import 'package:timirama/features/stories/bloc/stories_bloc.dart';
 import 'package:timirama/features/stories/model/stories_model.dart';
 import 'package:timirama/features/stories/screen/view_stories.dart';
 
-//---------------------Other user Stories--------------------------------
+//Other user Stories-
 class OtherUserStories extends StatelessWidget {
   const OtherUserStories({super.key, required this.data});
 
@@ -54,7 +54,7 @@ class OtherUserStories extends StatelessWidget {
   }
 }
 
-//---------------------Current user Stories--------------------------------
+//Current user Stories-
 class OwnStories extends StatelessWidget {
   const OwnStories({super.key});
 
@@ -89,8 +89,7 @@ class OwnStories extends StatelessWidget {
                       color: AppColors.floralWhite,
                       shape: BoxShape.circle,
                     ),
-                    image:
-                        Uri.tryParse(profileData.imgURL)!.hasAbsolutePath ==
+                    image: Uri.tryParse(profileData.imgURL)!.hasAbsolutePath ==
                             true
                         ? CachedNetworkImageProvider(profileData.imgURL)
                         : null,
@@ -106,9 +105,9 @@ class OwnStories extends StatelessWidget {
                             padding: EdgeInsets.zero,
                             material: (context, platform) =>
                                 MaterialIconButtonData(
-                                  constraints: const BoxConstraints(),
-                                  iconSize: 25.r,
-                                ),
+                              constraints: const BoxConstraints(),
+                              iconSize: 25.r,
+                            ),
                             onPressed: () => showPlatformModalSheet(
                               material: MaterialModalSheetData(
                                 backgroundColor: AppColors.transparent,
@@ -129,12 +128,12 @@ class OwnStories extends StatelessWidget {
                                         onTap: () {
                                           print("Camera is Selected");
                                           context.read<StoriesBloc>().add(
-                                            StoriesImage(
-                                              source: ImageSource.camera,
-                                              name: profileData.pseudo,
-                                              img: profileData.imgURL,
-                                            ),
-                                          );
+                                                StoriesImage(
+                                                  source: ImageSource.camera,
+                                                  name: profileData.pseudo,
+                                                  img: profileData.imgURL,
+                                                ),
+                                              );
                                           Get.back();
                                         },
                                         leading: Icon(
@@ -151,12 +150,12 @@ class OwnStories extends StatelessWidget {
                                         onTap: () {
                                           print("Gallery  is Selected");
                                           context.read<StoriesBloc>().add(
-                                            StoriesImage(
-                                              source: ImageSource.gallery,
-                                              name: profileData.pseudo,
-                                              img: profileData.imgURL,
-                                            ),
-                                          );
+                                                StoriesImage(
+                                                  source: ImageSource.gallery,
+                                                  name: profileData.pseudo,
+                                                  img: profileData.imgURL,
+                                                ),
+                                              );
                                           Get.back();
                                         },
                                         leading: Icon(
@@ -173,7 +172,6 @@ class OwnStories extends StatelessWidget {
                                 ),
                               ),
                             ),
-
                             icon: Container(
                               decoration: const BoxDecoration(
                                 color: AppColors.primaryColor,

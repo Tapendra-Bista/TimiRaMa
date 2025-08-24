@@ -1,20 +1,20 @@
 import 'dart:async';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timirama/features/block/bloc/block_event.dart';
 import 'package:timirama/features/block/bloc/block_state.dart';
 import 'package:timirama/features/block/model/block_model.dart';
 import 'package:timirama/features/block/repository/block_repository.dart';
 import 'package:timirama/features/home/repository/home_repository.dart';
 import 'package:timirama/features/profile/model/profile_model.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-//------------------------Block Bloc--------------------------
+//Block Bloc
 class BlockBloc extends Bloc<BlockEvent, BlockState> {
   final BlockRepository _blockRepository;
   final HomeRepository _homeRepository = HomeRepository();
   BlockBloc({required BlockRepository repository})
-    : _blockRepository = repository,
-      super(BlockInitial()) {
+      : _blockRepository = repository,
+        super(BlockInitial()) {
     on<BlockUserAdded>(_onblockUserAdded);
 
     on<BlockUserRemoved>(_onblockUserRemoved);
@@ -22,7 +22,7 @@ class BlockBloc extends Bloc<BlockEvent, BlockState> {
     on<BlockUsersFetched>(_onblockUsersFetched);
   }
 
-  //-------------------------Fetching data----------------------------
+  //-Fetching data-
   FutureOr<void> _onblockUsersFetched(
     BlockUsersFetched event,
     Emitter<BlockState> emit,
@@ -30,8 +30,8 @@ class BlockBloc extends Bloc<BlockEvent, BlockState> {
     emit(BlockUsersLoading());
     try {
       final BlockModel? data = await _blockRepository.fetchBlocks();
-      final List<ProfileModel> homeModelData = await _homeRepository
-          .fetchAllExceptCurrentUser();
+      final List<ProfileModel> homeModelData =
+          await _homeRepository.fetchAllExceptCurrentUser();
 
       if (data != null) {
         final List<ProfileModel> blockUserData = homeModelData
@@ -46,7 +46,7 @@ class BlockBloc extends Bloc<BlockEvent, BlockState> {
     }
   }
 
-  //-----------------------------Removing user from fav list-------------------------------------------
+  //Removing user from fav list
   FutureOr<void> _onblockUserRemoved(
     BlockUserRemoved event,
     Emitter<BlockState> emit,
@@ -56,7 +56,7 @@ class BlockBloc extends Bloc<BlockEvent, BlockState> {
     add(BlockUsersFetched());
   }
 
-  //-------------------------------------Adding to fav list----------------------------------
+  //Adding to fav list
   FutureOr<void> _onblockUserAdded(
     BlockUserAdded event,
     Emitter<BlockState> emit,

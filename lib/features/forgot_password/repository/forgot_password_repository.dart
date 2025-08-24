@@ -3,7 +3,7 @@ import 'package:timirama/features/forgot_password/model/forgot_password_model.da
 import 'package:timirama/services/base_repository.dart';
 import 'package:timirama/services/storage/get_storage.dart';
 
-//--------------------------- Repository for FP screen------------------------------
+// Repository for FP screen
 class ForgotPasswordRepository extends BaseRepository {
   final AppGetStorage appGetStorage = AppGetStorage();
 
@@ -11,7 +11,6 @@ class ForgotPasswordRepository extends BaseRepository {
 
   Future sendEmailToRestPassword(ForgotPasswordModel model) async {
     try {
- 
       await auth.sendPasswordResetEmail(email: model.email);
     } catch (e) {
       rethrow;

@@ -9,7 +9,7 @@ import 'package:timirama/common/constant/constant_strings.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/features/report/bloc/report_bloc.dart';
 
-//---------------- Illegal contant----------------
+//- Illegal contant-
 class IllegalContant extends StatelessWidget {
   const IllegalContant({super.key});
 
@@ -48,9 +48,9 @@ class IllegalContant extends StatelessWidget {
                 return Text(
                   illegal ?? EnumLocale.unLawfulContent.name.tr,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: AppColors.black,
-                    fontSize: 14.sp,
-                  ),
+                        color: AppColors.black,
+                        fontSize: 14.sp,
+                      ),
                   overflow: TextOverflow.ellipsis,
                 );
               },
@@ -101,8 +101,9 @@ class BottomSheetContant extends StatelessWidget {
           itemBuilder: (context, index) => InkWell(
             onTap: () {
               context.read<ReportBloc>().add(
-                IllegalChoosen(illegal: AppStrings.illegalContentList[index]),
-              );
+                    IllegalChoosen(
+                        illegal: AppStrings.illegalContentList[index]),
+                  );
               print("Printed ${AppStrings.illegalContentList[index]}");
               Get.back();
             },

@@ -116,7 +116,7 @@ Win32Window::Win32Window() {
 }
 
 Win32Window::~Win32Window() {
-  --g_active_window_count;
+  g_active_window_count;
   Destroy();
 }
 

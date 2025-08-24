@@ -1,3 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/common/widgets/snackbar_message.dart';
@@ -10,16 +18,8 @@ import 'package:timirama/features/chat/repository/chat_repository.dart';
 import 'package:timirama/features/home/bloc/home_bloc.dart';
 import 'package:timirama/features/home/bloc/home_event.dart';
 import 'package:timirama/services/service_locator/service_locator.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:get/get.dart';
-import 'package:hugeicons/hugeicons.dart';
 
-// -----------Chat List Title -----------------------
+// Chat List Title 
 class ChatListTile extends StatelessWidget {
   final ChatRoomModel chat;
   final String currentUserId;
@@ -68,8 +68,7 @@ class ChatListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    final isValideUrl =
-        _getOtherUserimage().isNotEmpty &&
+    final isValideUrl = _getOtherUserimage().isNotEmpty &&
         Uri.tryParse(_getOtherUserimage())!.hasAbsolutePath == true;
     return Slidable(
       dragStartBehavior: DragStartBehavior.start,
@@ -83,8 +82,8 @@ class ChatListTile extends StatelessWidget {
             icon: HugeIcons.strokeRoundedUserBlock01,
             onPressed: (context) async {
               context.read<BlockBloc>().add(
-                BlockUserAdded(blockId: _getUserID()),
-              );
+                    BlockUserAdded(blockId: _getUserID()),
+                  );
 
               context.read<HomeBloc>().add(HomeUsersProfileList());
               snackBarMessage(
@@ -102,11 +101,11 @@ class ChatListTile extends StatelessWidget {
             icon: HugeIcons.strokeRoundedDelete01,
             onPressed: (contex) {
               context.read<ChatBloc>().add(
-                DeleteChatRoom(
-                  currentUserId: currentUserId,
-                  otherUserId: otherUserId,
-                ),
-              );
+                    DeleteChatRoom(
+                      currentUserId: currentUserId,
+                      otherUserId: otherUserId,
+                    ),
+                  );
             },
           ),
         ],
@@ -141,9 +140,9 @@ class ChatListTile extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: AppColors.grey,
-                  fontSize: 14.sp,
-                ),
+                      color: AppColors.grey,
+                      fontSize: 14.sp,
+                    ),
               ),
             ),
           ],

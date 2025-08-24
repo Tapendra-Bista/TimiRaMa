@@ -1,9 +1,9 @@
-import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:timirama/common/constant/constant_colors.dart';
 
-//------------------------ AlertDialog box with loading for login and signup-----------------------
+// AlertDialog box with loading for login and signup
 void customLoading(BuildContext context) {
   showDialog(
     context: context,
@@ -22,7 +22,6 @@ void customLoading(BuildContext context) {
               ),
             ),
           ),
-
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.r),
           ),

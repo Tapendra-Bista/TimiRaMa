@@ -29,16 +29,16 @@ class SendReportScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 30.h,
               children: [
-                //----------Title text-----------
+                //-Title text
                 const SendReportTitle(),
-                //------------Reporter Name---------------
+                //Reporter Name
                 const ReporterName(),
-                //---------------Reporter Email--------------------
+                //Reporter Email
                 const ReporterEmail(),
                 SizedBox(height: 20.h),
-                //-----------Confirm information--------------------
+                //Confirm information
                 const ConfirmInformation(),
-                //---------------- Send Button-----------
+                //- Send Button
                 const SendReportButton(),
               ],
             ),

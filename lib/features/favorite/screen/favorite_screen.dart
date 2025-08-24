@@ -9,7 +9,7 @@ import 'package:timirama/features/favorite/screen/favorite_fetched_screen.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
-  //-----------------------------Fav Screeen----------------------------------------
+  //Fav Screeen
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FavoriteBloc, FavoriteState>(
@@ -17,13 +17,13 @@ class FavoriteScreen extends StatelessWidget {
           previous.runtimeType != current.runtimeType,
       builder: (context, state) {
         return switch (state) {
-          //-----------initial loading---------------------------
+          //initial loading
           FavoriteUsersLoading() => const CustomCircularIndicator(),
-          //------------------Error Screening -----------------------------
+          //Error Screening 
           FavoriteUsersError() => const ErrorScreen(),
-          //------------empty---------------
+          //empty
           FavoriteDataEmpty() => const NoData(),
-          //-------------Data Fetch screen -------------------
+          //-Data Fetch screen -
           _ => const FetchedScreen(),
         };
       },

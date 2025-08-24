@@ -1,4 +1,4 @@
-//------------------------------State-------------------------------------
+//State
 import 'package:equatable/equatable.dart';
 
 class EmailVerificationState extends Equatable {
@@ -31,5 +31,5 @@ final class EmailVerifiedError extends EmailVerificationState {
 
 final class AccountDelete extends EmailVerificationState {
   AccountDelete.fromState(EmailVerificationState state)
-    : super(isVerified: state.isVerified);
+      : super(isVerified: state.isVerified);
 }

@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:timirama/services/status/bloc/status_bloc.dart';
 import 'package:timirama/services/status/bloc/status_event.dart';
 import 'package:timirama/services/status/bloc/status_state.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UserStatus extends StatefulWidget {
   const UserStatus({
@@ -20,7 +20,7 @@ class UserStatus extends StatefulWidget {
   State<UserStatus> createState() => _UserStatusState();
 }
 
-//---------------To check user is online or offline
+//To check user is online or offline
 class _UserStatusState extends State<UserStatus> {
   @override
   void initState() {

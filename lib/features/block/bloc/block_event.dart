@@ -7,7 +7,7 @@ sealed class BlockEvent extends Equatable {
   List<Object> get props => [];
 }
 
-//-----------------------------Fav Event-----------------------------
+//Fav Event
 final class BlockUserAdded extends BlockEvent {
   final String blockId;
   BlockUserAdded({required this.blockId});

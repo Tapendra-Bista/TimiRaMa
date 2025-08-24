@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 
-//---------------For list of requests Sends-----------------
+//For list of requests Sends
 class Tab2 extends StatelessWidget {
   const Tab2({super.key});
 
@@ -17,7 +17,7 @@ class Tab2 extends StatelessWidget {
   }
 }
 
-//---------------For list of requests Receiver-----------------
+//For list of requests Receiver
 class Tab1 extends StatelessWidget {
   const Tab1({super.key});
 

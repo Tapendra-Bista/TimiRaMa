@@ -6,7 +6,7 @@ part 'match_preferences_bloc.g.dart';
 part 'match_preferences_event.dart';
 part 'match_preferences_state.dart';
 
-//---------------Bloc------------------------
+//Bloc
 class MatchPreferencesBloc
     extends HydratedBloc<MatchPreferencesEvent, MatchPreferencesState> {
   MatchPreferencesBloc() : super(MatchPreferencesState()) {
@@ -15,7 +15,7 @@ class MatchPreferencesBloc
     on<LocationMatchPreferencesRequested>(_onLocationMatchPreferencesRequested);
   }
 
-  //----gender-----------------
+  //-gender
   _onGenderMatchPreferencesRequested(
     GenderMatchPreferencesRequested event,
     Emitter<MatchPreferencesState> emit,
@@ -28,14 +28,14 @@ class MatchPreferencesBloc
           isWomenClicked: event.isWomenClicked,
         ),
       );
-  //--------age-------------
+  //age-
   _onAgeMatchPreferencesRequested(
     AgeMatchPreferencesRequested event,
     Emitter<MatchPreferencesState> emit,
   ) =>
       emit(state.copyWith(start: event.start, end: event.end));
 
-  //------------------Location------------------
+  //Location
   _onLocationMatchPreferencesRequested(
     LocationMatchPreferencesRequested event,
     Emitter<MatchPreferencesState> emit,

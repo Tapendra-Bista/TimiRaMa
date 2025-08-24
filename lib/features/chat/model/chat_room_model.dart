@@ -13,7 +13,7 @@ class ChatRoomModel {
   final bool isTyping;
   final String? typingUserId;
   final bool isCallActive;
-//-----------------------------Chat Room Model----------------------------------------------
+//Chat Room Model
   ChatRoomModel({
     required this.id,
     required this.participants,

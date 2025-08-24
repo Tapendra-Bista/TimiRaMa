@@ -9,7 +9,7 @@ import 'package:timirama/features/home/bloc/home_state.dart';
 import 'package:timirama/features/home/widget/home_widgets.dart';
 import 'package:timirama/routes/app_routes.dart';
 
-//---------Widget to show for error state--------------------------
+//Widget to show for error state
 class HomeErrorContent extends StatelessWidget {
   const HomeErrorContent({super.key});
 

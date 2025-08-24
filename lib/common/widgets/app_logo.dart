@@ -1,8 +1,8 @@
-import 'package:timirama/common/constant/constant_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:timirama/common/constant/constant_strings.dart';
 
-//----------------------- timirama logo-------------------
+// timirama logo-
 class AppLogo extends StatefulWidget {
   const AppLogo({super.key});
 

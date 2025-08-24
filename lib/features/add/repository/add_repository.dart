@@ -1,9 +1,9 @@
-import 'package:timirama/common/constant/constant_strings.dart';
-import 'package:timirama/features/reels/model/reel_model.dart';
-import 'package:timirama/services/base_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:timirama/common/constant/constant_strings.dart';
+import 'package:timirama/features/reels/model/reel_model.dart';
+import 'package:timirama/services/base_repository.dart';
 
 class AddRepository extends BaseRepository {
   final ImagePicker imagePicker = ImagePicker();
@@ -11,7 +11,7 @@ class AddRepository extends BaseRepository {
     this.firestore = firestore ?? FirebaseFirestore.instance;
   }
 
-  //------------------------Pick Video (reels) From Gallery----------------
+  //Pick Video (reels) From Gallery-
   Future<String?> videoPicker() async {
     try {
       final XFile? video = await imagePicker.pickVideo(
@@ -26,7 +26,7 @@ class AddRepository extends BaseRepository {
     return null;
   }
 
-  //--------------------Upload reels to Cloudinary---------------------
+  //Upload reels to Cloudinary
   Future<String> postVideoInCloudinary(String videoPath) async {
     try {
       final CloudinaryPublic cloudinary = CloudinaryPublic(
@@ -48,7 +48,7 @@ class AddRepository extends BaseRepository {
     }
   }
 
-  //------------------create ----------
+  //create -
   Future<void> addToFirebase(ReelModel reelmodel) async {
     await firestore.collection('reels').doc().set(reelmodel.toMap());
   }

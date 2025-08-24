@@ -14,7 +14,7 @@ import 'package:timirama/features/follow/screen/follow_screen.dart';
 import 'package:timirama/features/reel_like/screen/reel_like_screen.dart';
 import 'package:timirama/features/reels/model/reel_model.dart';
 
-//----------------------Reel description------------------------
+//-Reel description
 class ReelDescription extends StatefulWidget {
   const ReelDescription({super.key, required this.reelData});
   final ReelModel reelData;
@@ -61,22 +61,23 @@ class _ReelDescriptionState extends State<ReelDescription> {
                       radius: 20.w,
                       backgroundImage:
                           widget.reelData.profileImage.isNotEmpty &&
-                              Uri.tryParse(
-                                    widget.reelData.profileImage,
-                                  )!.hasAbsolutePath ==
-                                  true
-                          ? CachedNetworkImageProvider(
-                              widget.reelData.profileImage,
-                            )
-                          : null,
+                                  Uri.tryParse(
+                                        widget.reelData.profileImage,
+                                      )!
+                                          .hasAbsolutePath ==
+                                      true
+                              ? CachedNetworkImageProvider(
+                                  widget.reelData.profileImage,
+                                )
+                              : null,
                     ),
                     Text(
                       widget.reelData.name,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: AppColors.floralWhite,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                            color: AppColors.floralWhite,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                     SizedBox(width: 10.w),
                     FollowButton(id: widget.reelData.uid),
@@ -112,7 +113,7 @@ class _ReelDescriptionState extends State<ReelDescription> {
   }
 }
 
-//-------------------Virtical icons (likes,comments,share,more)--------------------
+//-Virtical icons (likes,comments,share,more)
 class VirticalActionWidgets extends StatelessWidget {
   const VirticalActionWidgets({super.key, required this.reelData});
   final ReelModel reelData;

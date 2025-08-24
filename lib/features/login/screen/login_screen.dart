@@ -64,24 +64,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     // app logo image
                     SizedBox(height: 55.h),
-                    //----- timirama logo------------
+                    // timirama logo
                     const AppLogo(),
                     SizedBox(height: 30.h),
-                    //----------------text---------------
+                    //-text
                     const LoginText(),
                     SizedBox(height: 10.h),
-                    //--------------TextField For Email---------------
+                    //TextField For Email
                     const LoginEmailInput(),
                     SizedBox(height: 10.h),
-                    //--------------TextField For Password---------------
+                    //TextField For Password
                     const LoginPasswordInput(),
 
-                    //----------------Forget Password--------------------
+                    //-Forget Password
                     const ForgotPassword(),
                     SizedBox(height: 45.h),
-                    //   --------------------------Signup button and Login with Email Both Inside This ---------------------
+                    //   Signup button and Login with Email Both Inside This
                     LoginAndGoogleSigninButton(formKey: _formKey),
-                    //------------------if user has already have account------------------
+                    //if user has already have account
                     SizedBox(height: 3.h),
                     const DonotHaveAccount(),
                   ],

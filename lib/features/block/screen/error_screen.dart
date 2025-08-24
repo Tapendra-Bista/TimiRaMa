@@ -1,12 +1,12 @@
-import 'package:timirama/common/localization/enums/enums.dart';
-import 'package:timirama/features/block/bloc/block_bloc.dart';
-import 'package:timirama/features/block/bloc/block_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 import 'package:hugeicons/hugeicons.dart';
-//------------------Error widget---------------------
+import 'package:timirama/common/localization/enums/enums.dart';
+import 'package:timirama/features/block/bloc/block_bloc.dart';
+import 'package:timirama/features/block/bloc/block_state.dart';
+//Error widget
 
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({super.key});

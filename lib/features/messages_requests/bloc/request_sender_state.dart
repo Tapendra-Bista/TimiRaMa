@@ -1,14 +1,13 @@
 part of 'request_sender_bloc.dart';
 
-//-------------------- State -----------------
+// State 
 @freezed
 abstract class RequestSenderState with _$RequestSenderState {
   const factory RequestSenderState.initial() = Initial;
   const factory RequestSenderState.noRequestsYet() = NoRequestsYet;
 
   const factory RequestSenderState.totalRequestSenderSendState(
-          {required List<Requestmodel> senderData}) =
-      TotalRequestSenderSendState;
+      {required List<Requestmodel> senderData}) = TotalRequestSenderSendState;
 
   const factory RequestSenderState.errorInRequests(
       {required String errorMessage}) = ErrorInRequests;

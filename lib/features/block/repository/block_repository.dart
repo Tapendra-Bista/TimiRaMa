@@ -1,9 +1,8 @@
-import 'package:timirama/features/block/model/block_model.dart';
-import 'package:timirama/features/profile/model/profile_model.dart';
-
-import 'package:timirama/services/base_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
+import 'package:timirama/features/block/model/block_model.dart';
+import 'package:timirama/features/profile/model/profile_model.dart';
+import 'package:timirama/services/base_repository.dart';
 
 class BlockRepository extends BaseRepository {
   late final FirebaseFirestore firestore;
@@ -12,7 +11,7 @@ class BlockRepository extends BaseRepository {
     this.firestore = firestore ?? FirebaseFirestore.instance;
   }
 
-  //-------------------------- Add Block --------------------------
+  // Add Block
   Future<void> addBlock(String blockId) async {
     final blockDocRef = firestore
         .collection('users')
@@ -35,7 +34,7 @@ class BlockRepository extends BaseRepository {
     }
   }
 
-  //-------------------------- Remove Block --------------------------
+  // Remove Block
   Future<void> removeBlock(String blockId) async {
     final blockDocRef = firestore
         .collection('users')
@@ -61,7 +60,7 @@ class BlockRepository extends BaseRepository {
     }
   }
 
-  //-------------------------- Fetch My Block List --------------------------
+  // Fetch My Block List
   Future<BlockModel?> fetchBlocks() async {
     debugPrint("currentUserId : $currentUserId");
 
@@ -78,7 +77,7 @@ class BlockRepository extends BaseRepository {
     return BlockModel.fromJson(docSnapshot.data()!);
   }
 
-  //-------------------------- Check if I’m Blocked by Other User --------------------------
+  // Check if I’m Blocked by Other User
   Future<bool> hasUserBlockedMe(String otherUserId) async {
     final doc = await firestore
         .collection('users')
@@ -92,7 +91,7 @@ class BlockRepository extends BaseRepository {
     return blockedList.contains(currentUserId);
   }
 
-  //-------------------------- Fetch All Other Users' Block Lists (Chunked) --------------------------
+  // Fetch All Other Users' Block Lists (Chunked)
   Future<Map<String, List<String>>> fetchOtherUsersBlockListsInChunks(
     List<ProfileModel> users,
   ) async {

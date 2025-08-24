@@ -1,4 +1,4 @@
-//----------------ALL COLORS USED IN APP--------------
+// ALL COLORS USED IN APP
 
 import 'package:flutter/material.dart';
 

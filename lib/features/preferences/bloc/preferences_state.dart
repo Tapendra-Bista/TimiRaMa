@@ -1,6 +1,6 @@
 part of 'preferences_bloc.dart';
 
-//-------------------State---------------
+//-State
 @freezed
 abstract class PreferencesState with _$PreferencesState {
   const factory PreferencesState({
@@ -18,6 +18,4 @@ abstract class PreferencesState with _$PreferencesState {
 
   factory PreferencesState.fromJson(Map<String, dynamic> json) =>
       _$PreferencesStateFromJson(json);
-
-      
 }

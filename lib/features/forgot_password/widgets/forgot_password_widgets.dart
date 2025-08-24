@@ -13,7 +13,7 @@ import 'package:timirama/common/widgets/common_textfield.dart';
 import 'package:timirama/features/forgot_password/bloc/forgot_password_bloc.dart';
 import 'package:timirama/routes/app_routes.dart';
 
-//----------------Text regarding instruction--------------------------
+//-Text regarding instruction
 class BodyWidget extends StatelessWidget {
   const BodyWidget({super.key});
 
@@ -27,7 +27,7 @@ class BodyWidget extends StatelessWidget {
   }
 }
 
-//----------------Heading titile Forget Password ?--------------------------
+//-Heading titile Forget Password ?
 class Heading extends StatelessWidget {
   const Heading({super.key});
 
@@ -41,7 +41,7 @@ class Heading extends StatelessWidget {
   }
 }
 
-/// ------------------  email  For  send link-------------------
+///   email  For  send link-
 class Email extends StatefulWidget {
   const Email({super.key});
 
@@ -66,14 +66,14 @@ class _UserEmailState extends State<Email> {
       validator: AppValidator.validateEmail,
       obscureText: false,
       onChanged: (value) => context.read<ForgotPasswordBloc>().add(
-        UserEmail(userEmail: value.trim()),
-      ),
+            UserEmail(userEmail: value.trim()),
+          ),
       keyboardType: TextInputType.emailAddress,
     );
   }
 }
 
-//------------------Remember Password------------------
+//Remember Password
 
 class RememberPassword extends StatelessWidget {
   const RememberPassword({super.key});
@@ -103,7 +103,7 @@ class RememberPassword extends StatelessWidget {
   }
 }
 
-/// ----------------------- Send button ----------------------
+///  Send button -
 class SendButton extends StatelessWidget {
   const SendButton({super.key, required this.formKey});
   final GlobalKey<FormState> formKey;
@@ -123,7 +123,7 @@ class SendButton extends StatelessWidget {
   }
 }
 
-//----------------------Center logo of email----------------------
+//-Center logo of email-
 class CenterImage extends StatelessWidget {
   const CenterImage({super.key});
 
@@ -135,7 +135,7 @@ class CenterImage extends StatelessWidget {
   }
 }
 
-/// ----------------------- Login page button ----------------------
+///  Login page button -
 class SendButtonInSuccessedPage extends StatelessWidget {
   const SendButtonInSuccessedPage({super.key});
 
@@ -148,7 +148,7 @@ class SendButtonInSuccessedPage extends StatelessWidget {
   }
 }
 
-//----------------------Center logo of email for successed page----------------------
+//-Center logo of email for successed page-
 class CenterImageInSuccessedPage extends StatelessWidget {
   const CenterImageInSuccessedPage({super.key});
 
@@ -160,7 +160,7 @@ class CenterImageInSuccessedPage extends StatelessWidget {
   }
 }
 
-//----------------Text regarding email sent--------------------------
+//-Text regarding email sent
 class BodyWidgetInSuccessedPage extends StatelessWidget {
   const BodyWidgetInSuccessedPage({super.key});
 
@@ -171,7 +171,7 @@ class BodyWidgetInSuccessedPage extends StatelessWidget {
   }
 }
 
-//----------------Heading titile for successed  page--------------------------
+//-Heading titile for successed  page
 class HeadingInSuccessedPage extends StatelessWidget {
   const HeadingInSuccessedPage({super.key});
 
@@ -182,7 +182,7 @@ class HeadingInSuccessedPage extends StatelessWidget {
   }
 }
 
-//------------------Didnot receive email------------------
+//Didnot receive email
 
 class DidnotRecieveTheLink extends StatelessWidget {
   const DidnotRecieveTheLink({super.key});

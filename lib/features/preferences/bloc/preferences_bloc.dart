@@ -1,11 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+
 part 'preferences_bloc.freezed.dart';
+part 'preferences_bloc.g.dart';
 part 'preferences_event.dart';
 part 'preferences_state.dart';
-part 'preferences_bloc.g.dart';
 
-//---------------Bloc------------------------
+//Bloc
 class PreferencesBloc extends HydratedBloc<PreferencesEvent, PreferencesState> {
   PreferencesBloc() : super(PreferencesState()) {
     on<GenderPreferencesRequested>(_onGenderPreferencesRequested);
@@ -13,7 +14,7 @@ class PreferencesBloc extends HydratedBloc<PreferencesEvent, PreferencesState> {
     on<LocationPreferencesRequested>(_onLocationPreferencesRequested);
   }
 
-//----gender-----------------
+//-gender
   _onGenderPreferencesRequested(
           GenderPreferencesRequested event, Emitter<PreferencesState> emit) =>
       emit(state.copyWith(
@@ -21,12 +22,12 @@ class PreferencesBloc extends HydratedBloc<PreferencesEvent, PreferencesState> {
           isMenClicked: event.isMenClicked,
           women: event.women,
           isWomenClicked: event.isWomenClicked));
-//--------age-------------
+//age-
   _onAgePreferencesRequested(
           AgePreferencesRequested event, Emitter<PreferencesState> emit) =>
       emit(state.copyWith(start: event.start, end: event.end));
 
-  //------------------Location------------------
+  //Location
   _onLocationPreferencesRequested(
           LocationPreferencesRequested event, Emitter<PreferencesState> emit) =>
       emit(state.copyWith(

@@ -11,7 +11,7 @@ import 'package:timirama/features/messages_requests/widgets/view2.dart';
 class RequestSenderScreen extends StatelessWidget {
   const RequestSenderScreen({super.key});
 
-  //----------------------- Message Requests Screen-------------------
+  // Message Requests Screen-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

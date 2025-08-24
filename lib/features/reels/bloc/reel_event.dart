@@ -1,7 +1,7 @@
 part of 'reel_bloc.dart';
-//-------------------------------Event------------------
+
+//Event
 @freezed
 abstract class ReelEvent with _$ReelEvent {
-  const factory ReelEvent.reelLoaded() =  ReelLoaded;
-
+  const factory ReelEvent.reelLoaded() = ReelLoaded;
 }

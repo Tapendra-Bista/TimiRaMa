@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:timirama/features/like/model/like_model.dart';
 
-//-----------------------------like State-----------------------------
+//like State
 class LikeState extends Equatable {
   final LikeModel likeUserList;
   const LikeState({required this.likeUserList});
@@ -23,7 +23,7 @@ final class LikeUsersError extends LikeState {
   final String errorMessage;
 
   LikeUsersError.fromState(LikeState state, {required this.errorMessage})
-    : super(likeUserList: state.likeUserList);
+      : super(likeUserList: state.likeUserList);
 
   @override
   List<Object> get props => [errorMessage];

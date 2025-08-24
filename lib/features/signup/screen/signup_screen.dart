@@ -37,23 +37,23 @@ class SignupScreen extends StatelessWidget {
                   children: [
                     // app logo image```
                     SizedBox(height: 47.h),
-                    //----- timirama logo------------
+                    // timirama logo
                     const AppLogo(),
                     SizedBox(height: 12.h),
-                    //----------------text---------------
+                    //-text
                     const SignUpText(),
 
-                    //--------------TextField For Email---------------
+                    //TextField For Email
                     const EmailInput(),
                     SizedBox(height: 7.h),
-                    //--------------TextField For Password---------------
+                    //TextField For Password
                     const PasswordInput(),
-                    //----------------Checked and  Register description------------------------
+                    //-Checked and  Register description
                     const RegisterDescription(),
-                    //--------------------------Signup button---------------------
+                    //Signup button
                     SizedBox(height: 12.h),
                     SignupButton(formKey: _formKey),
-                    //------------------if user has already have account------------------
+                    //if user has already have account
                     const AlreadyHaveAccount(),
                   ],
                 ),

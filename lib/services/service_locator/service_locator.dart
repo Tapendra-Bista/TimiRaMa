@@ -1,3 +1,4 @@
+import 'package:get_it/get_it.dart';
 import 'package:timirama/features/add/bloc/add_bloc.dart';
 import 'package:timirama/features/add/repository/add_repository.dart';
 import 'package:timirama/features/archive/bloc/archive_bloc.dart';
@@ -46,12 +47,11 @@ import 'package:timirama/features/stories/repository/stories_repository.dart';
 import 'package:timirama/features/wellcome/bloc/wellcome_bloc.dart';
 import 'package:timirama/services/status/bloc/status_bloc.dart';
 import 'package:timirama/services/status/repository/status_repository.dart';
-import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
 
 void setupLocator() {
-  // //----------Repository---------------------------
+  // //-Repository
   getIt.registerLazySingleton<SignupRepository>(() => SignupRepository());
   getIt.registerLazySingleton<LoginRepository>(() => LoginRepository());
   getIt.registerLazySingleton<ForgotPasswordRepository>(
@@ -83,7 +83,7 @@ void setupLocator() {
   getIt.registerLazySingleton<MatchRepository>(
     () => MatchRepository(),
   );
-  //---------------------Bloc-------------------------------------------------
+  //Bloc
   getIt.registerLazySingleton<SignupBloc>(
     () => SignupBloc(signupRepository: getIt<SignupRepository>()),
   );

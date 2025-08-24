@@ -8,7 +8,7 @@ import 'package:timirama/common/constant/constant_strings.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/routes/app_routes.dart';
 
-//-------------Top Action (filter,create reel)----------------
+//-Top Action (filter,create reel)-
 class TopActionWdgets extends StatefulWidget {
   const TopActionWdgets({super.key});
 
@@ -47,9 +47,9 @@ class _TopActionWdgetsState extends State<TopActionWdgets> {
                   child: Text(
                     EnumLocale.reels.name.tr,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      color: AppColors.white,
-                      fontSize: 22.sp,
-                    ),
+                          color: AppColors.white,
+                          fontSize: 22.sp,
+                        ),
                   ),
                 ),
                 items: AppStrings.reelsFilterItems.map((item) {
@@ -112,9 +112,9 @@ class _TopActionWdgetsState extends State<TopActionWdgets> {
                       child: Text(
                         selectedItems.join(', '),
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: AppColors.white,
-                          fontSize: 19.sp,
-                        ),
+                              color: AppColors.white,
+                              fontSize: 19.sp,
+                            ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

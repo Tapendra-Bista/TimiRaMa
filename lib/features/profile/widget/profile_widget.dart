@@ -14,7 +14,7 @@ import 'package:timirama/features/profile/bloc/profile_bloc.dart';
 import 'package:timirama/features/profile/model/profile_model.dart';
 import 'package:timirama/routes/app_routes.dart';
 
-//----------------PlatformAppBar -----------------------
+//-PlatformAppBar
 class ProfilePlatformAppBar extends StatelessWidget {
   const ProfilePlatformAppBar({super.key});
 
@@ -41,7 +41,7 @@ class ProfilePlatformAppBar extends StatelessWidget {
   }
 }
 
-//----------------PlatformAppBar Title-----------------------
+//-PlatformAppBar Title
 class PlatformAppBarTitle extends StatelessWidget {
   const PlatformAppBarTitle({super.key});
 
@@ -62,7 +62,7 @@ class PlatformAppBarTitle extends StatelessWidget {
   }
 }
 
-//----------Description-----------------------
+//-Description
 class DescriptionText extends StatelessWidget {
   const DescriptionText({super.key});
 
@@ -100,7 +100,7 @@ class DescriptionText extends StatelessWidget {
   }
 }
 
-//----------------User Interests ----------------------------
+//-User Interests -
 class UserInterestsList extends StatelessWidget {
   const UserInterestsList({super.key});
 
@@ -157,7 +157,7 @@ class UserInterestsList extends StatelessWidget {
   }
 }
 
-//------------------User account age -----------------------------
+//User account age
 class UserSeniority extends StatelessWidget {
   const UserSeniority({super.key});
 
@@ -191,7 +191,7 @@ class UserSeniority extends StatelessWidget {
   }
 }
 
-//------------------------------------- user name , age nad city----------------------------
+// user name , age nad city-
 class UserDetails extends StatelessWidget {
   const UserDetails({super.key});
 
@@ -239,7 +239,7 @@ class UserDetails extends StatelessWidget {
   }
 }
 
-//----------------------------- Profile Image-----------------------------
+// Profile Image
 class ProfileImage extends StatelessWidget {
   ProfileImage({super.key});
   final auth = FirebaseAuth.instance;

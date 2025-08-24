@@ -20,15 +20,12 @@ import 'package:timirama/features/messages_requests/model/request_model.dart';
 
 class RequestsReceiverScreen extends StatelessWidget {
   const RequestsReceiverScreen({super.key});
-  //---Fetch data screen---
+  //Fetch data screen
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    return BlocSelector<
-      RequestReceiverBloc,
-      RequestReceiverState,
-      List<Requestmodel>
-    >(
+    return BlocSelector<RequestReceiverBloc, RequestReceiverState,
+        List<Requestmodel>>(
       selector: (state) {
         if (state is GetRequests) return state.receiverData;
         return [];
@@ -39,16 +36,15 @@ class RequestsReceiverScreen extends StatelessWidget {
           reverse: false,
           itemBuilder: (context, index) {
             final user = data[index];
-            final isValidPath =
-                user.senderProfile.isNotEmpty &&
+            final isValidPath = user.senderProfile.isNotEmpty &&
                 Uri.tryParse(user.senderProfile)!.hasAbsolutePath == true;
             return Padding(
               padding: EdgeInsets.only(top: 8.h),
               child: Slidable(
                 endActionPane: ActionPane(
                   motion: ScrollMotion(),
-                  children:
-                      user.responseStatus.name == ResponseStatus.Accepted.name
+                  children: user.responseStatus.name ==
+                          ResponseStatus.Accepted.name
                       ? [
                           SlidableAction(
                             padding: EdgeInsets.zero,
@@ -81,15 +77,15 @@ class RequestsReceiverScreen extends StatelessWidget {
                             foregroundColor: AppColors.white,
                             onPressed: (context) {
                               context.read<RequestReceiverBloc>().add(
-                                AcceptRequest(
-                                  senderId: user.senderId,
-                                  receiverId: user.receiverId,
-                                ),
-                              );
+                                    AcceptRequest(
+                                      senderId: user.senderId,
+                                      receiverId: user.receiverId,
+                                    ),
+                                  );
 
                               context.read<RequestReceiverBloc>().add(
-                                RequestReceiverGet(),
-                              );
+                                    RequestReceiverGet(),
+                                  );
                               snackBarMessage(
                                 context,
                                 "${EnumLocale.messageRequestAccepted.name.tr} ${user.senderName}",
@@ -105,8 +101,8 @@ class RequestsReceiverScreen extends StatelessWidget {
                             foregroundColor: AppColors.black,
                             onPressed: (context) async {
                               context.read<ArchiveBloc>().add(
-                                ArchiveUserAdded(archiveId: user.senderId),
-                              );
+                                    ArchiveUserAdded(archiveId: user.senderId),
+                                  );
                               snackBarMessage(
                                 context,
                                 EnumLocale.addedToArchive.name.tr,
@@ -179,15 +175,12 @@ class RequestsReceiverScreen extends StatelessWidget {
 
 class RequestsSenderScreen extends StatelessWidget {
   const RequestsSenderScreen({super.key});
-  //---Fetch data screen---
+  //Fetch data screen
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    return BlocSelector<
-      RequestSenderBloc,
-      RequestSenderState,
-      List<Requestmodel>
-    >(
+    return BlocSelector<RequestSenderBloc, RequestSenderState,
+        List<Requestmodel>>(
       selector: (state) {
         if (state is TotalRequestSenderSendState) return state.senderData;
         return [];
@@ -198,8 +191,7 @@ class RequestsSenderScreen extends StatelessWidget {
           reverse: false,
           itemBuilder: (context, index) {
             final user = data[index];
-            final isValidPath =
-                user.receiverProfile.isNotEmpty &&
+            final isValidPath = user.receiverProfile.isNotEmpty &&
                 Uri.tryParse(user.receiverProfile)!.hasAbsolutePath == true;
             return Padding(
               padding: EdgeInsets.only(top: 8.0.h),
@@ -208,62 +200,61 @@ class RequestsSenderScreen extends StatelessWidget {
                   motion: ScrollMotion(),
                   children:
                       user.responseStatus.name == ResponseStatus.Accepted.name
-                      ? [
-                          SlidableAction(
-                            padding: EdgeInsets.zero,
-                            backgroundColor: AppColors.greyContainerColor,
-                            foregroundColor: AppColors.black,
-                            onPressed: (context) {
-                              Get.to(
-                                () => ChatScreen(
-                                  imgURL: user.receiverProfile,
-                                  receiverId: user.receiverId,
-                                  receiverName: user.receiverName,
+                          ? [
+                              SlidableAction(
+                                padding: EdgeInsets.zero,
+                                backgroundColor: AppColors.greyContainerColor,
+                                foregroundColor: AppColors.black,
+                                onPressed: (context) {
+                                  Get.to(
+                                    () => ChatScreen(
+                                      imgURL: user.receiverProfile,
+                                      receiverId: user.receiverId,
+                                      receiverName: user.receiverName,
+                                    ),
+                                  );
+                                },
+                                label: EnumLocale.message.name.tr,
+                                icon: CupertinoIcons.chat_bubble,
+                              ),
+                            ]
+                          : [
+                              SlidableAction(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(5.r),
+                                  bottomRight: Radius.circular(5.r),
                                 ),
-                              );
-                            },
-                            label: EnumLocale.message.name.tr,
-                            icon: CupertinoIcons.chat_bubble,
-                          ),
-                        ]
-                      : [
-                          SlidableAction(
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(5.r),
-                              bottomRight: Radius.circular(5.r),
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: 15.h),
-                            backgroundColor: AppColors.red,
-                            foregroundColor: AppColors.white,
-                            onPressed: (context) {
-                              context.read<RequestSenderBloc>().add(
-                                RequestSenderDelete(
-                                  senderId: user.senderId,
-                                  receiverId: user.receiverId,
-                                ),
-                              );
+                                padding: EdgeInsets.symmetric(horizontal: 15.h),
+                                backgroundColor: AppColors.red,
+                                foregroundColor: AppColors.white,
+                                onPressed: (context) {
+                                  context.read<RequestSenderBloc>().add(
+                                        RequestSenderDelete(
+                                          senderId: user.senderId,
+                                          receiverId: user.receiverId,
+                                        ),
+                                      );
 
-                              context.read<RequestSenderBloc>().add(
-                                TotalRequestSenderSend(),
-                              );
+                                  context.read<RequestSenderBloc>().add(
+                                        TotalRequestSenderSend(),
+                                      );
 
-                              snackBarMessage(
-                                context,
-                                "${EnumLocale.messageRequestDelete.name.tr} ${user.receiverName}",
-                                Theme.of(context),
-                              );
-                            },
-                            label: EnumLocale.deleteChat.name.tr,
-                            icon: Icons.delete_outline,
-                          ),
-                        ],
+                                  snackBarMessage(
+                                    context,
+                                    "${EnumLocale.messageRequestDelete.name.tr} ${user.receiverName}",
+                                    Theme.of(context),
+                                  );
+                                },
+                                label: EnumLocale.deleteChat.name.tr,
+                                icon: Icons.delete_outline,
+                              ),
+                            ],
                 ),
                 dragStartBehavior: DragStartBehavior.down,
                 child: ListTile(
                   shape: RoundedRectangleBorder(
                     side: BorderSide(
-                      color:
-                          user.responseStatus.name ==
+                      color: user.responseStatus.name ==
                               ResponseStatus.Initial.name
                           ? AppColors.black.withValues(alpha: 0.6)
                           : AppColors.green,
@@ -311,8 +302,7 @@ class RequestsSenderScreen extends StatelessWidget {
                           Text(
                             "${user.requestStatus.name}",
                             style: theme.bodySmall!.copyWith(
-                              color:
-                                  user.requestStatus.name ==
+                              color: user.requestStatus.name ==
                                       RequestStatus.Send.name
                                   ? AppColors.black
                                   : AppColors.blue,
@@ -330,8 +320,7 @@ class RequestsSenderScreen extends StatelessWidget {
                           Text(
                             "${user.responseStatus.name}",
                             style: theme.bodySmall!.copyWith(
-                              color:
-                                  user.responseStatus.name ==
+                              color: user.responseStatus.name ==
                                       ResponseStatus.Initial.name
                                   ? AppColors.black
                                   : AppColors.green,

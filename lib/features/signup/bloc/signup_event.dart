@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart' show Equatable;
-//-----------------------------Event------------------------
+
+//Event
 sealed class SignupEvent extends Equatable {
   const SignupEvent();
 

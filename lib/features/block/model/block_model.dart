@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'block_model.freezed.dart';
 part 'block_model.g.dart';
 
-//---------------------Block model-----------------------
+//Block model
 @freezed
 abstract class BlockModel with _$BlockModel {
   const factory BlockModel({
@@ -18,6 +18,6 @@ abstract class BlockModel with _$BlockModel {
   factory BlockModel.empty() => BlockModel(id: '', blockId: []);
 }
 
-extension   BlockModelToMap on BlockModel{
-        Map<String,dynamic> toMap()  => toJson();
+extension BlockModelToMap on BlockModel {
+  Map<String, dynamic> toMap() => toJson();
 }

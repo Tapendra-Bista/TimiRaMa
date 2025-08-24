@@ -10,7 +10,7 @@ import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/features/report/bloc/report_bloc.dart';
 import 'package:timirama/services/service_locator/service_locator.dart';
 
-//--------------- Guidelines Violation-----------------
+// Guidelines Violation
 class GuidelinesViolation extends StatelessWidget {
   const GuidelinesViolation({super.key});
 
@@ -50,9 +50,9 @@ class GuidelinesViolation extends StatelessWidget {
                 return Text(
                   violation ?? EnumLocale.violationOfGuidenlines.name.tr,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: AppColors.black,
-                    fontSize: 14.sp,
-                  ),
+                        color: AppColors.black,
+                        fontSize: 14.sp,
+                      ),
                   overflow: TextOverflow.ellipsis,
                 );
               },

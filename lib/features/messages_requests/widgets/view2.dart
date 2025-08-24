@@ -5,8 +5,7 @@ import 'package:timirama/features/messages_requests/screen/error_screen.dart';
 import 'package:timirama/features/messages_requests/screen/no_requests.dart';
 import 'package:timirama/features/messages_requests/screen/requests_users_screen.dart';
 
-
-//-----------Sent-------------
+//Sent-
 class View2 extends StatefulWidget {
   const View2({super.key});
 
@@ -32,8 +31,8 @@ class _View2State extends State<View2> {
         builder: (context, state) {
           return switch (state) {
             ErrorInRequests(:final errorMessage) => ErrorInRequestFetch(
-              errorMessage: errorMessage,
-            ),
+                errorMessage: errorMessage,
+              ),
             NoRequestsYet() => NoRequests(),
             _ => RequestsSenderScreen(),
           };

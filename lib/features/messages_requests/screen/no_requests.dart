@@ -4,7 +4,7 @@ import 'package:timirama/common/localization/enums/enums.dart';
 
 class NoRequests extends StatelessWidget {
   const NoRequests({super.key});
-  //----Empty data-------
+  //-Empty data-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;

@@ -15,13 +15,13 @@ class ProfileScreen extends StatelessWidget {
           previous.runtimeType != current.runtimeType,
       builder: (context, state) {
         return switch (state) {
-          //----------Loading--------------------
+          //-Loading
           Loading() => const CustomCircularIndicator(),
-          //----------------- Get Error--------------------
+          // Get Error
           Error() => const ProfileErrorContent(),
-          //---------------After Data Fetched--------------------
+          //After Data Fetched
           ProfileLoaded() => const ProfileDataContent(),
-          //----- default----
+          // default-
           _ => SizedBox.square(),
         };
       },

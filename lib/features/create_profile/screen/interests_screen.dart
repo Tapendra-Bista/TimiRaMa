@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timirama/common/widgets/steps.dart';
 import 'package:timirama/features/create_profile/widget/create_profile_widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class InterestsScreen extends StatelessWidget {
   const InterestsScreen({super.key});
@@ -20,22 +20,22 @@ class InterestsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 10.h,
               children: [
-                //---------------Stepper to show in which step they are in profile creation------------------------
+                //Stepper to show in which step they are in profile creation
                 CustomSteps(currentStep: 5),
-                //-------------Title text-----------------------------------
+                //-Title text-
                 const InterestTitle(),
-                //----------------------friendship text------------------------
+                //-friendship text
                 const FriendshipText(),
-                //----------------Inchoice--------------------------
+                //-Inchoice
                 const FriendshipInchoice(),
-                //---------------------Love text----------------------------
+                //Love text-
                 const LoveText(),
-                //---------------- love inchoice--------------------------
+                //- love inchoice
                 const LoveInchoice(),
 
-                //---------------------Sports text----------------------------
+                //Sports text-
                 const SportsText(),
-                //---------------- Sports inchoice--------------------------
+                //- Sports inchoice
                 const SportsInchoice(),
 
                 SizedBox(height: 15.h),

@@ -1,18 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:timirama/features/chat/bloc/chat_bloc.dart';
 import 'package:timirama/features/chat/bloc/chat_state.dart';
 import 'package:timirama/features/chat/model/chat_room_model.dart';
 import 'package:timirama/features/chat/screen/chat_screen.dart';
 import 'package:timirama/features/chat/widgets/chat_list_title.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
 class ListOfUsers extends StatelessWidget {
   ListOfUsers({super.key});
 
   final String _currentUserId = FirebaseAuth.instance.currentUser!.uid;
-  //-----------------List of user or Chatrooms List---------------------
+  //List of user or Chatrooms List
   @override
   Widget build(BuildContext context) {
     return BlocSelector<ChatBloc, ChatState, List<ChatRoomModel>>(

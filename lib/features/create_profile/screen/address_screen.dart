@@ -1,8 +1,8 @@
-import 'package:timirama/common/widgets/steps.dart';
-import 'package:timirama/features/create_profile/widget/address_screen_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:timirama/common/widgets/steps.dart';
+import 'package:timirama/features/create_profile/widget/address_screen_widgets.dart';
 
 class AddressScreen extends StatelessWidget {
   const AddressScreen({super.key});
@@ -20,18 +20,18 @@ class AddressScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 10.h,
               children: [
-                //---------------Stepper to show in which step they are in profile creation------------------------
+                //Stepper to show in which step they are in profile creation
                 const CustomSteps(currentStep: 4),
-                //----------------Text Regarding name Title--------------------------
+                //-Text Regarding name Title
                 const AddressTitle(),
 
-                //----------------Text Regarding name description--------------------------
+                //-Text Regarding name description
                 const AddressDescription(),
                 SizedBox(height: 20.h),
-                //------------------Location of the user------------------------
+                //Location of the user
                 const Location(),
                 SizedBox(height: 80.h),
-                //----------------- Button to naviagte next page------------
+                // Button to naviagte next page
                 AddressNextButton(),
               ],
             ),

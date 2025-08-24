@@ -1,8 +1,8 @@
-import 'package:timirama/common/widgets/steps.dart';
-import 'package:timirama/features/create_profile/widget/description_screen_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:timirama/common/widgets/steps.dart';
+import 'package:timirama/features/create_profile/widget/description_screen_widgets.dart';
 
 class DescriptionScreen extends StatelessWidget {
   DescriptionScreen({super.key});
@@ -24,18 +24,18 @@ class DescriptionScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 10.h,
                 children: [
-                  //---------------Stepper to show in which step they are in profile creation------------------------
+                  //Stepper to show in which step they are in profile creation
                   const CustomSteps(currentStep: 6),
-                  //-------------Title Text-----------------------
+                  //-Title Text
                   const DescriptionTitle(),
-                  //------------------Body text-------------------------
+                  //Body text-
                   const DescriptionBody(),
 
                   SizedBox(height: 20.h),
 
-                  //------------------------Textfield for user input for description------------------------
+                  //Textfield for user input for description
                   const TextFieldForDescription(),
-                  //------------Next Button--------------------------------------
+                  //Next Button-
                   SizedBox(height: 40.h),
                   DescriptionNextButton(formKey: _formKey),
                 ],

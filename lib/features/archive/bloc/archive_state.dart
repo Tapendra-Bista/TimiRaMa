@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:timirama/features/profile/model/profile_model.dart';
 
-//-----------------------------archive State-----------------------------
+//archive State
 class ArchiveState extends Equatable {
   final List<ProfileModel> favUserList;
   const ArchiveState({required this.favUserList});

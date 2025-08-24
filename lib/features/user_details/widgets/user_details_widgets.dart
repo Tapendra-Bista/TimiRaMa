@@ -27,7 +27,7 @@ import 'package:timirama/features/profile/model/profile_model.dart';
 import 'package:timirama/features/user_details/screen/user_details_screen.dart';
 import 'package:timirama/routes/app_routes.dart';
 
-//-------------------Image and status------------------------------
+//-Image and status
 class StackWidget extends StatelessWidget {
   const StackWidget({
     super.key,
@@ -73,7 +73,7 @@ class StackWidget extends StatelessWidget {
   }
 }
 
-//-----------Seniority------------------------------
+//Seniority
 class CreatedDate extends StatelessWidget {
   const CreatedDate({super.key, required this.date, required this.id});
 
@@ -96,7 +96,12 @@ class CreatedDate extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(date, style: theme.bodyMedium, overflow: TextOverflow.ellipsis,maxLines: 1,),
+                Text(
+                  date,
+                  style: theme.bodyMedium,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
                 CompabilityScore(
                   id: id,
                   iconSize: 25,
@@ -112,7 +117,7 @@ class CreatedDate extends StatelessWidget {
   }
 }
 
-//---------------User description-------------------------
+//User description-
 class Description extends StatelessWidget {
   const Description({super.key, required this.widget});
 
@@ -143,7 +148,7 @@ class Description extends StatelessWidget {
   }
 }
 
-//-----------------------Interest grid------------------------
+//Interest grid
 class Interests extends StatelessWidget {
   const Interests({super.key, required this.widget});
 
@@ -195,7 +200,7 @@ class Interests extends StatelessWidget {
   }
 }
 
-// ---------pesudo, age and City--------------------------
+// pesudo, age and City
 class UserDetails extends StatelessWidget {
   const UserDetails({super.key, required this.widget});
 
@@ -208,11 +213,11 @@ class UserDetails extends StatelessWidget {
       padding: EdgeInsetsGeometry.symmetric(horizontal: 10.w, vertical: 10.h),
       sliver: SliverToBoxAdapter(
         child: Container(
-               padding: EdgeInsets.all(8.r),
-            decoration: BoxDecoration(
-              color: AppColors.greyContainerColor,
-              borderRadius: BorderRadius.circular(2.r),
-            ),
+          padding: EdgeInsets.all(8.r),
+          decoration: BoxDecoration(
+            color: AppColors.greyContainerColor,
+            borderRadius: BorderRadius.circular(2.r),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -221,11 +226,15 @@ class UserDetails extends StatelessWidget {
                 style: Theme.of(
                   context,
                 ).textTheme.bodyLarge!.copyWith(color: AppColors.primaryColor),
-                    overflow: TextOverflow.ellipsis,
+                overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
-              Text("${widget.data.age}", style: theme.bodyMedium,    overflow: TextOverflow.ellipsis,
-                maxLines: 1,),
+              Text(
+                "${widget.data.age}",
+                style: theme.bodyMedium,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
               Text(
                 widget.data.city,
                 style: theme.bodyMedium,
@@ -240,7 +249,7 @@ class UserDetails extends StatelessWidget {
   }
 }
 
-//----------------Like, Chat, Favorites, Achieve----------------
+//-Like, Chat, Favorites, Achieve-
 class ButtonList extends StatelessWidget {
   const ButtonList({super.key, required this.model});
   final ProfileModel model;
@@ -258,9 +267,9 @@ class ButtonList extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              //------------ like button----------
+              // like button-
               LikeButton(id: model.id),
-              //--------------Message-------------------
+              //Message-
               StartChat(profileModel: model),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -334,7 +343,7 @@ class ButtonList extends StatelessWidget {
   }
 }
 
-//---------------- PlatformAppBar -----------------------
+//- PlatformAppBar
 class UserDetailsPlatformAppBar extends StatelessWidget {
   const UserDetailsPlatformAppBar({
     Key? key,
@@ -390,7 +399,7 @@ class UserDetailsPlatformAppBar extends StatelessWidget {
   }
 }
 
-//----------- Dialog Box to ask for block----------------------------------
+// Dialog Box to ask for block
 class BlockAlertDialog extends StatelessWidget {
   const BlockAlertDialog({super.key, required this.data});
   final ProfileModel data;

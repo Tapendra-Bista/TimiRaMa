@@ -1,9 +1,3 @@
-import 'package:timirama/common/localization/enums/enums.dart';
-import 'package:timirama/features/chat/bloc/chat_bloc.dart';
-import 'package:timirama/features/chat/bloc/chat_state.dart';
-import 'package:timirama/features/chat/screen/chat_screen.dart';
-import 'package:timirama/features/chat/widgets/chating_user_state.dart';
-import 'package:timirama/features/chat/widgets/loading_dots.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,8 +5,14 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:timirama/common/localization/enums/enums.dart';
+import 'package:timirama/features/chat/bloc/chat_bloc.dart';
+import 'package:timirama/features/chat/bloc/chat_state.dart';
+import 'package:timirama/features/chat/screen/chat_screen.dart';
+import 'package:timirama/features/chat/widgets/chating_user_state.dart';
+import 'package:timirama/features/chat/widgets/loading_dots.dart';
 
-//------------------ApppBar -------------------
+//ApppBar -
 class ChatScreenAppBar extends StatelessWidget {
   const ChatScreenAppBar({
     super.key,
@@ -46,9 +46,8 @@ class ChatScreenAppBar extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 25.5.r,
-            backgroundImage: isValideUrl
-                ? CachedNetworkImageProvider(widget.imgURL)
-                : null,
+            backgroundImage:
+                isValideUrl ? CachedNetworkImageProvider(widget.imgURL) : null,
             backgroundColor: Theme.of(
               context,
             ).primaryColor.withValues(alpha: 0.1),

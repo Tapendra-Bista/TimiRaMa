@@ -1,4 +1,4 @@
-//------------ main part of data fetched state-----------------
+// main part of data fetched state
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,18 +7,17 @@ import 'package:timirama/features/home/bloc/home_bloc.dart';
 import 'package:timirama/features/home/bloc/home_state.dart';
 
 class CompabilityScore extends StatelessWidget {
-  const CompabilityScore({
-    super.key,
-    required this.id,
-    this.fontSize = 12,
-    this.iconSize = 15,
-    this.textColor = AppColors.floralWhite
-  });
+  const CompabilityScore(
+      {super.key,
+      required this.id,
+      this.fontSize = 12,
+      this.iconSize = 15,
+      this.textColor = AppColors.floralWhite});
 
   final String id;
   final double fontSize;
   final double iconSize;
-  final Color   textColor ;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {

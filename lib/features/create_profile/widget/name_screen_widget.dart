@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/common/utils/validators.dart';
 import 'package:timirama/common/widgets/common_button.dart';
@@ -6,13 +9,10 @@ import 'package:timirama/features/create_profile/bloc/create_profile_bloc.dart';
 import 'package:timirama/features/create_profile/bloc/create_profile_event.dart';
 import 'package:timirama/routes/app_routes.dart';
 import 'package:timirama/services/storage/get_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
-// -----------------------------Name screen components-----------------------------------
+// Name screen components-
 
-//----------------Text Regarding name description--------------------------
+//-Text Regarding name description
 class NameDescription extends StatelessWidget {
   const NameDescription({super.key});
 
@@ -23,7 +23,7 @@ class NameDescription extends StatelessWidget {
   }
 }
 
-//----------------Text Regarding name Title--------------------------
+//-Text Regarding name Title
 class NameTitle extends StatelessWidget {
   const NameTitle({super.key});
 
@@ -34,7 +34,7 @@ class NameTitle extends StatelessWidget {
   }
 }
 
-//----------------- User input for pseudo---------
+// User input for pseudo
 class PseudoTextField extends StatelessWidget {
   PseudoTextField({super.key});
 
@@ -48,13 +48,13 @@ class PseudoTextField extends StatelessWidget {
       validator: AppValidator.validatePseudo,
       obscureText: false,
       onChanged: (value) => context.read<CreateProfileBloc>().add(
-        PseudoChanged(pseudo: value.trim()),
-      ),
+            PseudoChanged(pseudo: value.trim()),
+          ),
     );
   }
 }
 
-//------------------------Next Button ----------------------------------
+//Next Button
 class NameNextButton extends StatelessWidget {
   NameNextButton({super.key, required this.formKey});
   final GlobalKey<FormState> formKey;

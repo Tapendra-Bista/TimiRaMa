@@ -16,12 +16,12 @@ class MatchScreen extends StatelessWidget {
           previous.runtimeType != current.runtimeType,
       builder: (context, state) {
         return switch (state) {
-          // ----------Initial state ----------------
+          // Initial state 
           Loading() => CustomCircularIndicator(),
-          //----------------------Error Occure------------------------------
+          // Error Occure
           Error() => ErrorWhileFetching(),
 
-          //----------------------Swipe card------------------------------
+          // Swipe card
           _ => CardScreen(),
         };
       },

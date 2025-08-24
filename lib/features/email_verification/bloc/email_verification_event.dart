@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-//----------------------------Event--------------------------------
+//-Event-
 sealed class EmailVerificationEvent extends Equatable {
   const EmailVerificationEvent();
 

@@ -2,7 +2,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 class UserLocation {
-  ///-------------------- Determine the current position of the device----------------------------
+  /// Determine the current position of the device-
 
   static Future<Position> determinePosition() async {
     bool serviceEnabled;

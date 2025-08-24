@@ -1,4 +1,4 @@
-//-------------------------- AppRoutes-------------------
+// AppRoutes-
 class AppRoutes {
   static const initial = '/';
   static const signup = '/signup';
@@ -26,7 +26,7 @@ class AppRoutes {
   static const sendReport = "/sendReport";
   static const report = "/report";
   static const preferences = "/preferences";
-    static const matchPreferences = "/matchPreferences";
+  static const matchPreferences = "/matchPreferences";
   static const add = "/add";
   static const requests = "/requests";
 }

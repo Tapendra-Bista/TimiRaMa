@@ -1,9 +1,8 @@
+import 'package:get/get_utils/get_utils.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 
-import 'package:get/get_utils/get_utils.dart';
-
 abstract class AppValidator {
-  //--------------- email validation function--------------------
+  // email validation function
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return EnumLocale.emailRequiredText.name.tr;
@@ -16,7 +15,7 @@ abstract class AppValidator {
     return null;
   }
 
-  //--------------- Password validation function--------------------
+  // Password validation function
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return EnumLocale.passwordRequiredText.name.tr;
@@ -39,7 +38,7 @@ abstract class AppValidator {
     return null;
   }
 
-  //-----------------Password validator for login--------------------------
+  //Password validator for login
   static String? validateLoginPassword(String? value) {
     if (value == null || value.isEmpty) {
       return EnumLocale.passwordRequiredText.name.tr;
@@ -48,18 +47,18 @@ abstract class AppValidator {
     return null;
   }
 
-  //----------------------- Validation for  pseudo--------------------
+  // Validation for  pseudo
   static String? validatePseudo(String? value) {
     if (value == null || value.isEmpty) {
       return EnumLocale.pseudoRequired.name.tr;
     }
 
-    //---------------- Length check----------------
+    //- Length check-
     if (value.length < 3 || value.length > 8) {
       return EnumLocale.pseudoLengthError.name.tr;
     }
 
-    // ---------------------Only allow letters, numbers, and underscores--------------------------
+    // Only allow letters, numbers, and underscores
     final pseudoRegex = RegExp(r'^[a-zA-Z0-9_]+$');
     if (!pseudoRegex.hasMatch(value)) {
       return EnumLocale.pseudoOnlyContains.name.tr;
@@ -68,7 +67,7 @@ abstract class AppValidator {
     return null;
   }
 
-  //-----------------Description validator--------------------------
+  //Description validator
   static String? validateDescription(String? value) {
     if (value == null || value.isEmpty) {
       return EnumLocale.descriptionRequired.name.tr;
@@ -77,7 +76,7 @@ abstract class AppValidator {
     return null;
   }
 
-  //-----------------reels caption validator---------
+  //reels caption validator
   static String? validateReelCaption(String? value) {
     if (value == null || value.isEmpty) {
       return EnumLocale.descriptionRequired.name.tr;

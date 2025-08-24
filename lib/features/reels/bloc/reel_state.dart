@@ -1,6 +1,6 @@
 part of 'reel_bloc.dart';
 
-//-------------------State------------------
+//-State
 @freezed
 abstract class ReelState with _$ReelState {
   const factory ReelState.initial({@Default([]) List<ReelModel> reelModel}) =

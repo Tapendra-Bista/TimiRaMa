@@ -32,5 +32,5 @@ void main() async {
   runApp(MyApp());
 }
 
-//---------------Important----------------
+//Important-
 //https://timirama-e0b18.web.app/.well-known/assetlinks.json

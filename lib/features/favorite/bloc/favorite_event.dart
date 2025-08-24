@@ -7,7 +7,7 @@ sealed class FavoriteEvent extends Equatable {
   List<Object> get props => [];
 }
 
-//-----------------------------Fav Event-----------------------------
+//Fav Event
 final class FavoriteUserAdded extends FavoriteEvent {
   final String favId;
   FavoriteUserAdded({required this.favId});

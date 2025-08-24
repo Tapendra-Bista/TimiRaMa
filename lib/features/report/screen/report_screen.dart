@@ -51,19 +51,19 @@ class _ReportScreenState extends State<ReportScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 10.h,
                   children: [
-                    //----------- title text------------
+                    // title text
                     const TitleText(),
-                    //---------description---------------
+                    //description
                     const MiniDescriptionText(),
                     SizedBox(height: 5.h),
-                    //---------Guideline Violation-----------
+                    //Guideline Violation
                     const GuidelinesViolation(),
-                    //--------Report description ----------------------
+                    //Report description -
                     const ReportDescriptionOne(),
                     SizedBox(height: 10.h),
-                    //------------------ Illegal Contant------------------------
+                    // Illegal Contant
                     const IllegalContant(),
-                    //--------Report description ----------------------
+                    //Report description -
                     const ReportDescriptionTwo(),
                     SizedBox(height: 10.h),
                     _show

@@ -1,4 +1,12 @@
 import 'dart:io';
+
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/features/chat/bloc/chat_bloc.dart';
@@ -11,16 +19,9 @@ import 'package:timirama/features/chat/widgets/voice_recorder.dart';
 import 'package:timirama/services/service_locator/service_locator.dart';
 import 'package:timirama/services/status/bloc/status_bloc.dart';
 import 'package:timirama/services/status/bloc/status_event.dart';
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:waveform_recorder/waveform_recorder.dart';
 
-// ----------individual chat screen ------------------
+// -individual chat screen
 class ChatScreen extends StatefulWidget {
   final String receiverId;
   final String receiverName;
@@ -163,7 +164,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.h),
-        //---------Chat Screen PlatformAppBar-----------------
+        //Chat Screen PlatformAppBar
         child: ChatScreenAppBar(isValideUrl: isValideUrl, widget: widget),
       ),
       body: BlocConsumer<ChatBloc, ChatState>(

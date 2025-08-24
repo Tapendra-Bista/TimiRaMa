@@ -4,7 +4,7 @@ import 'package:timirama/features/reels/bloc/reel_bloc.dart';
 
 class ErrorInReel extends StatelessWidget {
   const ErrorInReel({super.key});
-  //-----------Error While fetching------------
+  //Error While fetching
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;

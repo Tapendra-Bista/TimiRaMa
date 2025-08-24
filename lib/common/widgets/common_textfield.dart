@@ -1,9 +1,9 @@
-import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:timirama/common/constant/constant_colors.dart';
 
-//-----------------------TextField for user Input-----------------
+//TextField for user Input
 class CommonTextField extends StatelessWidget {
   const CommonTextField({
     super.key,
@@ -34,7 +34,6 @@ class CommonTextField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       obscuringCharacter: '•',
-
       material: (context, platform) => MaterialTextFormFieldData(
         decoration: InputDecoration(
           suffixIcon: suffixIcon,

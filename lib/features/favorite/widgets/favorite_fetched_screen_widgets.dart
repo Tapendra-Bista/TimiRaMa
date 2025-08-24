@@ -18,7 +18,7 @@ import 'package:timirama/features/home/bloc/home_bloc.dart';
 import 'package:timirama/features/home/bloc/home_event.dart';
 import 'package:timirama/features/profile/model/profile_model.dart';
 
-//-------------------- user Image--------------------
+// user Image
 class UserImage extends StatelessWidget {
   const UserImage({super.key, required this.Homedata});
   final ProfileModel? Homedata;
@@ -50,7 +50,7 @@ class UserImage extends StatelessWidget {
   }
 }
 
-//-----------Seniority------------------------------
+//Seniority
 class CreatedDate extends StatelessWidget {
   const CreatedDate({super.key, required this.Homedata});
   final ProfileModel? Homedata;
@@ -70,9 +70,9 @@ class CreatedDate extends StatelessWidget {
   }
 }
 
-//---------button list----------------------
+//button list-
 
-//----------------Like, Chat, Favorites, Achieve----------------
+//-Like, Chat, Favorites, Achieve-
 class ButtonsList extends StatelessWidget {
   const ButtonsList({super.key, required this.Homedata});
   final ProfileModel? Homedata;
@@ -126,7 +126,7 @@ class ButtonsList extends StatelessWidget {
   }
 }
 
-// ---------pesudo, age and City--------------------------
+// pesudo, age and City
 class UserDetails extends StatelessWidget {
   const UserDetails({super.key, required this.profileModel});
 
@@ -169,7 +169,7 @@ class UserDetails extends StatelessWidget {
   }
 }
 
-//---------------User description-------------------------
+//User description-
 class Description extends StatelessWidget {
   const Description({super.key, required this.profileModel});
 
@@ -194,8 +194,8 @@ class Description extends StatelessWidget {
   }
 }
 
-//--------------- interests Grid--------------
-//-----------------------Interest grid------------------------
+// interests Grid
+//Interest grid
 class Interests extends StatelessWidget {
   const Interests({super.key, required this.profileModel});
 

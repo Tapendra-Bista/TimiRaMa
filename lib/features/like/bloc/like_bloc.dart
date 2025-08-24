@@ -10,15 +10,15 @@ class LikeBloc extends HydratedBloc<LikeEvent, LikeState> {
   final LikeRepository _likeRepository;
 
   LikeBloc({required LikeRepository repository})
-    : _likeRepository = repository,
-      super(LikeInitial()) {
+      : _likeRepository = repository,
+        super(LikeInitial()) {
     on<LikeUserAdded>(_onLikeUserAdded);
 
     on<LikeUserRemoved>(_onLikeUserRemoved);
 
     on<LikeUsersFetched>(_onLikeUsersFetched);
   }
-  //-------------------------Fetching data----------------------------
+  //-Fetching data-
   FutureOr<void> _onLikeUsersFetched(
     LikeUsersFetched event,
     Emitter<LikeState> emit,
@@ -36,7 +36,7 @@ class LikeBloc extends HydratedBloc<LikeEvent, LikeState> {
     }
   }
 
-  //-----------------------------Removing user from like list-------------------------------------------
+  //Removing user from like list
   FutureOr<void> _onLikeUserRemoved(
     LikeUserRemoved event,
     Emitter<LikeState> emit,
@@ -46,7 +46,7 @@ class LikeBloc extends HydratedBloc<LikeEvent, LikeState> {
     add(LikeUsersFetched());
   }
 
-  //-------------------------------------Adding to like list----------------------------------
+  //Adding to like list
   FutureOr<void> _onLikeUserAdded(
     LikeUserAdded event,
     Emitter<LikeState> emit,

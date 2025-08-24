@@ -1,8 +1,8 @@
-import 'package:timirama/common/widgets/steps.dart';
-import 'package:timirama/features/create_profile/widget/age_screen_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:timirama/common/widgets/steps.dart';
+import 'package:timirama/features/create_profile/widget/age_screen_widgets.dart';
 
 class AgeScreen extends StatelessWidget {
   const AgeScreen({super.key});
@@ -20,19 +20,19 @@ class AgeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 10.h,
               children: [
-                //---------------Stepper to show in which step they are in profile creation------------------------
+                //Stepper to show in which step they are in profile creation
                 const CustomSteps(currentStep: 3),
-                //----------------Text Regarding name Title--------------------------
+                //-Text Regarding name Title
                 const AgeTitle(),
 
-                //----------------Text Regarding name description--------------------------
+                //-Text Regarding name description
                 const AgeDescription(),
                 SizedBox(height: 20.h),
 
                 const SelectDob(),
 
                 SizedBox(height: 80.h),
-                //----------------- Button to naviagte next page------------
+                // Button to naviagte next page
                 AgeNextButton(),
               ],
             ),

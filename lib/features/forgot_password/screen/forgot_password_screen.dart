@@ -3,7 +3,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timirama/features/forgot_password/widgets/forgot_password_widgets.dart';
 
-//--------------------------------------- main screen of Forgot password---------------------------------------
+// main screen of Forgot password
 class ForgotPasswordScreen extends StatelessWidget {
   ForgotPasswordScreen({super.key});
 
@@ -24,20 +24,20 @@ class ForgotPasswordScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: 20.h),
-                  //-------------Forgot password text----------------------
+                  //-Forgot password text-
                   const Heading(),
                   SizedBox(height: 5.h),
-                  //-------------Instruction text----------------------
+                  //-Instruction text-
                   const BodyWidget(),
-                  //------------Center image of Email----------------------
+                  //Center image of Email-
                   const CenterImage(),
-                  //-------------User input for email----------------------
+                  //-User input for email-
                   const Email(),
                   SizedBox(height: 25.h),
-                  //-------------Remember password ----------------------
+                  //-Remember password -
                   const RememberPassword(),
                   SizedBox(height: 10.h),
-                  // ---------------Email send Button--------------------------------------------
+                  // Email send Button-
                   SendButton(formKey: _formKey),
                 ],
               ),

@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:timirama/common/localization/enums/enums.dart';
 import 'package:timirama/common/utils/validators.dart';
@@ -6,14 +10,10 @@ import 'package:timirama/features/create_profile/bloc/create_profile_bloc.dart';
 import 'package:timirama/features/create_profile/bloc/create_profile_event.dart';
 import 'package:timirama/routes/app_routes.dart';
 import 'package:timirama/services/storage/get_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
-//--------------- Description screen componets---------------------
+// Description screen componets
 
-//----------------Text Regarding name description--------------------------
+//-Text Regarding name description
 class DescriptionBody extends StatelessWidget {
   const DescriptionBody({super.key});
 
@@ -24,7 +24,7 @@ class DescriptionBody extends StatelessWidget {
   }
 }
 
-//----------------Text Regarding name Title--------------------------
+//-Text Regarding name Title
 class DescriptionTitle extends StatelessWidget {
   const DescriptionTitle({super.key});
 
@@ -35,7 +35,7 @@ class DescriptionTitle extends StatelessWidget {
   }
 }
 
-//------------------------Textfield for user input for description------------------------
+//Textfield for user input for description
 class TextFieldForDescription extends StatefulWidget {
   const TextFieldForDescription({super.key});
 
@@ -65,8 +65,8 @@ class _TextFieldForDescriptionState extends State<TextFieldForDescription> {
         minLines: null,
         keyboardType: TextInputType.text,
         onChanged: (value) => context.read<CreateProfileBloc>().add(
-          DescriptionChanged(description: value.trim()),
-        ),
+              DescriptionChanged(description: value.trim()),
+            ),
         cursorColor: AppColors.black,
         style: TextStyle(fontSize: 16),
         validator: AppValidator.validateDescription,
@@ -102,7 +102,7 @@ class _TextFieldForDescriptionState extends State<TextFieldForDescription> {
   }
 }
 
-//------------------------Next Button ----------------------------------
+//Next Button
 
 class DescriptionNextButton extends StatelessWidget {
   DescriptionNextButton({super.key, required this.formKey});

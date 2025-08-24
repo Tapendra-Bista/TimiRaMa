@@ -37,29 +37,29 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
         },
         child: CustomScrollView(
           slivers: [
-            //----------------------PlatformAppBar------------------------------
+            //-PlatformAppBar
             UserDetailsPlatformAppBar(
               isScrollingUp: _isScrollingUp,
               data: widget.data,
             ),
             StackWidget(hasValidUrl: hasValidUrl, widget: widget),
 
-            //-------------age of account-----------------------
+            //-age of account
             CreatedDate(
               date: date,
               id: widget.data.id,
             ),
             SliverToBoxAdapter(child: SizedBox(height: 5.h)),
-            //-----------------RowList of Button------------------------
+            //RowList of Button
             ButtonList(model: widget.data),
-            //------User  Details like name , age city------------------------
+            //User  Details like name , age city
             SliverToBoxAdapter(child: SizedBox(height: 5.h)),
             UserDetails(widget: widget),
             SliverToBoxAdapter(child: SizedBox(height: 5.h)),
-            // Interests grid-----------------------
+            // Interests grid
             Interests(widget: widget),
 
-            //---------User description-----------------------
+            //User description
             Description(widget: widget),
             SliverToBoxAdapter(child: SizedBox(height: 10.h)),
           ],

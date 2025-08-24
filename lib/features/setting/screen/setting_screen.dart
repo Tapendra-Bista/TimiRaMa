@@ -12,9 +12,9 @@ class SettingScreen extends StatelessWidget {
     return PlatformScaffold(
       body: CustomScrollView(
         slivers: [
-          //--------------------------------- app Bar---------------------------
+          // app Bar
           SettingPlatformAppBar(),
-          // -------------Body--------------------------
+          // -Body
           SliverToBoxAdapter(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -22,38 +22,38 @@ class SettingScreen extends StatelessWidget {
               children: [
                 SizedBox(height: 30.h),
                 CustomDivider(),
-                //--------------Archive user list----------------------------
+                //Archive user list-
                 ArchiveListTile(),
                 CustomDivider(),
-                //--------------Blocked user list----------------------------
+                //Blocked user list-
                 BlockedListTile(),
                 CustomDivider(),
-                //-------------------Help center-----------------------
+                //-Help center
                 HelpListTile(),
-                //-------------divider----------------
+                //-divider-
                 CustomDivider(),
 
-                //-----------------Change Language--------------------
+                //Change Language
                 LanguageListTile(),
-                //-------------divider----------------
+                //-divider-
                 CustomDivider(),
-                //----------------fav  list-----------------
+                //-fav  list
                 FavoritesListTile(),
                 CustomDivider(),
 
-                //----------------------Notification ----------------------------
+                //-Notification -
                 NotificationListTile(),
-                //-------------divider----------------
+                //-divider-
                 CustomDivider(),
 
-                //---------------------Logout-------------------------
+                //Logout-
                 LogoutListTile(),
-                //-------------divider----------------
+                //-divider-
                 CustomDivider(),
 
-                //------------------Privacy Settings------------------------------
+                //Privacy Settings
                 PrivacyListTile(),
-                //-------------divider----------------
+                //-divider-
                 CustomDivider(),
               ],
             ),

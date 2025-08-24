@@ -14,7 +14,7 @@ import 'package:timirama/features/signup/bloc/signup_event.dart';
 import 'package:timirama/features/signup/bloc/signup_state.dart';
 import 'package:timirama/routes/app_routes.dart';
 
-/// ---------------- Signup text ----------------
+/// - Signup text -
 class SignUpText extends StatelessWidget {
   const SignUpText({super.key});
 
@@ -26,7 +26,7 @@ class SignUpText extends StatelessWidget {
   }
 }
 
-/// ------------------ TextField for email -------------------
+///  TextField for email -
 class EmailInput extends StatefulWidget {
   const EmailInput({super.key});
 
@@ -57,7 +57,7 @@ class _EmailInputState extends State<EmailInput> {
   }
 }
 
-/// ------------------ TextField for password -------------------
+///  TextField for password -
 class PasswordInput extends StatefulWidget {
   const PasswordInput({super.key});
 
@@ -84,8 +84,8 @@ class _PasswordInputState extends State<PasswordInput> {
           validator: AppValidator.validatePassword,
           obscureText: state.isPasswordHidden,
           onChanged: (value) => context.read<SignupBloc>().add(
-            PasswordChanged(password: value.trim()),
-          ),
+                PasswordChanged(password: value.trim()),
+              ),
           suffixIcon: PlatformIconButton(
             onPressed: () =>
                 context.read<SignupBloc>().add(PasswordVisibility()),
@@ -102,7 +102,7 @@ class _PasswordInputState extends State<PasswordInput> {
   }
 }
 
-/// ------------------- Register description and checkbox ------------------
+/// - Register description and checkbox
 class RegisterDescription extends StatelessWidget {
   const RegisterDescription({super.key});
 
@@ -150,9 +150,9 @@ class RegisterDescription extends StatelessWidget {
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () => Navigator.pushNamed(
-                      context,
-                      AppRoutes.privacyAndPolicy,
-                    ),
+                          context,
+                          AppRoutes.privacyAndPolicy,
+                        ),
                 ),
               ],
             ),
@@ -163,7 +163,7 @@ class RegisterDescription extends StatelessWidget {
   }
 }
 
-/// ----------------------- Signup button ----------------------
+///  Signup button -
 class SignupButton extends StatelessWidget {
   const SignupButton({super.key, required this.formKey});
   final GlobalKey<FormState> formKey;
@@ -193,7 +193,7 @@ class SignupButton extends StatelessWidget {
   }
 }
 
-//------------------if user has already have account------------------
+//if user has already have account
 
 class AlreadyHaveAccount extends StatelessWidget {
   const AlreadyHaveAccount({super.key});

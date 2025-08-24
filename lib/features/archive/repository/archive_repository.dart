@@ -8,7 +8,7 @@ class ArchiveRepository extends BaseRepository {
     this.firestore = firestore ?? FirebaseFirestore.instance;
   }
 
-  //-------------------------- Add Archive --------------------------
+  // Add Archive
   Future<void> addArchive(String archiveId) async {
     final archiveDocRef = firestore
         .collection('users')
@@ -30,7 +30,7 @@ class ArchiveRepository extends BaseRepository {
     }
   }
 
-  //-------------------------- Remove Archive --------------------------
+  // Remove Archive
   Future<void> removeArchive(String archiveId) async {
     final archiveDocRef = firestore
         .collection('users')
@@ -58,7 +58,7 @@ class ArchiveRepository extends BaseRepository {
     }
   }
 
-  //-------------------------- Fetch Archives --------------------------
+  // Fetch Archives
   Future<ArchiveModel?> fetchArchives() async {
     debugPrint("currentUserId : $currentUserId");
 
