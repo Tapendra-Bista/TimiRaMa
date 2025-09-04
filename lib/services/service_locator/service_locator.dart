@@ -129,7 +129,13 @@ void setupLocator() {
     () => StatusBloc(statusrepository: getIt<StatusRepository>()),
   );
   getIt.registerLazySingleton<HomeBloc>(
-    () => HomeBloc(repository: getIt<HomeRepository>()),
+    () => HomeBloc(
+      repository: getIt<HomeRepository>(),
+      profileRepository: getIt<ProfileRepository>(),
+      favoriteRepository: getIt<FavoriteRepository>(),
+      blockRepository: getIt<BlockRepository>(),
+      archiveRepository: getIt<ArchiveRepository>(),
+    ),
   );
   getIt.registerLazySingleton<ReportBloc>(() => ReportBloc());
 

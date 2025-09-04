@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_avatar/flutter_advanced_avatar.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_story_view/flutter_story_view.dart';
-import 'package:flutter_story_view/models/story_item.dart';
 import 'package:get/get.dart';
 import 'package:timirama/common/constant/constant_colors.dart';
+import 'package:timirama/common/widgets/custom_story_view/custom_story_view.dart';
+import 'package:timirama/common/widgets/custom_story_view/story_item.dart';
 import 'package:timirama/common/widgets/seniority.dart';
 import 'package:timirama/features/stories/model/stories_model.dart';
 
@@ -35,7 +35,7 @@ class _ViewStoriesState extends State<ViewStories> {
         child: SizedBox.expand(
           child: Stack(
             children: [
-              FlutterStoryView(
+              CustomStoryView(
                 showReplyButton: false,
                 indicatorPadding: REdgeInsets.only(top: 30.h),
                 storyItems: widget.data.containUrl.map((imgUrl) {

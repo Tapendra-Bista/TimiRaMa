@@ -28,7 +28,7 @@ class GenderScreen extends StatelessWidget {
                 //-Text Regarding name description
                 const GenderDescription(),
                 SizedBox(height: 20.h),
-// Group radio button
+                 // Group radio button
                 GenderRadioGroup(),
 
                 SizedBox(height: 80.h),

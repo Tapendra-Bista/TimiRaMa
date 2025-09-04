@@ -71,7 +71,7 @@ class ImageAndStatus extends StatelessWidget {
           ),
           Positioned(left: 40.w, bottom: 150.h, child: UserDetails(user: user)),
           Positioned(
-            left: 40.w,
+            left: 30.w,
             bottom: 50.h,
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -86,11 +86,11 @@ class ImageAndStatus extends StatelessWidget {
                   },
                   child: Icon(Icons.close, color: AppColors.floralWhite),
                 ),
-                SizedBox(width: 30.w),
+                SizedBox(width: 25.w),
                 StartChatFromMatch(
                   profileModel: user,
                 ),
-                SizedBox(width: 30.w),
+                SizedBox(width: 25.w),
                 FloatingActionButton(
                   heroTag: "rightBtn",
                   backgroundColor: AppColors.green,

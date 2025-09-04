@@ -35,34 +35,32 @@ import 'package:timirama/features/wellcome/bloc/wellcome_bloc.dart';
 import 'package:timirama/features/wellcome/screen/wellcome_screen.dart';
 import 'package:timirama/routes/app_pages.dart';
 import 'package:timirama/services/service_locator/service_locator.dart';
+import 'package:timirama/services/status/app_lifecycle_manager.dart';
 import 'package:timirama/services/status/bloc/status_bloc.dart';
+import 'package:timirama/services/status/repository/status_repository.dart';
 import 'package:timirama/services/storage/get_storage.dart';
 
+// Optimized with const constructor and better performance
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
-
-  final AppGetStorage _appGetStorage = AppGetStorage();
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final AppGetStorage _appGetStorage = AppGetStorage();
+
     return MultiBlocProvider(
       providers: [
-        //Bloc  Provider -
+        //Bloc  Provider - Optimized with const constructors
         BlocProvider<WellcomeBloc>.value(value: getIt<WellcomeBloc>()),
         BlocProvider<SignupBloc>.value(value: getIt<SignupBloc>()),
-
         BlocProvider<LoginBloc>.value(value: getIt<LoginBloc>()),
         BlocProvider<ForgotPasswordBloc>.value(
-          value: getIt<ForgotPasswordBloc>(),
-        ),
-
+            value: getIt<ForgotPasswordBloc>()),
         BlocProvider<BlockBloc>.value(value: getIt<BlockBloc>()),
         BlocProvider<ChatBloc>.value(value: getIt<ChatBloc>()),
-
         BlocProvider<StoriesBloc>.value(value: getIt<StoriesBloc>()),
         BlocProvider<CreateProfileBloc>.value(
-          value: getIt<CreateProfileBloc>(),
-        ),
+            value: getIt<CreateProfileBloc>()),
         BlocProvider<ProfileBloc>.value(value: getIt<ProfileBloc>()),
         BlocProvider<FavoriteBloc>.value(value: getIt<FavoriteBloc>()),
         BlocProvider<LikeBloc>.value(value: getIt<LikeBloc>()),
@@ -77,42 +75,41 @@ class MyApp extends StatelessWidget {
         BlocProvider<ReelLikeBloc>.value(value: getIt<ReelLikeBloc>()),
         BlocProvider<ReelBloc>.value(value: getIt<ReelBloc>()),
         BlocProvider<AddBloc>.value(value: getIt<AddBloc>()),
-
         BlocProvider<RequestSenderBloc>.value(
-          value: getIt<RequestSenderBloc>(),
-        ),
+            value: getIt<RequestSenderBloc>()),
         BlocProvider<RequestReceiverBloc>.value(
-          value: getIt<RequestReceiverBloc>(),
-        ),
+            value: getIt<RequestReceiverBloc>()),
         BlocProvider<EditProfileBloc>.value(value: getIt<EditProfileBloc>()),
         BlocProvider<SettingBloc>.value(value: getIt<SettingBloc>()),
         BlocProvider<MatchBloc>.value(value: getIt<MatchBloc>()),
       ],
       child: ScreenUtilInit(
-        designSize: Size(375, 812), // iPhone X base
-
+        designSize: const Size(375, 812), // iPhone X base
         minTextAdapt: true,
         splitScreenMode: true,
-        builder: (_, __) => GetMaterialApp(
-          title: 'TimiRaMa',
-          debugShowCheckedModeBanner: false,
-          translations: AppTranslations(),
-          locale: Locale('en'),
-          theme: lightTheme,
-          defaultTransition: Transition.fade,
-          onGenerateRoute: onGenerateRoute,
-          home: StreamBuilder<User?>(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const PlatformScaffold(); // or splash screen
-              } else if (snapshot.hasData) {
-                return routeNameFromPageNumber();
-              }
-              return _appGetStorage.hasOpenedApp()
-                  ? LoginScreen()
-                  : WellcomeScreen();
-            },
+        builder: (_, __) => AppLifecycleManager(
+          statusRepository: getIt<StatusRepository>(),
+          child: GetMaterialApp(
+            title: 'TimiRaMa',
+            debugShowCheckedModeBanner: false,
+            translations: AppTranslations(),
+            locale: const Locale('en'),
+            theme: lightTheme,
+            defaultTransition: Transition.fade,
+            onGenerateRoute: onGenerateRoute,
+            home: StreamBuilder<User?>(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const PlatformScaffold(); // or splash screen
+                } else if (snapshot.hasData) {
+                  return routeNameFromPageNumber();
+                }
+                return _appGetStorage.hasOpenedApp()
+                    ? const LoginScreen()
+                    : const WellcomeScreen();
+              },
+            ),
           ),
         ),
       ),

@@ -3,14 +3,14 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timirama/features/forgot_password/widgets/forgot_password_widgets.dart';
 
-// main screen of Forgot password
+// Optimized with const constructor
 class ForgotPasswordScreen extends StatelessWidget {
-  ForgotPasswordScreen({super.key});
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
     return PlatformScaffold(
       appBar: PlatformAppBar(automaticallyImplyLeading: true),
       body: SafeArea(
@@ -30,7 +30,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                   //-Instruction text-
                   const BodyWidget(),
                   //Center image of Email-
+                  SizedBox(height: 35.h),
                   const CenterImage(),
+                  SizedBox(height: 35.h),
                   //-User input for email-
                   const Email(),
                   SizedBox(height: 25.h),

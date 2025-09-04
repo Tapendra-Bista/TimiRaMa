@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -14,7 +15,7 @@ import 'package:timirama/features/profile/bloc/profile_bloc.dart';
 import 'package:timirama/features/profile/model/profile_model.dart';
 import 'package:timirama/routes/app_routes.dart';
 
-//-PlatformAppBar
+//-PlatformAppBar - Optimized with const constructor
 class ProfilePlatformAppBar extends StatelessWidget {
   const ProfilePlatformAppBar({super.key});
 
@@ -25,23 +26,23 @@ class ProfilePlatformAppBar extends StatelessWidget {
       actions: [
         PlatformIconButton(
           onPressed: () {},
-          icon: Icon(HugeIcons.strokeRoundedEdit04),
+          icon: const Icon(HugeIcons.strokeRoundedEdit04),
         ),
         PlatformIconButton(
           onPressed: () => Get.toNamed(AppRoutes.setting),
-          icon: Icon(HugeIcons.strokeRoundedSettings01),
+          icon: const Icon(HugeIcons.strokeRoundedSettings01),
         ),
       ],
-      title: PlatformAppBarTitle(),
+      title: const PlatformAppBarTitle(),
       leading: PlatformIconButton(
         onPressed: () => Get.back(),
-        icon: Icon(HugeIcons.strokeRoundedMultiplicationSign),
+        icon: const Icon(HugeIcons.strokeRoundedMultiplicationSign),
       ),
     );
   }
 }
 
-//-PlatformAppBar Title
+//-PlatformAppBar Title - Optimized with BlocSelector
 class PlatformAppBarTitle extends StatelessWidget {
   const PlatformAppBarTitle({super.key});
 
@@ -52,9 +53,8 @@ class PlatformAppBarTitle extends StatelessWidget {
       builder: (context, data) {
         return Text(
           data,
-          style: Theme.of(
-            context,
-          ).textTheme.bodyLarge!.copyWith(fontSize: 25.sp),
+          style:
+              Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 25.sp),
           overflow: TextOverflow.ellipsis,
         );
       },
@@ -62,13 +62,14 @@ class PlatformAppBarTitle extends StatelessWidget {
   }
 }
 
-//-Description
+//-Description - Optimized with BlocSelector
 class DescriptionText extends StatelessWidget {
   const DescriptionText({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+
     return BlocSelector<ProfileBloc, ProfileState, String>(
       selector: (state) =>
           (state is ProfileLoaded) ? state.data.description : "",
@@ -100,7 +101,7 @@ class DescriptionText extends StatelessWidget {
   }
 }
 
-//-User Interests -
+//-User Interests - Optimized with BlocSelector and RepaintBoundary
 class UserInterestsList extends StatelessWidget {
   const UserInterestsList({super.key});
 
@@ -121,31 +122,35 @@ class UserInterestsList extends StatelessWidget {
             ),
             itemBuilder: (BuildContext context, index) {
               final items = data[index];
-              return Container(
-                padding: EdgeInsets.symmetric(horizontal: 2.w),
-                height: 20.h,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primaryColor.withAlpha(10),
-                      blurRadius: 2.r,
-                      spreadRadius: 2.r,
-                      offset: Offset(0.4.w, 0.4.h),
-                      blurStyle: BlurStyle.solid,
+              return RepaintBoundary(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 2.w),
+                  height: 20.h,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.primaryColor.withAlpha(10),
+                        blurRadius: 2.r,
+                        spreadRadius: 2.r,
+                        offset: Offset(0.4.w, 0.4.h),
+                        blurStyle: BlurStyle.solid,
+                      ),
+                    ],
+                    color: AppColors.transparent,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(8.r),
+                    border:
+                        Border.all(color: AppColors.primaryColor, width: 1.w),
+                  ),
+                  child: Center(
+                    child: Text(
+                      items,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontSize: 14.sp),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ],
-                  color: AppColors.transparent,
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(8.r),
-                  border: Border.all(color: AppColors.primaryColor, width: 1.w),
-                ),
-                child: Center(
-                  child: Text(
-                    items,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyMedium!.copyWith(fontSize: 14.sp),
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               );
@@ -157,7 +162,7 @@ class UserInterestsList extends StatelessWidget {
   }
 }
 
-//User account age
+//User account age - Optimized with const constructor
 class UserSeniority extends StatelessWidget {
   const UserSeniority({super.key});
 
@@ -191,13 +196,14 @@ class UserSeniority extends StatelessWidget {
   }
 }
 
-// user name , age nad city-
+//User Details - Optimized with BlocSelector
 class UserDetails extends StatelessWidget {
   const UserDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+
     return BlocSelector<ProfileBloc, ProfileState, ProfileModel>(
       selector: (state) =>
           (state is ProfileLoaded) ? state.data : ProfileModel.empty(),
@@ -239,49 +245,62 @@ class UserDetails extends StatelessWidget {
   }
 }
 
-// Profile Image
+// Profile Image - Optimized with BlocSelector and RepaintBoundary
 class ProfileImage extends StatelessWidget {
-  ProfileImage({super.key});
-  final auth = FirebaseAuth.instance;
+  const ProfileImage({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final auth = FirebaseAuth.instance;
+
     return BlocSelector<ProfileBloc, ProfileState, String>(
       selector: (state) => (state is ProfileLoaded) ? state.data.imgURL : "",
       builder: (context, url) {
         final hasValidUrl =
             url.isNotEmpty && Uri.tryParse(url)?.hasAbsolutePath == true;
+
         return SliverPadding(
           padding: EdgeInsetsGeometry.symmetric(horizontal: 10.w),
           sliver: SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.only(bottom: 5.h),
-              child: Stack(
-                children: [
-                  Container(
-                    height: 380.h,
-                    width: double.maxFinite.w,
-                    decoration: BoxDecoration(
-                      image: hasValidUrl
-                          ? DecorationImage(
-                              fit: BoxFit.cover,
-                              image: CachedNetworkImageProvider(url),
-                            )
-                          : null,
-                      color: AppColors.floralWhite,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12.r),
-                        topRight: Radius.circular(12.r),
+              child: RepaintBoundary(
+                child: Stack(
+                  children: [
+                    Container(
+                      height: 380.h,
+                      width: double.maxFinite.w,
+                      decoration: BoxDecoration(
+                        image: hasValidUrl
+                            ? DecorationImage(
+                                fit: BoxFit.cover,
+                                image: CachedNetworkImageProvider(url),
+                              )
+                            : null,
+                        color: AppColors.floralWhite,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(12.r),
+                          topRight: Radius.circular(12.r),
+                        ),
+                        shape: BoxShape.rectangle,
                       ),
-                      shape: BoxShape.rectangle,
                     ),
-                  ),
-                  Positioned(
-                    top: 10.h,
-                    right: 5.w,
-                    child: UserStatus(id: auth.currentUser!.uid),
-                  ),
-                  ReplacePP(),
-                ],
+                    Positioned(
+                      top: 10.h,
+                      right: 5.w,
+                      child: Builder(
+                        builder: (context) {
+                          if (kDebugMode) {
+                            print(
+                                'Profile: Rendering UserStatus for user: ${auth.currentUser!.uid}');
+                          }
+                          return UserStatus(id: auth.currentUser!.uid);
+                        },
+                      ),
+                    ),
+                    const ReplacePP(),
+                  ],
+                ),
               ),
             ),
           ),

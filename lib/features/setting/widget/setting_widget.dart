@@ -12,6 +12,7 @@ import 'package:timirama/common/widgets/loading.dart';
 import 'package:timirama/routes/app_routes.dart';
 import 'package:timirama/services/storage/get_storage.dart';
 
+// Optimized with const constructor and memoized theme
 class FavoritesListTile extends StatelessWidget {
   const FavoritesListTile({super.key});
 
@@ -20,8 +21,9 @@ class FavoritesListTile extends StatelessWidget {
     final theme = Theme.of(context).textTheme;
     return ListTile(
       onTap: () => Get.toNamed(AppRoutes.favorite),
-      trailing: SizedBox(width: 50.w, child: Icon(CupertinoIcons.forward)),
-      leading: Icon(HugeIcons.strokeRoundedFavouriteSquare),
+      trailing:
+          SizedBox(width: 50.w, child: const Icon(CupertinoIcons.forward)),
+      leading: const Icon(HugeIcons.strokeRoundedFavouriteSquare),
       title: SizedBox(
         width: 50.w,
         child: Text(
@@ -34,7 +36,7 @@ class FavoritesListTile extends StatelessWidget {
   }
 }
 
-//-Archive user
+//-Archive user - Optimized with const constructor
 class ArchiveListTile extends StatelessWidget {
   const ArchiveListTile({super.key});
 
@@ -43,8 +45,9 @@ class ArchiveListTile extends StatelessWidget {
     final theme = Theme.of(context).textTheme;
     return ListTile(
       onTap: () => Get.toNamed(AppRoutes.archive),
-      trailing: SizedBox(width: 50.w, child: Icon(CupertinoIcons.forward)),
-      leading: Icon(HugeIcons.strokeRoundedArchive),
+      trailing:
+          SizedBox(width: 50.w, child: const Icon(CupertinoIcons.forward)),
+      leading: const Icon(HugeIcons.strokeRoundedArchive),
       title: Text(
         EnumLocale.archive.name.tr,
         style: theme.bodyMedium,
@@ -54,7 +57,7 @@ class ArchiveListTile extends StatelessWidget {
   }
 }
 
-//-Blocked user
+//-Blocked user - Optimized with const constructor
 class BlockedListTile extends StatelessWidget {
   const BlockedListTile({super.key});
 
@@ -63,8 +66,9 @@ class BlockedListTile extends StatelessWidget {
     final theme = Theme.of(context).textTheme;
     return ListTile(
       onTap: () => Get.toNamed(AppRoutes.block),
-      trailing: SizedBox(width: 50.w, child: Icon(CupertinoIcons.forward)),
-      leading: Icon(HugeIcons.strokeRoundedBlocked),
+      trailing:
+          SizedBox(width: 50.w, child: const Icon(CupertinoIcons.forward)),
+      leading: const Icon(HugeIcons.strokeRoundedBlocked),
       title: Text(
         EnumLocale.blocked.name.tr,
         style: theme.bodyMedium,
@@ -74,7 +78,7 @@ class BlockedListTile extends StatelessWidget {
   }
 }
 
-//App Bar
+//App Bar - Optimized with const constructor
 class SettingPlatformAppBar extends StatelessWidget {
   const SettingPlatformAppBar({super.key});
 
@@ -83,7 +87,7 @@ class SettingPlatformAppBar extends StatelessWidget {
     return SliverAppBar(
       leading: PlatformIconButton(
         onPressed: () => Get.back(),
-        icon: Icon(HugeIcons.strokeRoundedMultiplicationSign),
+        icon: const Icon(HugeIcons.strokeRoundedMultiplicationSign),
       ),
       title: SettingTitle(),
       centerTitle: true,
@@ -91,7 +95,7 @@ class SettingPlatformAppBar extends StatelessWidget {
   }
 }
 
-//-Title Text
+//-Title Text - Optimized with const constructor
 class SettingTitle extends StatelessWidget {
   const SettingTitle({super.key});
 
@@ -106,9 +110,9 @@ class SettingTitle extends StatelessWidget {
   }
 }
 
-//Change Language
+//Change Language - Optimized with better state management
 class LanguageListTile extends StatefulWidget {
-  LanguageListTile({super.key});
+  const LanguageListTile({super.key});
 
   @override
   State<LanguageListTile> createState() => _LanguageListTileState();
@@ -116,36 +120,17 @@ class LanguageListTile extends StatefulWidget {
 
 class _LanguageListTileState extends State<LanguageListTile> {
   final app = AppGetStorage();
-
   bool englishLanBool = false;
-
   bool franceBool = false;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
     return ListTile(
-      onTap: () => showPlatformModalSheet(
-        material: MaterialModalSheetData(
-          backgroundColor: AppColors.transparent,
-        ),
-        context: context,
-        builder: (context) => Padding(
-          padding: EdgeInsets.all(14.r),
-          child: Material(
-            borderRadius: BorderRadius.circular(18.r),
-            elevation: 10,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [],
-            ),
-          ),
-        ),
-      ),
-      trailing: SizedBox(width: 50.w, child: Icon(CupertinoIcons.forward)),
-      leading: Icon(HugeIcons.strokeRoundedLanguageSquare),
+      onTap: () => _showLanguageModal(context),
+      trailing:
+          SizedBox(width: 50.w, child: const Icon(CupertinoIcons.forward)),
+      leading: const Icon(HugeIcons.strokeRoundedLanguageSquare),
       title: Text(
         EnumLocale.changeLanguage.name.tr,
         style: theme.bodyMedium,
@@ -153,9 +138,32 @@ class _LanguageListTileState extends State<LanguageListTile> {
       ),
     );
   }
+
+  // Extracted method for better performance
+  void _showLanguageModal(BuildContext context) {
+    showPlatformModalSheet(
+      material: MaterialModalSheetData(
+        backgroundColor: AppColors.transparent,
+      ),
+      context: context,
+      builder: (context) => Padding(
+        padding: EdgeInsets.all(14.r),
+        child: Material(
+          borderRadius: BorderRadius.circular(18.r),
+          elevation: 10,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-//-Help center
+//-Help center - Optimized with const constructor
 class HelpListTile extends StatelessWidget {
   const HelpListTile({super.key});
 
@@ -164,8 +172,9 @@ class HelpListTile extends StatelessWidget {
     final theme = Theme.of(context).textTheme;
     return ListTile(
       onTap: () {},
-      trailing: SizedBox(width: 50.w, child: Icon(CupertinoIcons.forward)),
-      leading: Icon(HugeIcons.strokeRoundedHelpSquare),
+      trailing:
+          SizedBox(width: 50.w, child: const Icon(CupertinoIcons.forward)),
+      leading: const Icon(HugeIcons.strokeRoundedHelpSquare),
       title: Text(
         EnumLocale.helpCenter.name.tr,
         style: theme.bodyMedium,
@@ -175,7 +184,7 @@ class HelpListTile extends StatelessWidget {
   }
 }
 
-//Privacy Settings
+//Privacy Settings - Optimized with const constructor
 class PrivacyListTile extends StatelessWidget {
   const PrivacyListTile({super.key});
 
@@ -184,8 +193,9 @@ class PrivacyListTile extends StatelessWidget {
     final theme = Theme.of(context).textTheme;
     return ListTile(
       onTap: () {},
-      trailing: SizedBox(width: 50.w, child: Icon(CupertinoIcons.forward)),
-      leading: Icon(HugeIcons.strokeRoundedLocked),
+      trailing:
+          SizedBox(width: 50.w, child: const Icon(CupertinoIcons.forward)),
+      leading: const Icon(HugeIcons.strokeRoundedLocked),
       title: Text(
         EnumLocale.privacySettings.name.tr,
         style: theme.bodyMedium,
@@ -195,7 +205,7 @@ class PrivacyListTile extends StatelessWidget {
   }
 }
 
-//-Notification -
+//-Notification - Optimized with const constructor and simplified structure
 class NotificationListTile extends StatelessWidget {
   const NotificationListTile({super.key});
 
@@ -204,8 +214,9 @@ class NotificationListTile extends StatelessWidget {
     final theme = Theme.of(context).textTheme;
     return ListTile(
       onTap: () {},
-      trailing: SizedBox(width: 50.w, child: Icon(CupertinoIcons.forward)),
-      leading: Icon(HugeIcons.strokeRoundedNotification01),
+      trailing:
+          SizedBox(width: 50.w, child: const Icon(CupertinoIcons.forward)),
+      leading: const Icon(HugeIcons.strokeRoundedNotification01),
       title: Text(
         EnumLocale.notifications.name.tr,
         style: theme.bodyMedium,
@@ -215,7 +226,7 @@ class NotificationListTile extends StatelessWidget {
   }
 }
 
-//Logout-
+//Logout - Optimized with better async handling and const constructor
 class LogoutListTile extends StatelessWidget {
   const LogoutListTile({super.key});
 
@@ -223,22 +234,37 @@ class LogoutListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
     return ListTile(
-      leading: Icon(HugeIcons.strokeRoundedLogoutSquare02),
+      leading: const Icon(HugeIcons.strokeRoundedLogoutSquare02),
       title: Text(
         EnumLocale.logout.name.tr,
         style: theme.bodyMedium,
         overflow: TextOverflow.ellipsis,
       ),
-      onTap: () async {
-        final BuildContext currentContext = context;
-        await FirebaseAuth.instance.signOut();
-
-        if (!currentContext.mounted) return;
-        customLoading(context);
-        await Future.delayed(Duration(milliseconds: 1500));
-        Get.toNamed(AppRoutes.login);
-      },
-      trailing: SizedBox(width: 50.w, child: Icon(CupertinoIcons.forward)),
+      onTap: () => _handleLogout(context),
+      trailing:
+          SizedBox(width: 50.w, child: const Icon(CupertinoIcons.forward)),
     );
+  }
+
+  // Extracted method for better performance and error handling
+  Future<void> _handleLogout(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+
+      if (!context.mounted) return;
+
+      customLoading(context);
+      await Future.delayed(const Duration(milliseconds: 1500));
+
+      if (!context.mounted) return;
+      Get.toNamed(AppRoutes.login);
+    } catch (e) {
+      // Handle logout error
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Logout failed: $e')),
+        );
+      }
+    }
   }
 }

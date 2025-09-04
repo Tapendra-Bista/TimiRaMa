@@ -11,12 +11,14 @@ import 'package:timirama/features/favorite/bloc/favorite_state.dart';
 import 'package:timirama/features/favorite/widgets/favorite_fetched_screen_widgets.dart';
 import 'package:timirama/features/profile/model/profile_model.dart';
 
+// Optimized with RepaintBoundary and const constructors
 class FetchedScreen extends StatelessWidget {
   const FetchedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+
     return BlocSelector<FavoriteBloc, FavoriteState, List<ProfileModel>>(
       selector: (state) => state.favUserList,
       builder: (context, favData) {
@@ -27,7 +29,7 @@ class FetchedScreen extends StatelessWidget {
             },
             leading: PlatformIconButton(
               onPressed: () => Get.back(),
-              icon: Icon(HugeIcons.strokeRoundedMultiplicationSign),
+              icon: const Icon(HugeIcons.strokeRoundedMultiplicationSign),
             ),
             title: Text(EnumLocale.favorites.name.tr, style: theme.bodyMedium),
           ),
@@ -39,29 +41,33 @@ class FetchedScreen extends StatelessWidget {
               final hasValidUrl = item.imgURL.isNotEmpty &&
                   Uri.tryParse(item.imgURL)?.hasAbsolutePath == true;
 
-              return hasValidUrl
-                  ? Container(
-                      margin: EdgeInsets.only(bottom: 10.h),
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                        color: AppColors.greyContainerColor,
-                        borderRadius: BorderRadius.circular(2.r),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        spacing: 15.h,
-                        children: [
-                          UserImage(Homedata: item),
-                          CreatedDate(Homedata: item),
-                          ButtonsList(Homedata: item),
-                          UserDetails(profileModel: item),
-                          Interests(profileModel: item),
-                          Description(profileModel: item),
-                          SizedBox(height: 5.h),
-                        ],
-                      ),
-                    )
-                  : null;
+              if (!hasValidUrl) return const SizedBox.shrink();
+
+              return RepaintBoundary(
+                child: Container(
+                  key: ValueKey(
+                      item.id), // Add unique key for better performance
+                  margin: EdgeInsets.only(bottom: 10.h),
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                    color: AppColors.greyContainerColor,
+                    borderRadius: BorderRadius.circular(2.r),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 15.h,
+                    children: [
+                      UserImage(Homedata: item),
+                      CreatedDate(Homedata: item),
+                      ButtonsList(Homedata: item),
+                      UserDetails(profileModel: item),
+                      Interests(profileModel: item),
+                      Description(profileModel: item),
+                      SizedBox(height: 5.h),
+                    ],
+                  ),
+                ),
+              );
             },
           ),
         );

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:timirama/features/add/screen/add_screen.dart';
 import 'package:timirama/features/archive/screen/archive_screen.dart';
 import 'package:timirama/features/block/screen/block_screen.dart';
@@ -28,7 +29,6 @@ import 'package:timirama/features/signup/widgets/privacy_and_policy.dart';
 import 'package:timirama/features/wellcome/screen/wellcome_screen.dart';
 import 'package:timirama/routes/app_routes.dart';
 import 'package:timirama/services/storage/get_storage.dart';
-import 'package:flutter/material.dart';
 
 // Group all your screen imports here for clarity
 final AppGetStorage _appGetStorage = AppGetStorage();
@@ -100,12 +100,13 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => BlockScreen());
     case AppRoutes.preferences:
       return MaterialPageRoute(builder: (_) => PreferencesScreen());
-        case AppRoutes.matchPreferences:
+    case AppRoutes.matchPreferences:
       return MaterialPageRoute(builder: (_) => MatchPreferencesScreen());
     case AppRoutes.add:
       return MaterialPageRoute(builder: (_) => AddScreen());
     case AppRoutes.requests:
       return MaterialPageRoute(builder: (_) => RequestSenderScreen());
+
     default:
       return MaterialPageRoute(builder: (_) => WellcomeScreen());
   }

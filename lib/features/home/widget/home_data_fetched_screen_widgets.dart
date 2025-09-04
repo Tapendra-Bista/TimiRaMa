@@ -15,13 +15,14 @@ import 'package:timirama/features/preferences/bloc/preferences_bloc.dart';
 import 'package:timirama/features/profile/model/profile_model.dart';
 import 'package:timirama/features/user_details/screen/user_details_screen.dart';
 
-//Prifle picture grid-
+// Optimized Profile Grid with RepaintBoundary and const constructors
 class UserImageGrid extends StatelessWidget {
   const UserImageGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+
     return BlocSelector<HomeBloc, HomeState, List<ProfileModel?>>(
       selector: (state) => state.profileList,
       builder: (context, profileListData) {
@@ -30,6 +31,7 @@ class UserImageGrid extends StatelessWidget {
           selector: (state) => state,
           builder: (context, state) {
             final profileList = getFilterData(profileListData, state);
+
             if (profileList.isEmpty && isFilterActive(state)) {
               return SliverToBoxAdapter(
                 child: Padding(
@@ -52,115 +54,115 @@ class UserImageGrid extends StatelessWidget {
               ),
               itemBuilder: (BuildContext context, index) {
                 final item = profileList[index]!;
-
                 final hasValidUrl = item.imgURL.isNotEmpty &&
                     Uri.tryParse(item.imgURL)?.hasAbsolutePath == true;
-                return hasValidUrl
-                    ? InkWell(
-                        onTap: () =>
-                            Get.to(() => UserDetailsScreen(data: item)),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusGeometry.circular(8.r),
+
+                if (!hasValidUrl) return const SizedBox.shrink();
+
+                return RepaintBoundary(
+                  child: InkWell(
+                    onTap: () => Get.to(() => UserDetailsScreen(data: item)),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(8.r),
+                      ),
+                      color: AppColors.floralWhite,
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: CachedNetworkImageProvider(
+                                  item.imgURL,
+                                ),
+                              ),
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
                           ),
-                          color: AppColors.floralWhite,
-                          child: Stack(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: CachedNetworkImageProvider(
-                                      item.imgURL,
-                                    ),
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.r),
-                                ),
-                              ),
 
-                              // Top right UserStatus
-                              Positioned(
-                                top: 8.r,
-                                right: 8.r,
-                                child: UserStatus(
-                                  id: item.id,
-                                  width: 15.w,
-                                  height: 15.h,
-                                ),
-                              ),
+                          // Top right UserStatus
+                          Positioned(
+                            top: 8.r,
+                            right: 8.r,
+                            child: UserStatus(
+                              id: item.id,
+                              width: 15.w,
+                              height: 15.h,
+                            ),
+                          ),
 
-                              // Bottom center
-                              Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 8.r,
-                                  ),
-                                  color: AppColors.grey.withValues(
-                                    alpha: 0.15,
-                                  ), // Optional background overlay
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                          // Bottom center
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8.r,
+                              ),
+                              color: AppColors.grey.withValues(
+                                alpha: 0.15,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "${item.pseudo},",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .copyWith(
-                                                  color: AppColors.floralWhite,
-                                                  fontSize: 20.sp,
-                                                ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          Text(
-                                            "${item.age}",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .copyWith(
-                                                  color: AppColors.floralWhite,
-                                                  fontSize: 20.sp,
-                                                ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ],
+                                      Text(
+                                        "${item.pseudo},",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                              color: AppColors.floralWhite,
+                                              fontSize: 20.sp,
+                                            ),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            item.city,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(
-                                                  color: AppColors.floralWhite,
-                                                  fontSize: 12.sp,
-                                                ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                          ),
-                                          CompabilityScore(id: item.id),
-                                        ],
+                                      Text(
+                                        "${item.age}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                              color: AppColors.floralWhite,
+                                              fontSize: 20.sp,
+                                            ),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ],
                                   ),
-                                ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        item.city,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              color: AppColors.floralWhite,
+                                              fontSize: 12.sp,
+                                            ),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      ),
+                                      CompabilityScore(id: item.id),
+                                    ],
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      )
-                    : null;
+                        ],
+                      ),
+                    ),
+                  ),
+                );
               },
             );
           },

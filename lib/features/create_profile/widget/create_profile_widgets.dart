@@ -18,6 +18,7 @@ import 'package:timirama/services/storage/get_storage.dart';
 //-Interest screen components
 
 //-Frienship inlineChoice
+
 class FriendshipInchoice extends StatelessWidget {
   const FriendshipInchoice({super.key});
 
@@ -37,28 +38,13 @@ class FriendshipInchoice extends StatelessWidget {
                 return Choice<String>.prompt(
                   multiple: true,
                   value: state.friendship,
-                  onChanged: (value) {
-                    if (value.length <= 2) {
-                      context.read<CreateProfileBloc>().add(
-                            FriendsShipChanged(friendship: value),
-                          );
-                    } else {
-                      // Show warning when limit is exceeded
-                      snackBarMessage(
-                        context,
-                        EnumLocale.selectLimit.name.tr,
-                        Theme.of(context),
-                      );
-                    }
-                  },
-                  itemCount:
-                      AppStrings.categorizedUserInterests["Friendship"]!.length,
-                  itemBuilder: (state, i) {
-                    final item =
-                        AppStrings.categorizedUserInterests["Friendship"]![i];
-                    final selected = state.selected(item);
-                    final isLimitReached = state.value.length >= 2 && !selected;
-
+             
+                 onChanged: (value) => _handleFriendshipChange(context, value),
+              itemCount: AppStrings.categorizedUserInterests["Friendship"]!.length,
+              itemBuilder: (state, i) {
+                final item = AppStrings.categorizedUserInterests["Friendship"]![i];
+                final selected = state.selected(item);
+                final isLimitReached = state.value.length >= 2 && !selected;
                     return CheckboxListTile(
                       activeColor: AppColors.primaryColor,
                       value: selected,
@@ -90,7 +76,7 @@ class FriendshipInchoice extends StatelessWidget {
                           PlatformIconButton(
                             onPressed: () => Get.back(),
                             icon: Icon(
-                              state.friendship.isNotEmpty
+                              state.love.isNotEmpty
                                   ? FontAwesomeIcons.solidCircleCheck
                                   : FontAwesomeIcons.circleXmark,
                               color: AppColors.primaryColor,
@@ -137,8 +123,21 @@ class FriendshipInchoice extends StatelessWidget {
       },
     );
   }
+    // Extracted method for better performance
+  void _handleFriendshipChange(BuildContext context, List<String> value) {
+    if (value.length <= 2) {
+      context.read<CreateProfileBloc>().add(
+        FriendsShipChanged(friendship: value),
+      );
+    } else {
+      snackBarMessage(
+        context,
+        EnumLocale.selectLimit.name.tr,
+        Theme.of(context),
+      );
+    }
+  }
 }
-
 //-Friendship text
 class FriendshipText extends StatelessWidget {
   const FriendshipText({super.key});

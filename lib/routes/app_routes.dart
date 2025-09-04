@@ -29,4 +29,5 @@ class AppRoutes {
   static const matchPreferences = "/matchPreferences";
   static const add = "/add";
   static const requests = "/requests";
+
 }

@@ -215,7 +215,7 @@ class _ReporterNameState extends State<ReporterName> {
 
   @override
   void dispose() {
-    _nameController.clear();
+    _nameController.dispose();
     super.dispose();
   }
 
@@ -244,7 +244,7 @@ class _ReporterEmailState extends State<ReporterEmail> {
 
   @override
   void dispose() {
-    _emailController.clear();
+    _emailController.dispose();
     super.dispose();
   }
 

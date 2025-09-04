@@ -1,17 +1,23 @@
 import 'dart:async';
-import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timirama/common/utils/memory_manager.dart';
 import 'package:timirama/features/block/repository/block_repository.dart';
 import 'package:timirama/features/chat/model/chat_message.dart';
 import 'package:timirama/features/chat/model/chat_room_model.dart';
 import 'package:timirama/services/service_locator/service_locator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timirama/services/status/bloc/status_bloc.dart';
+import 'package:timirama/services/status/bloc/status_event.dart';
+
 import '../repository/chat_repository.dart';
 import 'chat_event.dart';
 import 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatRepository _chatRepository;
+  final MemoryManager _memoryManager = MemoryManager();
 
   bool _isInChat = false;
 
@@ -21,9 +27,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   StreamSubscription<List<ChatRoomModel>>? _chatRoomsSubscription;
   Timer? _typingTimer;
 
+  // Debug flag - can be controlled via environment or build configuration
+  static const bool _debugMode = true;
+
   ChatBloc({required ChatRepository chatRepository})
-    : _chatRepository = chatRepository,
-      super(const ChatState()) {
+      : _chatRepository = chatRepository,
+        super(const ChatState()) {
     on<InitializeChatEvent>(_onEnterChat);
     on<SendMessage>(_onSendMessage);
     on<SendVoiceMessage>(_onSendVoiceMessage);
@@ -109,6 +118,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       );
 
       _subscribeToMessages(chatRoom.id);
+      _subscribeToOnlineStatus(event.receiverId);
 
       _subscribeToTypingStatus(chatRoom.id);
     } catch (e) {
@@ -134,8 +144,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         content: event.content,
       );
     } catch (e) {
-      log(e.toString());
-      emit(state.copyWith(error: "Failed to send message"));
+      emit(
+        state.copyWith(
+          error: "Failed to send message: $e",
+        ),
+      );
     }
   }
 
@@ -156,8 +169,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         type: MessageType.voice,
       );
     } catch (e) {
-      log(e.toString());
-      emit(state.copyWith(error: "Failed to send message"));
+      emit(
+        state.copyWith(
+          error: "Failed to send voice message: $e",
+        ),
+      );
     }
   }
 
@@ -168,8 +184,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     if (state.status != ChatStatus.loaded ||
         state.messages.isEmpty ||
         !state.hasMoreMessages ||
-        state.isLoadingMore)
-      return;
+        state.isLoadingMore) return;
 
     emit(state.copyWith(isLoadingMore: true));
     try {
@@ -208,17 +223,20 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   void _subscribeToMessages(String chatRoomId) {
     _messageSubscription?.cancel();
-    _messageSubscription = _chatRepository
-        .getMessages(chatRoomId)
-        .listen(
-          (messages) {
-            if (_isInChat) _markMessagesAsRead(chatRoomId);
-            add(MessagesUpdated(messages));
-          },
-          onError: (error) {
-            add(ChatRoomsError(errorMessage: "Failed to load messages"));
-          },
-        );
+    _messageSubscription = _chatRepository.getMessages(chatRoomId).listen(
+      (messages) {
+        if (_isInChat) _markMessagesAsRead(chatRoomId);
+        add(MessagesUpdated(messages));
+      },
+      onError: (error) {
+        add(ChatRoomsError(errorMessage: "Failed to load messages"));
+      },
+    );
+    
+    // Register with memory manager
+    if (_messageSubscription != null) {
+      _memoryManager.registerSubscription('chat_messages_$chatRoomId', _messageSubscription!);
+    }
   }
 
   void _subscribeToTypingStatus(String chatRoomId) {
@@ -232,6 +250,46 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           typingUserId != FirebaseAuth.instance.currentUser!.uid;
       add(TypingStatusUpdated(isTyping && isOtherUser));
     });
+    
+    // Register with memory manager
+    if (_typingSubscription != null) {
+      _memoryManager.registerSubscription('chat_typing_$chatRoomId', _typingSubscription!);
+    }
+  }
+
+  void _subscribeToOnlineStatus(String receiverId) {
+    _onlineStatusSubscription?.cancel();
+
+    // Get the StatusBloc from the service locator
+    final statusBloc = getIt<StatusBloc>();
+
+    // Start listening to the receiver's online status
+    statusBloc.add(ListenToStatus(uid: receiverId));
+
+    // Listen to status changes from the StatusBloc
+    _onlineStatusSubscription = statusBloc.stream.listen((statusState) {
+      // Check if this status update is for the current receiver
+      final userStatus = statusState.getStatusForUser(receiverId);
+      if (userStatus != null) {
+        final isOnline = userStatus.state;
+        final lastSeen = Timestamp.fromMillisecondsSinceEpoch(
+          userStatus.lastChanged,
+        );
+        add(OnlineStatusUpdated(isOnline, lastSeen));
+      } else if (statusState.currentUserId == receiverId) {
+        // Fallback to current status if it's for this receiver
+        final isOnline = statusState.status.state;
+        final lastSeen = Timestamp.fromMillisecondsSinceEpoch(
+          statusState.status.lastChanged,
+        );
+        add(OnlineStatusUpdated(isOnline, lastSeen));
+      }
+    }, onError: (error) {
+      // Handle any errors in the status stream
+      if (_debugMode) {
+        print('Error in online status subscription: $error');
+      }
+    });
   }
 
   Future<void> _onStartTyping(
@@ -244,6 +302,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     _typingTimer = Timer(const Duration(seconds: 3), () {
       _updateTypingStatus(false);
     });
+    
+    // Register timer with memory manager
+    if (_typingTimer != null) {
+      _memoryManager.registerTimer('chat_typing_timer', _typingTimer!);
+    }
   }
 
   Future<void> _updateTypingStatus(bool isTyping) async {
@@ -300,11 +363,33 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   @override
   Future<void> close() {
+    if (_debugMode) {
+      print('ChatBloc: Disposing all resources');
+      _memoryManager.logMemoryStats();
+    }
+    
+    // Cancel all chat-related subscriptions and timers via memory manager
+    _memoryManager.cancelSubscriptionsWithPrefix('chat_');
+    _memoryManager.cancelTimersWithPrefix('chat_');
+    
+    // Cancel all subscriptions
     _messageSubscription?.cancel();
     _onlineStatusSubscription?.cancel();
     _typingSubscription?.cancel();
     _chatRoomsSubscription?.cancel();
     _typingTimer?.cancel();
+    
+    // Clear subscription references to prevent memory leaks
+    _messageSubscription = null;
+    _onlineStatusSubscription = null;
+    _typingSubscription = null;
+    _chatRoomsSubscription = null;
+    _typingTimer = null;
+    
+    if (_debugMode) {
+      print('ChatBloc: All resources disposed');
+    }
+    
     return super.close();
   }
 
@@ -325,10 +410,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     DeleteMessage event,
     Emitter<ChatState> emit,
   ) async {
-    await _chatRepository.deleteMessageByContentAndTimestamp(
-      chatRoomId: event.chatRoomId,
-      content: event.content,
-      timestamp: event.timestamp,
-    );
+    try {
+      await _chatRepository.deleteMessageByContentAndTimestamp(
+        chatRoomId: event.chatRoomId,
+        content: event.content,
+        timestamp: event.timestamp,
+      );
+    } catch (e) {
+      emit(state.copyWith(error: "Failed to delete message: $e"));
+    }
   }
 }

@@ -16,7 +16,6 @@ import 'package:timirama/features/chat/model/chat_message.dart';
 import 'package:timirama/features/chat/widgets/chat_screen_widget.dart';
 import 'package:timirama/features/chat/widgets/message_bubble.dart';
 import 'package:timirama/features/chat/widgets/voice_recorder.dart';
-import 'package:timirama/services/service_locator/service_locator.dart';
 import 'package:timirama/services/status/bloc/status_bloc.dart';
 import 'package:timirama/services/status/bloc/status_event.dart';
 import 'package:waveform_recorder/waveform_recorder.dart';
@@ -47,25 +46,36 @@ class _ChatScreenState extends State<ChatScreen> {
       WaveformRecorderController();
   bool _isComposing = false;
   bool _showEmoji = false;
+  ChatBloc? _chatBloc;
 
   List<ChatMessage> _previousMessages = [];
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Save reference to the bloc to safely use it in dispose()
+    _chatBloc ??= context.read<ChatBloc>();
+  }
+
+  @override
   void initState() {
     super.initState();
-    context.read<ChatBloc>().add(InitializeChatEvent(widget.receiverId));
-    context.read<StatusBloc>().add(GetStatus(uid: widget.receiverId));
+    // Defer bloc access until after didChangeDependencies
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && _chatBloc != null) {
+        _chatBloc!.add(InitializeChatEvent(widget.receiverId));
+        context.read<StatusBloc>().add(GetStatus(uid: widget.receiverId));
 
-    if (widget.preMessage != null && widget.preMessage!.isNotEmpty) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        context.read<ChatBloc>().add(
-              SendMessage(
-                content: widget.preMessage!,
-                receiverId: widget.receiverId,
-              ),
-            );
-      });
-    }
+        if (widget.preMessage != null && widget.preMessage!.isNotEmpty) {
+          _chatBloc!.add(
+            SendMessage(
+              content: widget.preMessage!,
+              receiverId: widget.receiverId,
+            ),
+          );
+        }
+      }
+    });
     messageController.addListener(_onTextChanged);
     _scrollController.addListener(_onScroll);
   }
@@ -116,10 +126,21 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void dispose() {
+    // Dispose controllers in proper order
     _waveController.dispose();
+    messageController.removeListener(_onTextChanged);
     messageController.dispose();
+    _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
-    getIt<ChatBloc>().add(LeaveChat());
+
+    // Clean up chat bloc properly
+    if (_chatBloc != null) {
+      _chatBloc!.add(LeaveChat());
+    }
+    _chatBloc = null;
+
+    // Clear message cache
+    _previousMessages.clear();
 
     super.dispose();
   }
@@ -168,6 +189,13 @@ class _ChatScreenState extends State<ChatScreen> {
         child: ChatScreenAppBar(isValideUrl: isValideUrl, widget: widget),
       ),
       body: BlocConsumer<ChatBloc, ChatState>(
+        listenWhen: (previous, current) =>
+          previous.messages.length != current.messages.length,
+        buildWhen: (previous, current) =>
+          previous.status != current.status ||
+          previous.messages.length != current.messages.length ||
+          previous.isReceiverTyping != current.isReceiverTyping ||
+          previous.error != current.error,
         listener: (context, state) => _hasNewMessages(state.messages),
         builder: (context, state) {
           if (state.status == ChatStatus.error) {
@@ -184,11 +212,17 @@ class _ChatScreenState extends State<ChatScreen> {
                   controller: _scrollController,
                   reverse: true,
                   itemCount: state.messages.length,
+                  // Add caching for better performance
+                  cacheExtent: 1000.0,
                   itemBuilder: (context, index) {
                     final message = state.messages[index];
                     final isMe = message.senderId ==
                         FirebaseAuth.instance.currentUser?.uid;
-                    return MessageBubble(message: message, isMe: isMe);
+                    return MessageBubble(
+                      key: ValueKey(message.id), // Add key for better widget recycling
+                      message: message,
+                      isMe: isMe,
+                    );
                   },
                 ),
               ),

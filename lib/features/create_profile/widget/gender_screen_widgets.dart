@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,60 +56,64 @@ class GenderNextButton extends StatelessWidget {
 }
 
 //-Gender Radio Group
-
 class GenderRadioGroup extends StatelessWidget {
   const GenderRadioGroup({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+
     return Center(
-      child: Container(
-        height: 60.h,
-        width: 225.w,
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          border: Border.all(color: AppColors.primaryColor, width: 1.w),
-          borderRadius: BorderRadius.circular(8.r),
-        ),
-        child: BlocBuilder<CreateProfileBloc, CreateProfileState>(
-          builder: (context, state) {
-            return RadioGroup(
-                onChanged: (value) => context.read<CreateProfileBloc>().add(
-                      GenderChanged(gender: value.toString()),
-                    ),
-                child: Column(
-                  children: [
-                    Center(
-                        child: ListTile(
-                            leading: Icon(CupertinoIcons.person),
-                            title: Text(
-                              EnumLocale.genderMale.name.tr,
-                              style: theme.bodyMedium,
-                            ),
-                            trailing: SizedBox(
-                                width: 50.w,
-                                child: Radio<String>(
-                                  activeColor: AppColors.green,
-                                  value: EnumLocale.genderMale.name.tr,
-                                )))),
-                    Center(
-                        child: ListTile(
-                            leading: Icon(CupertinoIcons.person),
-                            title: Text(
-                              EnumLocale.genderFemale.name.tr,
-                              style: theme.bodyMedium,
-                            ),
-                            trailing: SizedBox(
-                                width: 50.w,
-                                child: Radio<String>(
-                                  activeColor: AppColors.green,
-                                  value: EnumLocale.genderFemale.name.tr,
-                                )))),
-                  ],
-                ));
-          },
-        ),
+      child: BlocBuilder<CreateProfileBloc, CreateProfileState>(
+        builder: (context, state) {
+          return Column(
+            spacing: 20.h,
+            children: [
+              Container(
+                width: 300.w,
+                padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 5.w),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(color: AppColors.primaryColor, width: 1.w),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: RadioListTile<String>(
+                  value: EnumLocale.genderMale.name.tr,
+                  groupValue: state.gender,
+                  onChanged: (value) {
+                    context
+                        .read<CreateProfileBloc>()
+                        .add(GenderChanged(gender: value!));
+                  },
+                  title: Text(EnumLocale.genderMale.name.tr,
+                      style: theme.bodyMedium),
+                  activeColor: AppColors.green,
+                ),
+              ),
+              Container(
+                width: 300.w,
+                padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 5.w),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(color: AppColors.primaryColor, width: 1.w),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: RadioListTile<String>(
+                  value: EnumLocale.genderFemale.name.tr,
+                  groupValue: state.gender,
+                  onChanged: (value) {
+                    context
+                        .read<CreateProfileBloc>()
+                        .add(GenderChanged(gender: value!));
+                  },
+                  title: Text(EnumLocale.genderFemale.name.tr,
+                      style: theme.bodyMedium),
+                  activeColor: AppColors.green,
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

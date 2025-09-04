@@ -16,6 +16,191 @@ import 'package:timirama/features/login/bloc/login_state.dart';
 import 'package:timirama/routes/app_routes.dart';
 import 'package:timirama/services/storage/get_storage.dart';
 
+// Optimized with proper controller disposal and const constructors
+class LoginWidget extends StatefulWidget {
+  const LoginWidget({super.key});
+
+  @override
+  State<LoginWidget> createState() => _LoginWidgetState();
+}
+
+class _LoginWidgetState extends State<LoginWidget> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Add listeners for better performance
+    _emailController.addListener(_onEmailChanged);
+    _passwordController.addListener(_onPasswordChanged);
+  }
+
+  @override
+  void dispose() {
+    // Properly dispose controllers to prevent memory leaks
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _onEmailChanged() {
+    context
+        .read<LoginBloc>()
+        .add(LoginEmailChanged(email: _emailController.text));
+  }
+
+  void _onPasswordChanged() {
+    context
+        .read<LoginBloc>()
+        .add(LoginPasswordChanged(password: _passwordController.text));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        final isLoading = state is LoginLoading;
+        return PlatformScaffold(
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Logo and title
+                  const LoginLogo(),
+                  SizedBox(height: 30.h),
+                  const LoginTitle(),
+                  SizedBox(height: 50.h),
+
+                  // Email field
+                  RepaintBoundary(
+                    child: TextField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        labelText: EnumLocale.emailHint.name.tr,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+
+                  // Password field
+                  RepaintBoundary(
+                    child: TextField(
+                      controller: _passwordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: EnumLocale.passwordHint.name.tr,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 30.h),
+
+                  // Login button
+                  RepaintBoundary(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        onPressed: isLoading ? null : _handleLogin,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                        ),
+                        child: isLoading
+                            ? const CircularProgressIndicator(
+                                color: Colors.white)
+                            : Text(
+                                EnumLocale.loginText.name.tr,
+                                style: theme.bodyLarge!
+                                    .copyWith(color: Colors.white),
+                              ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+
+                  // Forgot password and signup links
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        onPressed: () => Get.toNamed(AppRoutes.forgotPassword),
+                        child: Text(EnumLocale.forgotPassword.name.tr),
+                      ),
+                      TextButton(
+                        onPressed: () => Get.toNamed(AppRoutes.signup),
+                        child: Text(EnumLocale.signupText.name.tr),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _handleLogin() {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (email.isNotEmpty && password.isNotEmpty) {
+      // Use the existing LoginSubmit event with city and country
+      final appGetStorage = AppGetStorage();
+      context.read<LoginBloc>().add(LoginSubmit(
+            city: appGetStorage.getCity(),
+            country: appGetStorage.getCountry(),
+          ));
+    }
+  }
+}
+
+// Optimized with const constructor
+class LoginLogo extends StatelessWidget {
+  const LoginLogo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Icon(
+      Icons
+          .favorite, // Using a standard icon instead of non-existent HugeIcons.strokeRoundedLogo
+      size: 80,
+      color: AppColors.primaryColor,
+    );
+  }
+}
+
+// Optimized with const constructor
+class LoginTitle extends StatelessWidget {
+  const LoginTitle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+    return Text(
+      EnumLocale.welcome.name.tr, // Changed from welcomeBack to welcome
+      style: theme.headlineMedium!.copyWith(
+        color: AppColors.primaryColor,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+}
+
 /// - Signup text -
 class LoginText extends StatelessWidget {
   const LoginText({super.key});

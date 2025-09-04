@@ -31,6 +31,7 @@ import 'package:timirama/features/reels/bloc/reel_bloc.dart';
 import 'package:timirama/features/reels/screen/reels_screen.dart';
 import 'package:timirama/features/stories/bloc/stories_bloc.dart';
 import 'package:timirama/routes/app_routes.dart';
+import 'package:timirama/services/service_locator/service_locator.dart';
 import 'package:timirama/services/status/repository/status_repository.dart';
 
 class MainScreen extends StatefulWidget {
@@ -47,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
     const HomeScreen(),
     const MatchScreen(),
     const SizedBox.shrink(),
-const    ChatRoomsScreen(),
+    const ChatRoomsScreen(),
     const ReelsScreen(),
   ];
   @override
@@ -55,7 +56,24 @@ const    ChatRoomsScreen(),
     super.initState();
 
     if (FirebaseAuth.instance.currentUser != null) {
-      StatusRepository().setupUserPresence();
+      // Use the StatusRepository from service locator to ensure proper integration
+      final statusRepo = getIt<StatusRepository>();
+      statusRepo.setupUserPresence();
+
+      // Ensure user is marked as online
+      statusRepo.ensureCurrentUserOnline();
+
+      // Add a small delay to ensure Firebase operations complete
+      Future.delayed(const Duration(milliseconds: 500), () {
+        if (mounted) {
+          // Debug: Check current user status
+          statusRepo.debugCurrentUserStatus();
+
+          // Test: Manually set user as online to verify
+          statusRepo.testUserStatus(
+              FirebaseAuth.instance.currentUser!.uid, true);
+        }
+      });
 
       context.read<BlockBloc>().add(BlockUsersFetched());
       context.read<StoriesBloc>().add(StoriesFetching());
@@ -75,12 +93,22 @@ const    ChatRoomsScreen(),
   }
 
   @override
+  void dispose() {
+    // Clean up status repository resources
+    if (FirebaseAuth.instance.currentUser != null) {
+      final statusRepo = getIt<StatusRepository>();
+      statusRepo.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: Container(
-        height: 60.h,
+        height: 70.h,
         decoration: BoxDecoration(
           color: AppColors.floralWhite,
           boxShadow: [

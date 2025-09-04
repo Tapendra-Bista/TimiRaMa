@@ -103,8 +103,8 @@ class SelectDob extends StatelessWidget {
         bottomPickerTheme: BottomPickerTheme.plumPlate,
       ).show(context),
       child: Container(
-        height: 40.h,
-        width: 130.w,
+        height: 65.h,
+        width: 160.w,
         decoration: BoxDecoration(
           color: Colors.transparent,
           border: Border.all(color: AppColors.primaryColor, width: 1.w),

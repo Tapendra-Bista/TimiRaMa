@@ -45,18 +45,25 @@ class ChatRepository extends BaseRepository {
     required String content,
     required Timestamp timestamp,
   }) async {
-    final batch = firestore.batch();
-    final messagesRef = await getChatRoomMessages(chatRoomId);
+    try {
+      final batch = firestore.batch();
+      final messagesRef = getChatRoomMessages(chatRoomId);
 
-    final querySnapshot = await messagesRef
-        .where('content', isEqualTo: content)
-        .where('timestamp', isEqualTo: timestamp)
-        .get();
+      final querySnapshot = await messagesRef
+          .where('content', isEqualTo: content)
+          .where('timestamp', isEqualTo: timestamp)
+          .get();
 
-    for (var doc in querySnapshot.docs) {
-      batch.delete(doc.reference);
+      for (var doc in querySnapshot.docs) {
+        batch.delete(doc.reference);
+      }
+
+      await batch.commit();
+      print("Successfully deleted message(s)");
+    } catch (e) {
+      print("Error deleting message: $e");
+      rethrow;
     }
-    batch.commit();
   }
 
   // delete ChatRoom
@@ -64,7 +71,8 @@ class ChatRepository extends BaseRepository {
     try {
       final users = [currentUserId, otherUserId]..sort();
       final roomId = users.join("_");
-      final bacth = firestore.batch();
+      // final batch = firestore.batch();
+
       // 1. Reference to messages subcollection
       final messagesRef = _chatRooms
           .doc(roomId)
@@ -74,12 +82,27 @@ class ChatRepository extends BaseRepository {
       // 2. Fetch all documents in messages subcollection
       final messagesSnapshot = await messagesRef.get();
 
-      // 3. Delete each message document
-      for (final doc in messagesSnapshot.docs) {
-        bacth.delete(doc.reference);
+      // 3. Delete each message document in batches
+      const batchSize = 500;
+      for (int i = 0; i < messagesSnapshot.docs.length; i += batchSize) {
+        final currentBatch = firestore.batch();
+        final end = (i + batchSize < messagesSnapshot.docs.length)
+            ? i + batchSize
+            : messagesSnapshot.docs.length;
+
+        for (int j = i; j < end; j++) {
+          final doc = messagesSnapshot.docs[j];
+          currentBatch.delete(doc.reference);
+        }
+
+        await currentBatch.commit();
       }
-      bacth.delete(_chatRooms.doc(roomId));
-      bacth.commit();
+
+      // 4. Delete the chat room document
+      final roomBatch = firestore.batch();
+      roomBatch.delete(_chatRooms.doc(roomId));
+      await roomBatch.commit();
+
       print("Chat room $roomId and all its messages deleted successfully.");
     } catch (e) {
       print("Failed to delete chat room: $e");
@@ -238,27 +261,40 @@ class ChatRepository extends BaseRepository {
   //Mark as read
   Future<void> markMessagesAsRead(String chatRoomId, String userId) async {
     try {
-      final batch = firestore.batch();
+      // final batch = firestore.batch();
 
-      //get all unread messages where user is receviver
-
+      //get all unread messages where user is receiver
       final unreadMessages = await getChatRoomMessages(chatRoomId)
           .where("receiverId", isEqualTo: userId)
           .where('status', isEqualTo: MessageStatus.sent.name)
           .get();
+
       print("found ${unreadMessages.docs.length} unread messages");
 
-      for (final doc in unreadMessages.docs) {
-        batch.update(doc.reference, {
-          'readBy': FieldValue.arrayUnion([userId]),
-          'status': MessageStatus.read.name,
-        });
+      // Process in batches to avoid Firestore limits
+      const batchSize = 500;
+      for (int i = 0; i < unreadMessages.docs.length; i += batchSize) {
+        final currentBatch = firestore.batch();
+        final end = (i + batchSize < unreadMessages.docs.length)
+            ? i + batchSize
+            : unreadMessages.docs.length;
 
-        await batch.commit();
+        for (int j = i; j < end; j++) {
+          final doc = unreadMessages.docs[j];
+          currentBatch.update(doc.reference, {
+            'readBy': FieldValue.arrayUnion([userId]),
+            'status': MessageStatus.read.name,
+          });
+        }
 
-        print("Marked messaegs as read for user $userId");
+        await currentBatch.commit();
       }
-    } catch (e) {}
+
+      print("Marked messages as read for user $userId");
+    } catch (e) {
+      print("Error marking messages as read: $e");
+      rethrow;
+    }
   }
 
   // Update Typing Status
@@ -282,7 +318,7 @@ class ChatRepository extends BaseRepository {
     }
   }
 
-  //Get typing Status 
+  //Get typing Status
   Stream<Map<String, dynamic>> getTypingStatus(String chatRoomId) {
     return _chatRooms.doc(chatRoomId).snapshots().map((snapshot) {
       if (!snapshot.exists) {

@@ -98,6 +98,7 @@ class Location extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 10.h,
       children: [
         CountryText(),
         Country(locationFuture: _getLocation()), // call fresh each time
@@ -132,8 +133,8 @@ class City extends StatelessWidget {
         } else if (snapshot.hasData && snapshot.data != null) {
           final currentLocation = snapshot.data!;
           return Container(
-            height: 40.h,
-            width: 150.w,
+                height: 50.h,
+        width: 160.w,
             decoration: BoxDecoration(
               color: Colors.transparent,
               border: Border.all(color: AppColors.primaryColor, width: 1.w),
@@ -182,8 +183,8 @@ class Country extends StatelessWidget {
                 ),
               );
           return Container(
-            height: 40.h,
-            width: 150.w,
+          height: 50.h,
+        width: 160.w,
             decoration: BoxDecoration(
               color: Colors.transparent,
               border: Border.all(color: AppColors.primaryColor, width: 1.w),

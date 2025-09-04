@@ -6,13 +6,15 @@ import 'package:timirama/common/constant/constant_colors.dart';
 import 'package:timirama/features/home/bloc/home_bloc.dart';
 import 'package:timirama/features/home/bloc/home_state.dart';
 
+// Optimized with const constructor and RepaintBoundary
 class CompabilityScore extends StatelessWidget {
-  const CompabilityScore(
-      {super.key,
-      required this.id,
-      this.fontSize = 12,
-      this.iconSize = 15,
-      this.textColor = AppColors.floralWhite});
+  const CompabilityScore({
+    super.key,
+    required this.id,
+    this.fontSize = 12,
+    this.iconSize = 15,
+    this.textColor = AppColors.floralWhite,
+  });
 
   final String id;
   final double fontSize;
@@ -22,25 +24,26 @@ class CompabilityScore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocSelector<HomeBloc, HomeState, Map<String, double>>(
-      selector: (state) {
-        return state.compatibilityScores;
-      },
+      selector: (state) => state.compatibilityScores,
       builder: (context, compatibilityScores) {
         final score = compatibilityScores[id] ?? 0.0;
 
-        return Row(
-          children: [
-            Text(
-              (score * 100).toStringAsFixed(1),
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+        return RepaintBoundary(
+          child: Row(
+            children: [
+              Text(
+                (score * 100).toStringAsFixed(1),
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: textColor,
                   fontSize: fontSize.sp,
-                  fontWeight: FontWeight.bold),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-            Icon(Icons.favorite, color: Colors.red, size: iconSize.r),
-          ],
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+              Icon(Icons.favorite, color: Colors.red, size: iconSize.r),
+            ],
+          ),
         );
       },
     );

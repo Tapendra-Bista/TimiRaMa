@@ -49,7 +49,7 @@ class _TextFieldForDescriptionState extends State<TextFieldForDescription> {
 
   @override
   void dispose() {
-    discriptionController.clear();
+    discriptionController.dispose();
     super.dispose();
   }
 

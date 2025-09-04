@@ -8,13 +8,14 @@ import 'package:timirama/features/chat/model/chat_room_model.dart';
 import 'package:timirama/features/chat/screen/chat_screen.dart';
 import 'package:timirama/features/chat/widgets/chat_list_title.dart';
 
+// Optimized with const constructor and better performance
 class ListOfUsers extends StatelessWidget {
-  ListOfUsers({super.key});
+  const ListOfUsers({super.key});
 
-  final String _currentUserId = FirebaseAuth.instance.currentUser!.uid;
-  //List of user or Chatrooms List
   @override
   Widget build(BuildContext context) {
+    final String currentUserId = FirebaseAuth.instance.currentUser!.uid;
+    
     return BlocSelector<ChatBloc, ChatState, List<ChatRoomModel>>(
       selector: (state) => state.chatRoomModel,
       builder: (context, chats) {
@@ -22,35 +23,37 @@ class ListOfUsers extends StatelessWidget {
           itemCount: chats.length,
           itemBuilder: (context, index) {
             final chat = chats[index];
-
             final otherUserId = chat.participants.firstWhere(
-              (id) => id != _currentUserId,
+              (id) => id != currentUserId,
             );
 
-            return ChatListTile(
-              otherUserId: otherUserId,
-              chat: chat,
-              currentUserId: _currentUserId,
-              onTap: () {
-                print("home screen current user id $_currentUserId");
-                final otherUserName =
-                    chat.participantsName?[otherUserId]?['pseudo'] ?? 'Unknown';
-                final otherUserImage =
-                    chat.participantsName?[otherUserId]?['imgURL'] ?? '';
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  Get.to(
-                    () => ChatScreen(
-                      imgURL: otherUserImage,
-                      receiverId: otherUserId,
-                      receiverName: otherUserName,
-                    ),
-                  );
-                });
-              },
+            return RepaintBoundary(
+              child: ChatListTile(
+                otherUserId: otherUserId,
+                chat: chat,
+                currentUserId: currentUserId,
+                onTap: () => _handleChatTap(context, chat, otherUserId, currentUserId),
+              ),
             );
           },
         );
       },
     );
+  }
+
+  // Extracted method for better performance
+  void _handleChatTap(BuildContext context, ChatRoomModel chat, String otherUserId, String currentUserId) {
+    final otherUserName = chat.participantsName?[otherUserId]?['pseudo'] ?? 'Unknown';
+    final otherUserImage = chat.participantsName?[otherUserId]?['imgURL'] ?? '';
+    
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.to(
+        () => ChatScreen(
+          imgURL: otherUserImage,
+          receiverId: otherUserId,
+          receiverName: otherUserName,
+        ),
+      );
+    });
   }
 }

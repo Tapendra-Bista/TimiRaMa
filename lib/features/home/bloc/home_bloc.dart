@@ -15,13 +15,22 @@ import 'package:timirama/features/profile/repository/profile_repository.dart';
 
 class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
   final HomeRepository _repository;
-  final ProfileRepository _profileRepository = ProfileRepository();
-  final FavoriteRepository _favoriteRepository = FavoriteRepository();
-  final BlockRepository _blockRepository = BlockRepository();
-  final ArchiveRepository _archiveRepository = ArchiveRepository();
+  final ProfileRepository _profileRepository;
+  final FavoriteRepository _favoriteRepository;
+  final BlockRepository _blockRepository;
+  final ArchiveRepository _archiveRepository;
 
-  HomeBloc({required HomeRepository repository})
-      : _repository = repository,
+  HomeBloc({
+    required HomeRepository repository,
+    required ProfileRepository profileRepository,
+    required FavoriteRepository favoriteRepository,
+    required BlockRepository blockRepository,
+    required ArchiveRepository archiveRepository,
+  })  : _repository = repository,
+        _profileRepository = profileRepository,
+        _favoriteRepository = favoriteRepository,
+        _blockRepository = blockRepository,
+        _archiveRepository = archiveRepository,
         super(HomeInitial()) {
               on<HomeUsersFetched>((event, emit) async {
       try {
@@ -37,21 +46,25 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
       try {
         emit(Loading.fromState(state));
 
-        // Step 1: Fetch all users except current
-        final List<ProfileModel?> data = await _repository.fetchAllExceptCurrentUser();
+        // Execute API calls in parallel for better performance
+        final results = await Future.wait([
+          _repository.fetchAllExceptCurrentUser(),
+          _profileRepository.fetchProfileData(),
+          _favoriteRepository.fetchFavorites(),
+          _blockRepository.fetchBlocks(),
+          _archiveRepository.fetchArchives(),
+        ]);
 
-        // Step 2: Fetch current user profile
-        final currentUser = await _profileRepository.fetchProfileData();
+        final List<ProfileModel?> data = results[0] as List<ProfileModel?>;
+        final ProfileModel? currentUser = results[1] as ProfileModel?;
+        final FavoriteModel? favData = results[2] as FavoriteModel?;
+        final BlockModel? blockData = results[3] as BlockModel?;
+        final ArchiveModel? archiveData = results[4] as ArchiveModel?;
 
-        // Step 3: Filter out null or empty id users
+        // Filter out null or empty id users
         final List<ProfileModel> validUsers = data.where((u) => u != null && u.id.isNotEmpty).cast<ProfileModel>().toList();
 
-        // Step 4: Fetch favorites, blocks, archives for current user
-        final FavoriteModel? favData = await _favoriteRepository.fetchFavorites();
-        final BlockModel? blockData = await _blockRepository.fetchBlocks();
-        final ArchiveModel? archiveData = await _archiveRepository.fetchArchives();
-
-        // Step 5: Fetch block lists of other users (who blocked me)
+        // Fetch block lists of other users (who blocked me)
         final Map<String, List<String>> blockedByOthers = await _blockRepository.fetchOtherUsersBlockListsInChunks(validUsers);
 
         // Step 6: Filter users by block/archive/favorite
